@@ -1,0 +1,146 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap');
+
+html {
+    font-size: 62.5%;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+h1, p {
+    margin: 0;
+}
+
+section {
+    width: 100%;
+    position: relative;
+    background-color: #fff;
+    padding: 50px 10px;
+    border-radius: 10px;
+}
+
+.text {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.text div{
+    width: 18%;
+}
+
+.text p {
+    font-size: 12px;
+    margin-bottom: .5rem;
+}
+
+.text h1 {
+    font-size: 1.9rem;
+    font-weight: bold;
+    margin-bottom: 2.4rem;
+}
+
+hr {
+    margin: 2rem 0 !important;
+    height: 2em;
+    background-color: #B19BC7;
+    border-radius: 2em;
+}
+
+
+.dote div {
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    background-color: #7D00FB;
+    position: absolute;
+    border: .6em solid #fff;
+    top: 10.9em;
+}
+
+.dote div:nth-of-type(1) {
+    left: 7.5em;
+}
+
+.dote div:nth-of-type(2) {
+    left: 22.5em;
+}
+
+.dote div:nth-of-type(3) {
+    left: 36.5em;
+}
+
+.dote div:nth-of-type(4) {
+    left: 50em;
+}
+
+.dote div:nth-of-type(5) {
+    left: 63.5em;
+}
+
+
+.text div{
+    text-align: center;
+}
+
+.line-bottom{
+    margin-bottom: 20px;
+    border-bottom: 1px solid gray;
+}
+
+.quantity {
+    display: flex;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.quantity button {
+    background-color: #ffa500;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    width: 40px;
+    height: auto;
+    text-align: center;
+    transition: background-color 0.2s;
+}
+
+.quantity button:hover {
+    background-color: #2980b9;
+}
+
+.input-box {
+    width: 40px;
+    text-align: center;
+    border: none;
+    padding: 8px 10px;
+    font-size: 16px;
+    border: 1px solid #ffa500;
+    outline: none;
+}
+
+ /*Hide the number input spin buttons*/
+/*.input-box::-webkit-inner-spin-button,*/
+/*.input-box::-webkit-outer-spin-button {*/
+/*    -webkit-appearance: none;*/
+/*    margin: 0;*/
+/*}*/
+
+/*.input-box[type="number"] {*/
+/*    -moz-appearance: textfield;*/
+/*}*/
+
+.modal-log{
+    margin-top: 50px;
+    margin: auto;
+    width: 1000px;
+}
+
+.cancel{
+    background-color: red;
+    color: #fff;
+}
+#example_wrapper div:nth-child(2) {
+    overflow: auto;
+}
