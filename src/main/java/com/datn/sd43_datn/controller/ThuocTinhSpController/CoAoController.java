@@ -65,7 +65,7 @@ public class CoAoController {
             redirectAttributes.addFlashAttribute("errorMessage", "Lỗi ");
 
         }
-        return "/CoAo/list";
+        return "redirect:/CoAo/list";
     }
     @GetMapping("filter")
     public String filter(@RequestParam("keyword") String keyword, Model model) {

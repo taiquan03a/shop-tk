@@ -16,6 +16,8 @@ import java.util.Optional;
 public class CoAoServiceImpl implements CoAoService {
     @Autowired
     CoAoRepository CoaoEntityRepository;
+    @Autowired
+    private CoAoRepository coAoRepository;
 
     @Override
     public List<CoAo> findAll() {
@@ -51,7 +53,14 @@ public class CoAoServiceImpl implements CoAoService {
     }
     @Override
     public void findTrangThai1(Long id){
-        CoaoEntityRepository.updateTrangThai1(id);
+        CoAo coAo = coAoRepository.findById(id).get();
+        if(coAo.getTrangThai() == 0){
+            coAo.setTrangThai(1);
+            coAoRepository.save(coAo);
+        }else {
+            coAo.setTrangThai(0);
+            coAoRepository.save(coAo);
+        }
     }
     @Override
     public void findTrangThai0(Long id){

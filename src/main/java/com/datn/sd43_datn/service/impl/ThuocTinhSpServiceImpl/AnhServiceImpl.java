@@ -1,5 +1,6 @@
 package com.datn.sd43_datn.service.impl.ThuocTinhSpServiceImpl;
 
+import com.datn.sd43_datn.entity.SanPham;
 import com.datn.sd43_datn.entity.ThuocTinhSp.Anh;
 import com.datn.sd43_datn.repository.ThuocTinhSpRepository.AnhRepository;
 import com.datn.sd43_datn.service.ThuocTinhSpService.AnhService;
@@ -51,7 +52,14 @@ public class AnhServiceImpl implements AnhService {
     }
     @Override
     public void findTrangThai1(Long id){
-        anhEntityRepository.updateTrangThai1(id);
+        Anh anh = anhEntityRepository.findById(id).get();
+        if(anh.getTrangThai() == 0){
+            anh.setTrangThai(1);
+            anhEntityRepository.save(anh);
+        }else {
+            anh.setTrangThai(0);
+            anhEntityRepository.save(anh);
+        }
     }
     @Override
     public void findTrangThai0(Long id){

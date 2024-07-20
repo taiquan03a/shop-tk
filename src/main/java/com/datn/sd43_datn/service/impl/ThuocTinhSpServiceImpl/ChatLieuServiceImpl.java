@@ -17,6 +17,8 @@ import java.util.Optional;
 public class ChatLieuServiceImpl implements ChatLieuService {
     @Autowired
     ChatLieuRepository ChatlieuEntityRepository;
+    @Autowired
+    private ChatLieuRepository chatLieuRepository;
 
     @Override
     public List<ChatLieu> findAll() {
@@ -52,7 +54,14 @@ public class ChatLieuServiceImpl implements ChatLieuService {
     }
     @Override
     public void findTrangThai1(Long id){
-        ChatlieuEntityRepository.updateTrangThai1(id);
+        ChatLieu chatLieu = chatLieuRepository.findById(id).get();
+        if(chatLieu.getTrangThai() == 0){
+            chatLieu.setTrangThai(1);
+            chatLieuRepository.save(chatLieu);
+        }else {
+            chatLieu.setTrangThai(0);
+            chatLieuRepository.save(chatLieu);
+        }
     }
     @Override
     public void findTrangThai0(Long id){

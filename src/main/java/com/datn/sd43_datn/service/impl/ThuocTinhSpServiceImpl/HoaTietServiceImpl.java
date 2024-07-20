@@ -17,6 +17,8 @@ import java.util.Optional;
 public class HoaTietServiceImpl implements HoaTietService {
     @Autowired
     HoaTietRepository HoatietEntityRepository;
+    @Autowired
+    private HoaTietRepository hoaTietRepository;
 
     @Override
     public List<HoaTiet> findAll() {
@@ -52,7 +54,14 @@ public class HoaTietServiceImpl implements HoaTietService {
     }
     @Override
     public void findTrangThai1(Long id){
-        HoatietEntityRepository.updateTrangThai1(id);
+        HoaTiet hoaTiet = hoaTietRepository.findById(id).get();
+        if(hoaTiet.getTrangThai() == 0){
+            hoaTiet.setTrangThai(1);
+            hoaTietRepository.save(hoaTiet);
+        }else {
+            hoaTiet.setTrangThai(0);
+            hoaTietRepository.save(hoaTiet);
+        }
     }
     @Override
     public void findTrangThai0(Long id){

@@ -17,6 +17,8 @@ import java.util.Optional;
 public class ThuongHieuServiceImpl implements ThuongHieuService {
     @Autowired
     ThuongHieuRepository ThuonghieuEntityRepository;
+    @Autowired
+    private ThuongHieuRepository thuongHieuRepository;
 
     @Override
     public List<ThuongHieu> findAll() {
@@ -52,7 +54,14 @@ public class ThuongHieuServiceImpl implements ThuongHieuService {
     }
     @Override
     public void findTrangThai1(Long id){
-        ThuonghieuEntityRepository.updateTrangThai1(id);
+        ThuongHieu thuongHieu = thuongHieuRepository.findById(id).get();
+        if(thuongHieu.getTrangThai() == 0){
+            thuongHieu.setTrangThai(1);
+            thuongHieuRepository.save(thuongHieu);
+        }else {
+            thuongHieu.setTrangThai(0);
+            thuongHieuRepository.save(thuongHieu);
+        }
     }
     @Override
     public void findTrangThai0(Long id){

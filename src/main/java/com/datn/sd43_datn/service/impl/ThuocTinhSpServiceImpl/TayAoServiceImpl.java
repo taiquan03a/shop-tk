@@ -17,6 +17,8 @@ import java.util.Optional;
 public class TayAoServiceImpl implements TayAoService {
     @Autowired
     TayAoRepository TayaoEntityRepository;
+    @Autowired
+    private TayAoRepository tayAoRepository;
 
     @Override
     public List<TayAo> findAll() {
@@ -52,7 +54,14 @@ public class TayAoServiceImpl implements TayAoService {
     }
     @Override
     public void findTrangThai1(Long id){
-        TayaoEntityRepository.updateTrangThai1(id);
+        TayAo tayAo = tayAoRepository.findById(id).get();
+        if(tayAo.getTrangThai() == 0){
+            tayAo.setTrangThai(1);
+            tayAoRepository.save(tayAo);
+        }else {
+            tayAo.setTrangThai(0);
+            tayAoRepository.save(tayAo);
+        }
     }
     @Override
     public void findTrangThai0(Long id){

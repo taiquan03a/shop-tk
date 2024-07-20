@@ -17,6 +17,8 @@ import java.util.Optional;
 public class DangAoServiceImpl implements DangAoService {
     @Autowired
     DangAoRepository DangaoEntityRepository;
+    @Autowired
+    private DangAoRepository dangAoRepository;
 
     @Override
     public List<DangAo> findAll() {
@@ -52,7 +54,14 @@ public class DangAoServiceImpl implements DangAoService {
     }
     @Override
     public void findTrangThai1(Long id){
-        DangaoEntityRepository.updateTrangThai1(id);
+        DangAo dangAo = dangAoRepository.findById(id).get();
+        if(dangAo.getTrangThai() == 0){
+            dangAo.setTrangThai(1);
+            dangAoRepository.save(dangAo);
+        }else {
+            dangAo.setTrangThai(0);
+            dangAoRepository.save(dangAo);
+        }
     }
     @Override
     public void findTrangThai0(Long id){

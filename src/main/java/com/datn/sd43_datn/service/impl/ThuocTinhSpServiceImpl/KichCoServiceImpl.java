@@ -17,6 +17,8 @@ import java.util.Optional;
 public class KichCoServiceImpl implements KichCoService {
     @Autowired
     KichCoRepository KichcoEntityRepository;
+    @Autowired
+    private KichCoRepository kichCoRepository;
 
     @Override
     public List<KichCo> findAll() {
@@ -52,7 +54,14 @@ public class KichCoServiceImpl implements KichCoService {
     }
     @Override
     public void findTrangThai1(Long id){
-        KichcoEntityRepository.updateTrangThai1(id);
+        KichCo kickCo = kichCoRepository.findById(id).get();
+        if(kickCo.getTrangThai() == 0){
+            kickCo.setTrangThai(1);
+            kichCoRepository.save(kickCo);
+        }else {
+            kickCo.setTrangThai(0);
+            kichCoRepository.save(kickCo);
+        }
     }
     @Override
     public void findTrangThai0(Long id){

@@ -17,6 +17,8 @@ import java.util.Optional;
 public class MauSacServiceImpl implements MauSacService {
     @Autowired
     MauSacRepository MausacEntityRepository;
+    @Autowired
+    private MauSacRepository mauSacRepository;
 
     @Override
     public List<MauSac> findAll() {
@@ -52,7 +54,14 @@ public class MauSacServiceImpl implements MauSacService {
     }
     @Override
     public void findTrangThai1(Long id){
-        MausacEntityRepository.updateTrangThai1(id);
+        MauSac mauSac = mauSacRepository.findById(id).get();
+        if(mauSac.getTrangThai() == 0){
+            mauSac.setTrangThai(1);
+            mauSacRepository.save(mauSac);
+        }else {
+            mauSac.setTrangThai(0);
+            mauSacRepository.save(mauSac);
+        }
     }
     @Override
     public void findTrangThai0(Long id){
