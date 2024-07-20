@@ -33,7 +33,7 @@ public class HoaDonController {
     public String getDonHang(Model model) {
         model.addAttribute("hoaDons", hoaDonService.getHoaDonRequests());
         model.addAttribute("trangThais",trangThaiDonRepository.findAll());
-        return "HoaDon/Hoadon";
+        return "ThongKe/thongke";
     }
     @GetMapping("donHang/{id}")
     public String getHoaDon(Model model, @PathVariable long id) {
