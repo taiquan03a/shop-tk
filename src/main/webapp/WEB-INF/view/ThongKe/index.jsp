@@ -100,39 +100,27 @@
             <div style="background-color: #fff; width: 98%; margin: auto; border-radius: 20px; padding-bottom: 6px">
                 <div class="cardBox mb-4">
                     <div class="card">
-                        <div>
-                            <div class="numbers">1,504</div>
-                            <div class="cardName">Daily Views</div>
-                        </div>
-                        <div class="iconBx">
-                            <ion-icon name="eye-outline"></ion-icon>
-                        </div>
+                        <a href="/SanPham/list"><div>
+                            <div class="numbers">${thongKe.tongSanPham}</div>
+                            <div class="cardName">Sản phẩm</div>
+                        </div></a>
+                    </div>
+                    <div class="card">
+                        <a href="/khach-hang/index"><div>
+                            <div class="numbers">${thongKe.tongKhachHang}</div>
+                            <div class="cardName">Khách hàng</div>
+                        </div></a>
+                    </div>
+                    <div class="card">
+                        <a href="/SanPhamChiTiet/list"><div>
+                            <div class="numbers">${thongKe.tongDonHang}</div>
+                            <div class="cardName">Đơn hàng</div>
+                        </div></a>
                     </div>
                     <div class="card">
                         <div>
-                            <div class="numbers">80</div>
-                            <div class="cardName">Sales</div>
-                        </div>
-                        <div class="iconBx">
-                            <ion-icon name="cart-outline"></ion-icon>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div>
-                            <div class="numbers">284</div>
-                            <div class="cardName">Comments</div>
-                        </div>
-                        <div class="iconBx">
-                            <ion-icon name="chatbubbles-outline"></ion-icon>
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div>
-                            <div class="numbers">$7,842</div>
-                            <div class="cardName">Earning</div>
-                        </div>
-                        <div class="iconBx">
-                            <ion-icon name="cash-outline"></ion-icon>
+                            <div class="numbers">${thongKe.tongNhanVien}</div>
+                            <div class="cardName">Nhân viên</div>
                         </div>
                     </div>
                 </div>
@@ -140,8 +128,8 @@
                 <div class="mb-3" style="margin: auto; width: 80%;">
                     <form id="myForm" action="">
                         <select name="type" onchange="submitForm()">
-                            <option value="0">Tháng</option>
-                            <option value="1">Năm</option>
+                            <option value="1" <c:if test="${type == 1}">selected</c:if>>Tháng</option>
+                            <option value="2" <c:if test="${type == 2}">selected</c:if>>Năm</option>
                         </select>
                     </form>
                     <div class="box w-100">
@@ -213,31 +201,17 @@
 </html>
 
 <script>
+    console.log(${thongKe.thoiGian  })
+
     var earning = document.getElementById("earning").getContext("2d");
     var myChart = new Chart(earning, {
         type: "bar",
         data: {
-            labels: [
-                "January",
-                "February",
-                "March",
-                "April",
-                "May",
-                "June",
-                "July",
-                "August",
-                "September",
-                "October",
-                "November",
-                "December",
-            ],
+            labels: ${thongKe.thoiGian},
             datasets: [
                 {
                     label: "Doanh thu",
-                    data: [
-                        4500, 4106, 7005, 6754, 5154, 4554, 7815, 3152, 12204, 4457, 8740,
-                        11000,
-                    ],
+                    data: ${thongKe.doanhThu},
                     backgroundColor:  "#ffa500",
                 },
             ],
