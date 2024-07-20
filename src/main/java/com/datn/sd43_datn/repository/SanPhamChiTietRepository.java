@@ -32,4 +32,6 @@ public interface SanPhamChiTietRepository extends JpaRepository<SanPhamChiTiet, 
     @Transactional
     @Query("UPDATE SanPhamChiTiet set trangThai=1 where ID=?1")
     void updateTrangThai0(@Param("id") Long id);
+
+    //long countAllSanPhamChiTiet();
 }
