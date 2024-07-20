@@ -6,6 +6,7 @@ import com.datn.sd43_datn.entity.HoaDonChiTiet;
 import com.datn.sd43_datn.request.HoaDonRequest;
 import com.datn.sd43_datn.request.TaoDonHangRequest;
 import com.datn.sd43_datn.request.UpdateDonHangRequest;
+import com.datn.sd43_datn.request.UpdateInfoKH;
 
 import java.text.ParseException;
 import java.util.List;
@@ -17,5 +18,6 @@ public interface HoaDonService {
     HoaDonChiTietDto huyTrangThai(long hoaDonId);
     List<HoaDonRequest> filterHoaDonRequest(String search,String status,String batDau,String ketThuc) throws ParseException;
     boolean addHoaDon(TaoDonHangRequest createDonHangRequest);
+    boolean updateKH(long hoaDonID, UpdateInfoKH updateInfoKH);
 //    boolean updateHoaDon(UpdateDonHangRequest updateDonHangRequest, long hoaDonId);
 }

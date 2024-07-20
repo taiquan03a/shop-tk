@@ -1,2 +1,9 @@
-package com.datn.sd43_datn.request;public class UpdateInfoKH {
+package com.datn.sd43_datn.request;
+
+import lombok.Data;
+
+@Data
+public class UpdateInfoKH {
+    private String ten;
+    private String sdt;
 }

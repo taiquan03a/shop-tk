@@ -2,9 +2,11 @@ package com.datn.sd43_datn.controller;
 
 import com.datn.sd43_datn.entity.HoaDon;
 import com.datn.sd43_datn.entity.HoaDonChiTiet;
+import com.datn.sd43_datn.repository.HoaDonRepository;
 import com.datn.sd43_datn.repository.TrangThaiDonHangRepository;
 import com.datn.sd43_datn.request.TaoDonHangRequest;
 import com.datn.sd43_datn.request.UpdateDonHangRequest;
+import com.datn.sd43_datn.request.UpdateInfoKH;
 import com.datn.sd43_datn.service.GiamGiaService;
 import com.datn.sd43_datn.service.HoaDonService;
 import com.datn.sd43_datn.service.SanPhamChiTietService;
@@ -25,6 +27,7 @@ import java.util.List;
 @AllArgsConstructor
 public class HoaDonController {
     final private HoaDonService hoaDonService;
+    final private HoaDonRepository hoaDonRepository;
     final private SanPhamChiTietService sanPhamChiTietService;
     final private GiamGiaService giamGiaService;
     final private TrangThaiDonHangRepository trangThaiDonRepository;
@@ -38,10 +41,19 @@ public class HoaDonController {
     @GetMapping("donHang/{id}")
     public String getHoaDon(Model model, @PathVariable long id) {
 //        UpdateDonHangRequest updateDonHangRequest = new UpdateDonHangRequest();
+        UpdateInfoKH updateInfoKH = new UpdateInfoKH();
         model.addAttribute("detail",hoaDonService.getHoaDonDetail(id));
         model.addAttribute("sanPhams",sanPhamChiTietService.getSanPhamChiTiet());
+        model.addAttribute("updateInfoKH",updateInfoKH);
 //        model.addAttribute("updateDonHangRequest",updateDonHangRequest);
         return "HoaDon/ChiTiet";
+    }
+    @PostMapping("updateKH/{id}")
+    public String updateKH(@PathVariable long id, Model model,@ModelAttribute("updateInfoKH") UpdateInfoKH updateInfoKH) {
+        if(hoaDonService.updateKH(id, updateInfoKH)) {
+            return "redirect:/hoa-don/donHang/"+id;
+        }
+        return "redirect:/hoa-don/donHang/"+id;
     }
 //    @PostMapping("donHang/{id}")
 //    public String updateHoaDon(Model model, @PathVariable long id,@ModelAttribute("updateDonHangRequest") UpdateDonHangRequest updateDonHangRequest) {
@@ -76,6 +88,7 @@ public class HoaDonController {
         model.addAttribute("createDonHangRequest",createDonHangRequest);
         return "HoaDon/BanHangTaiQuay";
     }
+
     @GetMapping("/filter")
     public String filter(Model model,
                          @RequestParam String search,

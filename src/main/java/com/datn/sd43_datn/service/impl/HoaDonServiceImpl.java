@@ -7,6 +7,7 @@ import com.datn.sd43_datn.repository.*;
 import com.datn.sd43_datn.request.HoaDonRequest;
 import com.datn.sd43_datn.request.KhachHangRequest;
 import com.datn.sd43_datn.request.TaoDonHangRequest;
+import com.datn.sd43_datn.request.UpdateInfoKH;
 import com.datn.sd43_datn.service.HoaDonService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -416,6 +417,18 @@ public class HoaDonServiceImpl implements HoaDonService {
                 .ghiChu("Bán hàng tại quầy")
                 .build();
         lichSuThanhToanRepository.save(lichSuThanhToan);
+        return true;
+    }
+
+    @Override
+    public boolean updateKH(long hoaDonID, UpdateInfoKH updateInfoKH) {
+        HoaDon hoaDon = hoaDonRepository.findById(hoaDonID).get();
+        KhachHang khachHang = hoaDon.getKhachHang();
+        khachHang.setTenKhachHang(updateInfoKH.getTen());
+        hoaDon.setKhachHang(khachHang);
+        hoaDon.setSdtNguoiNhan(updateInfoKH.getSdt());
+        khachHangRepository.save(khachHang);
+        hoaDonRepository.save(hoaDon);
         return true;
     }
 
