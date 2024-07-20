@@ -37,7 +37,7 @@
         <ul class="list-unstyle components">
             <li>
                 <i class="fa-solid fa-chart-simple"></i>
-                <a href="/thong-ke/index" data-toggle="collapse" aria-expanded="false">Thống kê</a>
+                <a href="/thong-ke/index">Thống kê</a>
             </li>
             <li>
                 <i class="fa-solid fa-money-bill"></i>

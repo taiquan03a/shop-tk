@@ -99,7 +99,7 @@ public class ThongKeServiceImpl implements ThongKeService {
         return DoanhThuDto.builder()
                 .thoiGian(thang)
                 .doanhThu(doanThuList)
-                .tongDonHang(hoaDonRepository.count())
+                .tongDonHang(hoaDonRepository.countHoaDon())
                 .tongKhachHang(khachHangRepository.count())
                 .tongNhanVien(nhanVienRepository.count())
                 .tongSanPham(sanPhamChiTietRepository.count())

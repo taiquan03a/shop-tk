@@ -135,16 +135,16 @@
                                     <h4 class="modal-title" id="myModalLabel1">Thông tin cá nhân</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="">
+                                    <form:form action="/hoa-don/updateKH/${detail.id}" modelAttribute="updateInfoKH" method="post">
                                         <label for="name" class="form-label">Tên khách hàng</label>
-                                        <input type="text" name="name" class="form-control" id="name" aria-describedby="emailHelp" required>
+                                        <input type="text" name="ten" class="form-control" id="name" aria-describedby="emailHelp" value="${detail.tenKH}" required>
                                         <label for="name" class="form-label">Số điện thoại</label>
-                                        <input type="text" name="phone" class="form-control" id="sdt" aria-describedby="emailHelp" required>
-
-                                    </form>
+                                        <input type="text" name="sdt" class="form-control" id="sdt" aria-describedby="emailHelp" value="${detail.sdt}" required>
+                                        <button type="submit" class="btn btn-secondary">Lưu</button>
+                                    </form:form>
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="submit" class="btn btn-secondary">Lưu</button>
+
                                 </div>
                             </div>
                         </div>

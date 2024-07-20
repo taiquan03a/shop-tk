@@ -34,19 +34,21 @@ public class HoaDonServiceImpl implements HoaDonService {
     public List<HoaDonRequest> getHoaDonRequests() {
         List<HoaDon> hoaDons = hoaDonRepository.findAll();
         List<HoaDonRequest> hoaDonRequests = new ArrayList<>();
+        SimpleDateFormat formattedDate = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
         for(HoaDon hoaDon : hoaDons){
             long tongSl = 0,tongTien = 0;
             for(HoaDonChiTiet hoaDonChiTiet : hoaDonChiTietRepository.findHoaDonChiTietsByHoaDon(hoaDon)){
                 tongSl += hoaDonChiTiet.getSoLuong();
                 tongTien += hoaDonChiTiet.getThanhTien();
             }
+            String ngayTao = formattedDate.format(hoaDon.getNgayTao());
             HoaDonRequest hoaDonRequest = HoaDonRequest.builder()
                     .ID(hoaDon.getID())
                     .maHoaDon(hoaDon.getMaHoaDon())
                     .tenKH(hoaDon.getKhachHang().getTenKhachHang())
                     .tongSp(tongSl)
                     .tongTien(tongTien)
-                    .ngayTao(String.valueOf(hoaDon.getNgayTao()))
+                    .ngayTao(ngayTao)
                     .loaiHoaDon(hoaDon.getLoaiHoaDon())
                     .trangThaiDon(hoaDon.getTrangThaiDon().getTenTrangThai())
                     .build();
