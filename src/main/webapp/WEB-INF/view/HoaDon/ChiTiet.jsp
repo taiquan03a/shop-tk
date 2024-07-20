@@ -40,7 +40,7 @@
         <ul class="list-unstyle components">
             <li>
                 <i class="fa-solid fa-chart-simple"></i>
-                <a href="/thong-ke/index" data-toggle="collapse" aria-expanded="false">Thống kê</a>
+                <a href="" data-toggle="collapse" aria-expanded="false">Thống kê</a>
             </li>
             <li>
                 <i class="fa-solid fa-money-bill"></i>
@@ -48,25 +48,27 @@
             </li>
             <li>
                 <img src="/img/order.png" alt="">
-                <a href="/hoa-don/index" >Quản lí hóa đơn</a>
+                <a href="/hoa-don/index" >Quản lí đơn hàng</a>
             </li>
             <li>
                 <img src="/img/icon_ao.jpg" alt="">
                 <a href="/SanPhamChiTiet/list">Quản lí sản phẩm</a>
             </li>
-            <li class="dropdown">
-                <i class="fa-solid fa-user-group" style="margin-right: 10px"></i>
-                <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" style="background-color: white">Tài khoản</a>
-                <ul class="dropdown-menu" style="margin: 10px">
-                    <li >
-                        <i class="fa-solid fa-user-group" style="margin-right: 10px"></i>
-                        <a class="dropdown-item" href="/nhan-vien/index" >Nhân viên</a>
-                    </li>
-                    <li>
-                        <i class="fa-solid fa-user-group" style="margin-right: 10px"></i>
-                        <a class="dropdown-item" href="/khach-hang/index">Khách hàng</a>
-                    </li>
-                </ul>
+            <li>
+                <i class="fa-solid fa-retweet"></i>
+                <a href="#">Trả hàng</a>
+            </li>
+            <li>
+                <i class="fa-solid fa-ticket"></i>
+                <a href="#">Giảm giá</a>
+            </li>
+            <li>
+                <i class="fa-solid fa-user-group"></i>
+                <a href="#">Tài khoản</a>
+            </li>
+            <li>
+                <i class="fa-solid fa-user-group"></i>
+                <a href="/khach-hang/index">Khách hàng</a>
             </li>
         </ul>
     </nav>
@@ -88,7 +90,7 @@
             <section class="mt-5">
                 <h3 style="margin-top: -30px; padding-bottom: 15px;" class="line-bottom">Trạng thái đơn hàng</h3>
                 <div class="text">
-<%--                    <c:forEach var="trangThai" items="${detail.trangThaiDonList}">--%>
+                    <%--                    <c:forEach var="trangThai" items="${detail.trangThaiDonList}">--%>
                     <c:forEach var="trangThai" items="${detail.timeLineDTOList}">
                         <div class="one">
                             <h4>${trangThai.trangThaiDon.tenTrangThai}</h4>
@@ -103,7 +105,7 @@
             <div class="filter mt-5">
                 <div class="w-100 first">
                     <c:choose>
-                        <c:when test="${1 < 2}">
+                        <c:when test="${detail.trangThaiDon.ID < 4}">
                             <div class="d-flex justify-content-between gap-4">
                                 <a style="color: #ffa500 !important;" href="/hoa-don/donHangUP/${detail.id}" id="confirmBtn" class="function" onclick="return confirmChuyenTT();">Chuyển sang trạng thái kế tiếp</a>
                                 <a style="color: #fff !important;" href="/hoa-don/donHangHuy/${detail.id}" id="cancelBtn" class="function cancel" onclick="return confirmHuyDon();">Hủy Đơn</a>
@@ -120,23 +122,52 @@
                 </div>
             </div>
             <div class="filter mt-5">
-                <h3 style=" padding-bottom: 15px;" class="line-bottom">Thông tin đơn hàng</h3>
+                <div class="d-flex justify-content-between w-100">
+                    <h3 style=" padding-bottom: 15px;" class="line-bottom">Thông tin đơn hàng</h3>
+                    <c:if test="${detail.trangThaiDon.ID < 3}">
+                        <a style="cursor: pointer;"><div data-toggle="modal" data-toggle="modal" data-target="#myModal" class="function">Thay đổi thông tin</div></a>
+                    </c:if>
+                    <!-- Modal -->
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+                        <div class="modal-log modal-dialog-centered mt-4" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" id="myModalLabel1">Thông tin cá nhân</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="">
+                                        <label for="name" class="form-label">Tên khách hàng</label>
+                                        <input type="text" name="name" class="form-control" id="name" aria-describedby="emailHelp" required>
+                                        <label for="name" class="form-label">Số điện thoại</label>
+                                        <input type="text" name="phone" class="form-control" id="sdt" aria-describedby="emailHelp" required>
+
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="submit" class="btn btn-secondary">Lưu</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
                 <div class="w-100">
-                    <div class="mt-4 d-flex justify-content-between w-100 gap-4">
-                        <div ><b>Mã hóa đơn:</b> ${detail.maHoaDon}</div>
-                        <div ><b>Tên khách hàng:</b> ${detail.tenKH}</div>
-                        <div ><b>Ngày tạo hóa đơn:</b> ${detail.ngayTao}</div>
+                    <div class="mt-4 d-flex justify-content-between w-100 row">
+                        <div class="col-4" ><b>Mã hóa đơn:</b> ${detail.maHoaDon}</div>
+                        <div class="col-4"><b>Tên khách hàng:</b> ${detail.tenKH}</div>
+                        <div class="col-4"><b>Ngày tạo hóa đơn:</b> ${detail.ngayTao}</div>
 
                     </div>
-                    <div class="mt-4 d-flex justify-content-between w-100 gap-4">
-                        <div ><b>SĐT nguười nhận:</b> ${detail.sdt}</div>
-                        <div ><b>Tên người nhận:</b> ${detail.tenKH}</div>
-                        <div ><b>Hình thức thanh toán:</b> ${detail.hinhThucThanhToan}</div>
+                    <div class="mt-4 d-flex justify-content-between w-100 row">
+                        <div class="col-4" ><b>SĐT nguười nhận:</b> ${detail.sdt}</div>
+                        <div class="col-4"><b>Tên người nhận:</b> ${detail.tenKH}</div>
+                        <div class="col-4"><b>Hình thức thanh toán:</b> ${detail.hinhThucThanhToan}</div>
                     </div>
-                    <div class="mt-4 d-flex justify-content-between w-100 gap-4">
-                        <div ><b>Nhân viên tiếp nhận:</b> ${detail.nhanVien}</div>
-                        <div ><b>Loại đơn hàng:</b> ${detail.loaiHoaDon ? 'Tại quầy':'Trực tuyến'}</div>
-                        <div ><b>Trạng thái: </b> ${detail.trangThai}</div>
+                    <div class="mt-4 d-flex justify-content-between w-100 row">
+                        <div class="col-4" ><b>Nhân viên tiếp nhận:</b> ${detail.nhanVien}</div>
+                        <div class="col-4"><b>Loại đơn hàng:</b> ${detail.loaiHoaDon ? 'Tại quầy':'Trực tuyến'}</div>
+                        <div class="col-4"><b>Trạng thái: </b> ${detail.trangThai}</div>
                     </div>
                 </div>
             </div>
@@ -216,8 +247,7 @@
                             </div>
                             <div class="col-3">
                                 <div>${hoaDon.sanPhamChiTiet.sanPham.tenSanPham}</div>
-<%--                                <div style="color: red;">${hoaDon.donGia} VNĐ</div>--%>
-                                <div style="color: red"><fmt:formatNumber value="${hoaDon.donGia}" type="number" groupingUsed="true" /> VNĐ</div>
+                                <div style="color: red;">${hoaDon.donGia} VNĐ</div>
                                 <div>Size: ${hoaDon.sanPhamChiTiet.kichCo.tenKichCo}</div>
                                 <div class="sl-${hoaDon.sanPhamChiTiet.ID}">Số lượng: ${hoaDon.soLuong}</div>
                             </div>
@@ -228,8 +258,7 @@
                                     <span style="color: red; margin-left: 5px" id="message-${hoaDon.sanPhamChiTiet.ID}"></span>
                                 </div>
                             </div>
-<%--                            <div class="col-3 price-${hoaDon.sanPhamChiTiet.ID}" style="font-weight: 700; color: red;">${hoaDon.thanhTien} VNĐ</div>--%>
-                                <div class="col-3 price-${hoaDon.sanPhamChiTiet.ID}" style="font-weight: 700; color: red;"><fmt:formatNumber value="${hoaDon.thanhTien}" type="number" groupingUsed="true" /> VNĐ</div>
+                            <div class="col-3 price-${hoaDon.sanPhamChiTiet.ID}" style="font-weight: 700; color: red;">${hoaDon.thanhTien} VNĐ</div>
                         </div>
                     </c:forEach>
                 </div>
@@ -252,14 +281,11 @@
                     <div class="col-4" style="margin-left: 300px;">
                         <div class="d-flex justify-content-between">
                             <div>Tổng tiền hàng</div>
-<%--                            <b id = "prices">${detail.tongTienHang} VNĐ</b>--%>
-                            <b id="prices">
-                                <fmt:formatNumber value="${detail.tongTienHang}" type="currency" currencySymbol="VNĐ" />
-                            </b>
+                            <b id = "prices">${detail.tongTienHang} VNĐ</b>
                         </div>
                         <div class="d-flex justify-content-between">
                             <div>Giảm giá</div>
-                        <%--<b id="money-discount">${detail.giamGia} VNĐ</b>--%>
+                            <%--<b id="money-discount">${detail.giamGia} VNĐ</b>--%>
                             <b id="money-discount">0 VNĐ</b>
                         </div>
                         <div class="d-flex justify-content-between">
@@ -270,10 +296,7 @@
                         <div class="line-bottom"></div>
                         <div  class="d-flex justify-content-between">
                             <b >Tổng tiền</b>
-<%--                            <b id="total-money" style="color: red;">${detail.tongTien}VND</b>--%>
-                            <b id="total-money" style="color: red">
-                                <fmt:formatNumber value="${detail.tongTien}" type="currency" currencySymbol="VNĐ" />
-                            </b>
+                            <b id="total-money" style="color: red;">${detail.tongTien}VND</b>
                         </div>
                     </div>
                 </div>
