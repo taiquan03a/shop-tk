@@ -122,8 +122,8 @@
                 </div>
             </div>
             <div class="filter mt-5">
-                <div class="d-flex justify-content-between w-100">
-                    <h3 style=" padding-bottom: 15px;" class="line-bottom">Thông tin đơn hàng</h3>
+                <div class="d-flex justify-content-between w-100 line-bottom">
+                    <h3 style=" padding-bottom: 15px;" >Thông tin đơn hàng</h3>
                     <c:if test="${detail.trangThaiDon.ID < 3}">
                         <a style="cursor: pointer;"><div data-toggle="modal" data-toggle="modal" data-target="#myModal" class="function">Thay đổi thông tin</div></a>
                     </c:if>
@@ -134,18 +134,21 @@
                                 <div class="modal-header">
                                     <h4 class="modal-title" id="myModalLabel1">Thông tin cá nhân</h4>
                                 </div>
+                                <form:form action="/hoa-don/updateKH/${detail.id}" modelAttribute="updateInfoKH" method="post">
                                 <div class="modal-body">
-                                    <form:form action="/hoa-don/updateKH/${detail.id}" modelAttribute="updateInfoKH" method="post">
+
                                         <label for="name" class="form-label">Tên khách hàng</label>
                                         <input type="text" name="ten" class="form-control" id="name" aria-describedby="emailHelp" value="${detail.tenKH}" required>
                                         <label for="name" class="form-label">Số điện thoại</label>
                                         <input type="text" name="sdt" class="form-control" id="sdt" aria-describedby="emailHelp" value="${detail.sdt}" required>
-                                        <button type="submit" class="btn btn-secondary">Lưu</button>
-                                    </form:form>
-                                </div>
-                                <div class="modal-footer">
+
 
                                 </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                    <button type="submit" class="btn btn-primary" style="margin-bottom: 4px">Lưu</button>
+                                </div>
+                                </form:form>
                             </div>
                         </div>
                     </div>
@@ -178,10 +181,10 @@
                 <div class="d-flex justify-content-between line-bottom">
                     <h3 style=" padding-bottom: 15px;">Danh sách sản phẩm</h3>
                     <c:if test="${detail.trangThaiDon.ID < 3}">
-                        <a style="cursor: pointer;"><div data-toggle="modal" data-toggle="modal" data-target="#myModal" class="function">Thêm sản phẩm</div></a>
+                        <a style="cursor: pointer;"><div data-toggle="modal" data-toggle="modal" data-target="#myModal1" class="function">Thêm sản phẩm</div></a>
                     </c:if>
                     <!-- Modal -->
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-log modal-dialog-centered mt-4" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">

@@ -108,7 +108,8 @@
 
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class="btn-secondary">Lưu</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                <button type="submit" class="btn btn-primary" style="margin-bottom: 4px">Lưu</button>
                             </div>
                         </form:form>
                     </div>
@@ -134,7 +135,8 @@
                                 </div>
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class="btn-secondary">Lưu</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                <button type="submit" class="btn btn-primary" style="margin-bottom: 4px">Lưu</button>
                             </div>
                         </form:form>
                     </div>
@@ -157,7 +159,8 @@
 
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class="btn-secondary">Lưu</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                <button type="submit" class="btn btn-primary" style="margin-bottom: 4px">Lưu</button>
                             </div>
                         </form:form>
                     </div>
@@ -180,7 +183,8 @@
 
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class="btn-secondary">Lưu</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                <button type="submit" class="btn btn-primary" style="margin-bottom: 4px">Lưu</button>
                             </div>
                         </form:form>
                     </div>
@@ -203,7 +207,8 @@
 
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class="btn-secondary">Lưu</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                <button type="submit" class="btn btn-primary" style="margin-bottom: 4px">Lưu</button>
                             </div>
                         </form:form>
                     </div>
@@ -226,7 +231,8 @@
 
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class="btn-secondary">Lưu</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                <button type="submit" class="btn btn-primary" style="margin-bottom: 4px">Lưu</button>
                             </div>
                         </form:form>
                     </div>
@@ -249,7 +255,8 @@
 
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class="btn-secondary">Lưu</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                <button type="submit" class="btn btn-primary" style="margin-bottom: 4px">Lưu</button>
                             </div>
                         </form:form>
                     </div>
@@ -272,7 +279,8 @@
 
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class="btn-secondary">Lưu</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                <button type="submit" class="btn btn-primary" style="margin-bottom: 4px">Lưu</button>
                             </div>
                         </form:form>
                     </div>
@@ -295,7 +303,8 @@
 
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class="btn-secondary">Lưu</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                <button type="submit" class="btn btn-primary" style="margin-bottom: 4px">Lưu</button>
                             </div>
                         </form:form>
                     </div>
@@ -318,7 +327,8 @@
 
                             </div>
                             <div class="modal-footer">
-                                <button type="submit" class="btn-secondary">Lưu</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                <button type="submit" class="btn btn-primary" style="margin-bottom: 4px">Lưu</button>
                             </div>
                         </form:form>
                     </div>
