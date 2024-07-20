@@ -21,6 +21,8 @@ public class ThongKeController {
     @GetMapping("index")
     public String index(@RequestParam(required = false) String type, Model model) throws ParseException {
         model.addAttribute("thongKe", thongKeService.doanhThu(type));
-        return "thong-ke/index";
+        model.addAttribute("type", type);
+        System.out.println(thongKeService.doanhThu(type));
+        return "ThongKe/index";
     }
 }
