@@ -125,10 +125,10 @@
                 <div class="d-flex justify-content-between w-100 line-bottom">
                     <h3 style=" padding-bottom: 15px;" >Thông tin đơn hàng</h3>
                     <c:if test="${detail.trangThaiDon.ID < 3}">
-                        <a style="cursor: pointer;"><div data-toggle="modal" data-toggle="modal" data-target="#myModal" class="function">Thay đổi thông tin</div></a>
+                        <a style="cursor: pointer;"><div data-toggle="modal" data-toggle="modal" data-target="#myModal1" class="function">Thay đổi thông tin</div></a>
                     </c:if>
                     <!-- Modal -->
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
+                    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
                         <div class="modal-log modal-dialog-centered mt-4" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -181,10 +181,10 @@
                 <div class="d-flex justify-content-between line-bottom">
                     <h3 style=" padding-bottom: 15px;">Danh sách sản phẩm</h3>
                     <c:if test="${detail.trangThaiDon.ID < 3}">
-                        <a style="cursor: pointer;"><div data-toggle="modal" data-toggle="modal" data-target="#myModal1" class="function">Thêm sản phẩm</div></a>
+                        <a style="cursor: pointer;"><div data-toggle="modal" data-toggle="modal" data-target="#myModal" class="function">Thêm sản phẩm</div></a>
                     </c:if>
                     <!-- Modal -->
-                    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-log modal-dialog-centered mt-4" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">

@@ -358,6 +358,14 @@
 <script>
     var btnSubmit = document.getElementById('btn-submit');
     var form = document.getElementById('myForm');
+    function checkTotalProduct(){
+        var listItemSelected = JSON.parse(localStorage.getItem('quantity')) ?? {};
+        var total = 0
+        Object.keys(listItemSelected).forEach(e => {
+            total += parseInt(listItemSelected[e])
+        })
+        return total
+    }
     btnSubmit.addEventListener('click', function(event) {
         var returnInput = document.getElementById('return');
         var tienTra = parseInt(returnInput.value);
@@ -378,12 +386,9 @@
         } else if(document.getElementById("phone").value.replace(/\D/g, "").length !== 10){
             event.preventDefault();
             alert("Số điện thoại không đúng định dạng!");
-        } else if(Object.keys(listItemSelected).length > 20){
+        } else if(checkTotalProduct() > 20){
             event.preventDefault();
             alert("Số lượng sản phẩm tối đa là 20!");
-        } else if (!form.checkValidity()) {
-            event.preventDefault();
-            alert("Vui lòng điền đầy đủ thông tin!");
         } else{
             localStorage.clear();
             alert("Xác nhận đơn hàng thành công!");

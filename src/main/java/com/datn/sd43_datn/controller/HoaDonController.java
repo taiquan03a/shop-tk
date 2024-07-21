@@ -100,7 +100,7 @@ public class HoaDonController {
         model.addAttribute("hoaDons", hoaDonService.filterHoaDonRequest(search,status,batDau,ketThuc));
         model.addAttribute("trangThais",trangThaiDonRepository.findAll());
         System.out.println(/*search+*/status + batDau + ketThuc);
-        return "HoaDon/Hoadon";
+        return "HoaDon/HoaDon";
     }
     @PostMapping("create")
     public String createHoaDon(Model model, @ModelAttribute("createDonHangRequest") TaoDonHangRequest createDonHangRequest){
@@ -108,6 +108,6 @@ public class HoaDonController {
         hoaDonService.addHoaDon(createDonHangRequest);
         model.addAttribute("hoaDons", hoaDonService.getHoaDonRequests());
         model.addAttribute("trangThais",trangThaiDonRepository.findAll());
-        return "HoaDon/Hoadon";
+        return "HoaDon/HoaDon";
     }
 }
