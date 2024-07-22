@@ -2,6 +2,7 @@ package com.datn.sd43_datn.service.impl;
 
 import com.datn.sd43_datn.dto.DoanhThuDto;
 import com.datn.sd43_datn.entity.HoaDon;
+import com.datn.sd43_datn.entity.KhachHang;
 import com.datn.sd43_datn.repository.HoaDonRepository;
 import com.datn.sd43_datn.repository.KhachHangRepository;
 import com.datn.sd43_datn.repository.NhanVienRepository;
@@ -14,9 +15,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -96,11 +95,16 @@ public class ThongKeServiceImpl implements ThongKeService {
                 thang.add(String.valueOf(i));
             }
         }
+        List<HoaDon> listHoaDon = hoaDonRepository.hoaDonHoanThanh();
+        Set<KhachHang> listKhachHang = new HashSet<>();
+        for (HoaDon hoaDon : listHoaDon) {
+            listKhachHang.add(hoaDon.getKhachHang());
+        }
         return DoanhThuDto.builder()
                 .thoiGian(thang)
                 .doanhThu(doanThuList)
-                .tongDonHang(hoaDonRepository.countHoaDon())
-                .tongKhachHang(khachHangRepository.count())
+                .tongDonHang(listHoaDon.size())
+                .tongKhachHang(listKhachHang.size())
                 .tongNhanVien(nhanVienRepository.count())
                 .tongSanPham(sanPhamChiTietRepository.count())
                 .build();
