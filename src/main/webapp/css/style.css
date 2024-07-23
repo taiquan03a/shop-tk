@@ -661,7 +661,7 @@ a {
 
 .box-layout {
   max-width: 1400px;
-  margin: 40px auto;
+  margin: 0px auto;
   background-color: #fff;
   padding: 0px 28px;
 }
@@ -6906,10 +6906,7 @@ body.overlay::after {
   background-color: hsl(5, 100%, 69%);
   transition: all 0.3s linear;
 }
-.cards-ship--two .cards-ship__item:hover::after {
-  height: 2px;
-  background-color: hsl(5, 100%, 69%);
-}
+
 .cards-ship--two .cards-ship__item::after {
   content: "";
   position: absolute;
@@ -7421,6 +7418,14 @@ body.overlay::after {
 }
 .pagination-item:hover a {
   color: #fff;
+}
+
+.product-item{
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding-bottom: 6px;
+}
+.card-price{
+  font-size: 20px;
 }
 .pagination-item.disabled .pagination-link,
 .pagination-item .pagination-link.disabled,

@@ -49,34 +49,6 @@
 
                 <h2 class="h2 section-title">Sản phẩm bán chạy</h2>
 
-                <!-- <ul class="filter-list">
-
-                  <li>
-                    <button class="filter-btn  active">All</button>
-                  </li>
-
-                  <li>
-                    <button class="filter-btn">Nike</button>
-                  </li>
-
-                  <li>
-                    <button class="filter-btn">Adidas</button>
-                  </li>
-
-                  <li>
-                    <button class="filter-btn">Puma</button>
-                  </li>
-
-                  <li>
-                    <button class="filter-btn">Bata</button>
-                  </li>
-
-                  <li>
-                    <button class="filter-btn">Apex</button>
-                  </li>
-
-                </ul> -->
-
                 <ul class="product-list">
                 <c:forEach var="sanPham" items="${sanPham}" varStatus="status">
                     <li class="product-item">

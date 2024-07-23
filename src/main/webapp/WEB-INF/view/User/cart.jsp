@@ -11,184 +11,437 @@
     <link rel="stylesheet" href="/css/home.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="/css/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="/css/bvselect.css" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/style.css" />
     <link
             href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
             rel="stylesheet">
+    <link rel="preload" href="/img/hero-banner.png" as="image">
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/swiper-bundle.min.js"></script>
+    <script src="/js/bvselect.js"></script>
+    <script src="/js/bootstrap.bundle.min.js"></script>
     <script src="/js/script.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </head>
 
 <jsp:include page="header.jsp"></jsp:include>
-<main>
-    <article>
-        <section>
-            <div class="container py-5">
-                <div class="row d-flex justify-content-center align-items-center">
-                    <div class="col-10">
 
-                        <div class="d-flex justify-content-between align-items-center mb-4">
-                            <h3 class="fw-normal mb-0">Shopping Cart</h3>
+<section class="shoping-cart section section--xl">
+    <div class="container">
+        <div class="section__head justify-content-center">
+            <h2 class="section--title-four font-title--sm">My Shopping Cart</h2>
+        </div>
+        <div class="row shoping-cart__content">
+            <div class="col-lg-8">
+                <div class="cart-table">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th scope="col" class="cart-table-title">Product</th>
+                                <th scope="col" class="cart-table-title">Price</th>
+                                <th scope="col" class="cart-table-title">quantity</th>
+                                <th scope="col" class="cart-table-title">Subtotal</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <!-- Product item  -->
+                                <td class="cart-table-item align-middle">
+                                    <a
+                                            href="product-details.html"
+                                            class="cart-table__product-item"
+                                    >
+                                        <div class="cart-table__product-item-img">
+                                            <img
+                                                    src="src/images/products/img-01.png"
+                                                    alt="product"
+                                            />
+                                        </div>
+                                        <h5 class="font-body--lg-400">Green Apple</h5>
+                                    </a>
+                                </td>
+                                <!-- Price  -->
+                                <td class="cart-table-item order-date align-middle">
+                                    $14.00
+                                </td>
+                                <!-- quantity -->
+                                <td class="cart-table-item order-total align-middle">
+                                    <div class="counter-btn-wrapper">
+                                        <button
+                                                class="counter-btn-dec counter-btn"
+                                                onclick="decrement()"
+                                        >
+                                            -
+                                        </button>
+                                        <input
+                                                type="number"
+                                                id="counter-btn-counter"
+                                                class="counter-btn-counter"
+                                                min="1"
+                                                max="1000"
+                                                placeholder="1"
+                                        />
+                                        <button
+                                                class="counter-btn-inc counter-btn"
+                                                onclick="increment()"
+                                        >
+                                            +
+                                        </button>
+                                    </div>
+                                </td>
+                                <!-- Subtotal  -->
+                                <td class="cart-table-item order-subtotal align-middle">
+                                    <div
+                                            class="
+                            d-flex
+                            justify-content-between
+                            align-items-center
+                          "
+                                    >
+                                        <p class="font-body--md-500">$70.00</p>
+                                        <button class="delete-item">
+                                            <svg
+                                                    width="24"
+                                                    height="25"
+                                                    viewBox="0 0 24 25"
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <path
+                                                        d="M12 23.5C18.0748 23.5 23 18.5748 23 12.5C23 6.42525 18.0748 1.5 12 1.5C5.92525 1.5 1 6.42525 1 12.5C1 18.5748 5.92525 23.5 12 23.5Z"
+                                                        stroke="#CCCCCC"
+                                                        stroke-miterlimit="10"
+                                                />
+                                                <path
+                                                        d="M16 8.5L8 16.5"
+                                                        stroke="#666666"
+                                                        stroke-width="1.5"
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                />
+                                                <path
+                                                        d="M16 16.5L8 8.5"
+                                                        stroke="#666666"
+                                                        stroke-width="1.5"
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <!-- Product item  -->
+                                <td class="cart-table-item align-middle">
+                                    <a
+                                            href="product-details.html"
+                                            class="cart-table__product-item"
+                                    >
+                                        <div class="cart-table__product-item-img">
+                                            <img
+                                                    src="src/images/products/img-02.png"
+                                                    alt="product"
+                                            />
+                                        </div>
+                                        <h5 class="font-body--lg-400">Fresh Orrange</h5>
+                                    </a>
+                                </td>
+                                <!-- Price  -->
+                                <td class="cart-table-item order-date align-middle">
+                                    $14.00
+                                </td>
+                                <!-- quantity -->
+                                <td class="cart-table-item order-total align-middle">
+                                    <div class="counter-btn-wrapper">
+                                        <button
+                                                class="counter-btn-dec counter-btn"
+                                                onclick="decrement()"
+                                        >
+                                            -
+                                        </button>
+                                        <input
+                                                type="number"
+                                                id="counter-btn-counter"
+                                                class="counter-btn-counter"
+                                                min="1"
+                                                max="1000"
+                                                placeholder="1"
+                                        />
+                                        <button
+                                                class="counter-btn-inc counter-btn"
+                                                onclick="increment()"
+                                        >
+                                            +
+                                        </button>
+                                    </div>
+                                </td>
+                                <!-- Subtotal  -->
+                                <td class="cart-table-item order-subtotal align-middle">
+                                    <div
+                                            class="
+                            d-flex
+                            justify-content-between
+                            align-items-center
+                          "
+                                    >
+                                        <p class="font-body--md-500">$70.00</p>
+                                        <button class="delete-item">
+                                            <svg
+                                                    width="24"
+                                                    height="25"
+                                                    viewBox="0 0 24 25"
+                                                    fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                            >
+                                                <path
+                                                        d="M12 23.5C18.0748 23.5 23 18.5748 23 12.5C23 6.42525 18.0748 1.5 12 1.5C5.92525 1.5 1 6.42525 1 12.5C1 18.5748 5.92525 23.5 12 23.5Z"
+                                                        stroke="#CCCCCC"
+                                                        stroke-miterlimit="10"
+                                                />
+                                                <path
+                                                        d="M16 8.5L8 16.5"
+                                                        stroke="#666666"
+                                                        stroke-width="1.5"
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                />
+                                                <path
+                                                        d="M16 16.5L8 8.5"
+                                                        stroke="#666666"
+                                                        stroke-width="1.5"
+                                                        stroke-linecap="round"
+                                                        stroke-linejoin="round"
+                                                />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- Action Buttons  -->
+                    <form action="#">
+                        <div class="cart-table-action-btn d-flex">
+                            <a
+                                    href="shop-01.html"
+                                    class="button button--md button--disable shop"
+                            >Continue Shopping</a
+                            >
+                            <a href="#" class="button button--md button--disable update"
+                            >Update to Cart</a
+                            >
                         </div>
+                    </form>
+                </div>
 
-                        <div class="card rounded-3 mb-4">
-                            <div class="card-body p-4">
-                                <div class="row d-flex justify-content-between align-items-center">
-                                    <div class="col-md-2 col-lg-2 col-xl-2">
-                                        <img
-                                                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img1.webp"
-                                                class="img-fluid rounded-3" alt="Cotton T-shirt">
-                                    </div>
-                                    <div class="col-md-3 col-lg-3 col-xl-3">
-                                        <p class="lead fw-normal mb-2">Basic T-shirt</p>
-                                        <p><span class="text-muted">Size: </span>M <span class="text-muted">Color: </span>Grey</p>
-                                    </div>
-                                    <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                        <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2"
-                                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
+                <div class="shoping-cart__mobile">
+                    <div class="shoping-card">
+                        <div class="shoping-card__img-wrapper">
+                            <img
+                                    src="src/images/products/img-01.png "
+                                    alt="product-item"
+                            />
+                        </div>
+                        <h5 class="shoping-card__product-caption font-body--lg-400">
+                            Green Apple
+                        </h5>
 
-                                        <input id="form1" min="0" name="quantity" value="2" type="number"
-                                               class="form-control form-control-sm" />
+                        <h6 class="shoping-card__product-price font-body--lg-400">
+                            $45.00
+                        </h6>
 
-                                        <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2"
-                                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                            <i class="fas fa-plus"></i>
-                                        </button>
-                                    </div>
-                                    <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                        <h5 class="mb-0">$499.00</h5>
-                                    </div>
-                                    <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                        <a href="#!" class="text-danger"><i class="fas fa-trash fa-lg"></i></a>
-                                    </div>
+                        <div class="counter-btn-wrapper">
+                            <button
+                                    class="counter-btn-dec counter-btn"
+                                    onclick="decrement()"
+                            >
+                                -
+                            </button>
+                            <input
+                                    type="number"
+                                    id="counter-btn-counter"
+                                    class="counter-btn-counter"
+                                    min="0"
+                                    max="1000"
+                                    placeholder="0"
+                            />
+                            <button
+                                    class="counter-btn-inc counter-btn"
+                                    onclick="increment()"
+                            >
+                                +
+                            </button>
+                        </div>
+                        <h6 class="shoping-card__product-totalprice font-body--lg-600">
+                            $225.00
+                        </h6>
+                        <button class="close-btn">
+                            <svg
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                        d="M12 23C18.0748 23 23 18.0748 23 12C23 5.92525 18.0748 1 12 1C5.92525 1 1 5.92525 1 12C1 18.0748 5.92525 23 12 23Z"
+                                        stroke="#CCCCCC"
+                                        stroke-miterlimit="10"
+                                />
+                                <path
+                                        d="M16 8L8 16"
+                                        stroke="#666666"
+                                        stroke-width="1.5"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                />
+                                <path
+                                        d="M16 16L8 8"
+                                        stroke="#666666"
+                                        stroke-width="1.5"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                />
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="shoping-card">
+                        <div class="shoping-card__img-wrapper">
+                            <img
+                                    src="src/images/products/img-02.png "
+                                    alt="product-item"
+                            />
+                        </div>
+                        <h5 class="shoping-card__product-caption font-body--lg-400">
+                            Fresh orange
+                        </h5>
+
+                        <h6 class="shoping-card__product-price font-body--lg-400">
+                            $45.00
+                        </h6>
+
+                        <div class="counter-btn-wrapper">
+                            <button
+                                    class="counter-btn-dec counter-btn"
+                                    onclick="decrement()"
+                            >
+                                -
+                            </button>
+                            <input
+                                    type="number"
+                                    id="counter-btn-counter"
+                                    class="counter-btn-counter"
+                                    min="0"
+                                    max="1000"
+                                    placeholder="0"
+                            />
+                            <button
+                                    class="counter-btn-inc counter-btn"
+                                    onclick="increment()"
+                            >
+                                +
+                            </button>
+                        </div>
+                        <h6 class="shoping-card__product-totalprice font-body--lg-600">
+                            $225.00
+                        </h6>
+                        <button class="close-btn">
+                            <svg
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    xmlns="http://www.w3.org/2000/svg"
+                            >
+                                <path
+                                        d="M12 23C18.0748 23 23 18.0748 23 12C23 5.92525 18.0748 1 12 1C5.92525 1 1 5.92525 1 12C1 18.0748 5.92525 23 12 23Z"
+                                        stroke="#CCCCCC"
+                                        stroke-miterlimit="10"
+                                />
+                                <path
+                                        d="M16 8L8 16"
+                                        stroke="#666666"
+                                        stroke-width="1.5"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                />
+                                <path
+                                        d="M16 16L8 8"
+                                        stroke="#666666"
+                                        stroke-width="1.5"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                />
+                            </svg>
+                        </button>
+                    </div>
+
+                    <form action="#">
+                        <div class="cart-table-action-btn d-flex">
+                            <a
+                                    href="shop-01.html"
+                                    class="button button--md button--disable shop"
+                            >Return to Shop</a
+                            >
+                            <a href="#" class="button button--md button--disable update"
+                            >Update to Cart</a
+                            >
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+            <div class="col-lg-4">
+                <div class="bill-card">
+                    <div class="bill-card__content">
+                        <div class="bill-card__header">
+                            <h2 class="bill-card__header-title font-body--xxl-500">
+                                Order Summery
+                            </h2>
+                        </div>
+                        <div class="bill-card__body">
+                            <!-- memo  -->
+                            <div class="bill-card__memo">
+                                <!-- Subtotal  -->
+                                <div class="bill-card__memo-item subtotal">
+                                    <p class="font-body--md-400">Subtotal:</p>
+                                    <span class="font-body--md-500">$84.00</span>
+                                </div>
+                                <!-- Shipping  -->
+                                <div class="bill-card__memo-item shipping">
+                                    <p class="font-body--md-400">Shipping:</p>
+                                    <span class="font-body--md-500">Free</span>
+                                </div>
+                                <!-- total  -->
+                                <div class="bill-card__memo-item total">
+                                    <p class="font-body--lg-400">Total:</p>
+                                    <span class="font-body--xl-500">$84.00</span>
                                 </div>
                             </div>
+                            <form action="#">
+                                <button
+                                        class="button button--lg w-100"
+                                        style="margin-top: 20px"
+                                        type="submit"
+                                >
+                                    Place Order
+                                </button>
+                            </form>
                         </div>
-
-                        <div class="card rounded-3 mb-4">
-                            <div class="card-body p-4">
-                                <div class="row d-flex justify-content-between align-items-center">
-                                    <div class="col-md-2 col-lg-2 col-xl-2">
-                                        <img
-                                                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img1.webp"
-                                                class="img-fluid rounded-3" alt="Cotton T-shirt">
-                                    </div>
-                                    <div class="col-md-3 col-lg-3 col-xl-3">
-                                        <p class="lead fw-normal mb-2">Basic T-shirt</p>
-                                        <p><span class="text-muted">Size: </span>M <span class="text-muted">Color: </span>Grey</p>
-                                    </div>
-                                    <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                        <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2"
-                                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-
-                                        <input id="form1" min="0" name="quantity" value="2" type="number"
-                                               class="form-control form-control-sm" />
-
-                                        <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2"
-                                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                            <i class="fas fa-plus"></i>
-                                        </button>
-                                    </div>
-                                    <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                        <h5 class="mb-0">$499.00</h5>
-                                    </div>
-                                    <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                        <a href="#!" class="text-danger"><i class="fas fa-trash fa-lg"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card rounded-3 mb-4">
-                            <div class="card-body p-4">
-                                <div class="row d-flex justify-content-between align-items-center">
-                                    <div class="col-md-2 col-lg-2 col-xl-2">
-                                        <img
-                                                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img1.webp"
-                                                class="img-fluid rounded-3" alt="Cotton T-shirt">
-                                    </div>
-                                    <div class="col-md-3 col-lg-3 col-xl-3">
-                                        <p class="lead fw-normal mb-2">Basic T-shirt</p>
-                                        <p><span class="text-muted">Size: </span>M <span class="text-muted">Color: </span>Grey</p>
-                                    </div>
-                                    <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                        <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2"
-                                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-
-                                        <input id="form1" min="0" name="quantity" value="2" type="number"
-                                               class="form-control form-control-sm" />
-
-                                        <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2"
-                                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                            <i class="fas fa-plus"></i>
-                                        </button>
-                                    </div>
-                                    <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                        <h5 class="mb-0">$499.00</h5>
-                                    </div>
-                                    <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                        <a href="#!" class="text-danger"><i class="fas fa-trash fa-lg"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card rounded-3 mb-4">
-                            <div class="card-body p-4">
-                                <div class="row d-flex justify-content-between align-items-center">
-                                    <div class="col-md-2 col-lg-2 col-xl-2">
-                                        <img
-                                                src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img1.webp"
-                                                class="img-fluid rounded-3" alt="Cotton T-shirt">
-                                    </div>
-                                    <div class="col-md-3 col-lg-3 col-xl-3">
-                                        <p class="lead fw-normal mb-2">Basic T-shirt</p>
-                                        <p><span class="text-muted">Size: </span>M <span class="text-muted">Color: </span>Grey</p>
-                                    </div>
-                                    <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                        <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2"
-                                                onclick="this.parentNode.querySelector('input[type=number]').stepDown()">
-                                            <i class="fas fa-minus"></i>
-                                        </button>
-
-                                        <input id="form1" min="0" name="quantity" value="2" type="number"
-                                               class="form-control form-control-sm" />
-
-                                        <button data-mdb-button-init data-mdb-ripple-init class="btn btn-link px-2"
-                                                onclick="this.parentNode.querySelector('input[type=number]').stepUp()">
-                                            <i class="fas fa-plus"></i>
-                                        </button>
-                                    </div>
-                                    <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                        <h5 class="mb-0">$499.00</h5>
-                                    </div>
-                                    <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                                        <a href="#!" class="text-danger"><i class="fas fa-trash fa-lg"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-body">
-                                <button style="float: right;" type="button" data-mdb-button-init data-mdb-ripple-init class="btn btn-warning btn-block btn-lg">Proceed to Pay</button>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
-        </section>
-    </article>
-</main>
-
+        </div>
+    </div>
+</section>
 <jsp:include page="footer.jsp"></jsp:include>
 
