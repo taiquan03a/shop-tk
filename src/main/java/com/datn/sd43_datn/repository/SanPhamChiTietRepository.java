@@ -1,5 +1,6 @@
 package com.datn.sd43_datn.repository;
 
+import com.datn.sd43_datn.entity.SanPham;
 import com.datn.sd43_datn.entity.SanPhamChiTiet;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
@@ -33,5 +34,6 @@ public interface SanPhamChiTietRepository extends JpaRepository<SanPhamChiTiet, 
     @Query("UPDATE SanPhamChiTiet set trangThai=1 where ID=?1")
     void updateTrangThai0(@Param("id") Long id);
 
-    //long countAllSanPhamChiTiet();
+    @Query("select p from SanPhamChiTiet p where p.sanPham=?1 order by p.giaBan asc limit 1")
+    SanPhamChiTiet findBySanPham(SanPham sanPham);
 }

@@ -18,9 +18,9 @@ public class SanPhamChiTiet {
     @Column(name = "ID")
     private Long ID;
     @Column(name = "gia_nhap")
-    private String giaNhap;
+    private Long giaNhap;
     @Column(name = "gia_ban")
-    private String giaBan;
+    private Long giaBan;
     @Column(name = "mo_ta")
     private String moTa;
     @Column(name = "so_luong")

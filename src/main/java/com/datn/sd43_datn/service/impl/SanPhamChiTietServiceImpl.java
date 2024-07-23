@@ -96,8 +96,8 @@ public class SanPhamChiTietServiceImpl implements SanPhamChiTietService {
                     sanPhamChiTiet.getMauSac().getTenMauSac().toLowerCase().contains(searchLowerCase) ||
                     sanPhamChiTiet.getTayAo().getTenKieuTayAo().toLowerCase().contains(searchLowerCase) ||
                     sanPhamChiTiet.getThuongHieu().getTenThuongHieu().toLowerCase().contains(searchLowerCase) ||
-                    sanPhamChiTiet.getGiaBan().contains(searchLowerCase) ||
-                    sanPhamChiTiet.getGiaNhap().contains(searchLowerCase) ||
+                    sanPhamChiTiet.getGiaBan().equals(searchLowerCase) ||
+                    sanPhamChiTiet.getGiaNhap().equals(searchLowerCase) ||
                     sanPhamChiTiet.getSoLuong().equals(searchLowerCase) ||
                     sanPhamChiTiet.getMoTa().toLowerCase().contains(searchLowerCase)
             ){

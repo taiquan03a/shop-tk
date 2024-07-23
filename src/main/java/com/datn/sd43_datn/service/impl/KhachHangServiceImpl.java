@@ -226,4 +226,35 @@ public class KhachHangServiceImpl implements KhachHangService {
         khachHangRequestList.sort(Comparator.comparingLong(KhachHangRequest::getID).reversed());
         return khachHangRequestList;
     }
+
+    @Override
+    public boolean login(String email, String password) {
+        KhachHang khachHang = khachHangRepository.findKhachHangByEmailAndMatKhau(email, password);
+        if (khachHang != null) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public boolean register(TaoKhachHangRequest khachHangRequest) {
+        boolean kh = khachHangRepository.existsKhachHangByEmail(khachHangRequest.getEmail());
+        if(!kh) {
+            KhachHang khachHang = KhachHang.builder()
+                    .tenKhachHang(khachHangRequest.getTenKhachHang())
+                    .email(khachHangRequest.getEmail())
+                    .matKhau(khachHangRequest.getMatKhau())
+                    .kieuKhachHang(true)
+                    .trangThai(true)
+                    .ngayTao(new Date(System.currentTimeMillis()))
+                    .anh(null)
+                    .sdt(khachHangRequest.getSdt())
+                    .gioiTinh(khachHangRequest.isGioiTinh())
+                    .build();
+            khachHangRepository.save(khachHang);
+            System.out.println("tk");
+            return true;
+        }
+        return false;
+    }
 }

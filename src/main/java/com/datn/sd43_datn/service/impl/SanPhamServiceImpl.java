@@ -1,7 +1,9 @@
 package com.datn.sd43_datn.service.impl;
 
+import com.datn.sd43_datn.dto.SanPhamHomeDto;
 import com.datn.sd43_datn.entity.SanPham;
 import com.datn.sd43_datn.entity.SanPhamChiTiet;
+import com.datn.sd43_datn.repository.SanPhamChiTietRepository;
 import com.datn.sd43_datn.repository.SanPhamRepository;
 import com.datn.sd43_datn.service.SanPhamService;
 import lombok.AllArgsConstructor;
@@ -19,6 +21,8 @@ import java.util.Optional;
 @AllArgsConstructor
 public class SanPhamServiceImpl implements SanPhamService {
     final private SanPhamRepository sanPhamRepository;
+    @Autowired
+    private SanPhamChiTietRepository sanPhamChiTietRepository;
 
     @Override
     public List<SanPham> getAllSanPham() {
@@ -100,5 +104,24 @@ public class SanPhamServiceImpl implements SanPhamService {
     @Override
     public void findTrangThai0(Integer id){
         SanphamEntityRepository.updateTrangThai0(id);
+    }
+
+    @Override
+    public List<SanPhamHomeDto> getSanPhamHome() {
+        List<SanPham> sanPhams = sanPhamRepository.findAll();
+        List<SanPhamHomeDto> sanPhamHomeDtos = new ArrayList<>();
+        for (SanPham sanPham : sanPhams) {
+            SanPhamChiTiet sanPhamChiTiet = sanPhamChiTietRepository.findBySanPham(sanPham);
+            if(sanPhamChiTiet != null) {
+                SanPhamHomeDto sanPhamHomeDto = SanPhamHomeDto.builder()
+                        .ID(sanPham.getID())
+                        .tenSanPham(sanPham.getTenSanPham())
+                        .giaBan(String.valueOf(sanPhamChiTiet.getGiaBan()))
+                        .anh(sanPhamChiTiet.getAnh().getAnh())
+                        .build();
+                sanPhamHomeDtos.add(sanPhamHomeDto);
+            }
+        }
+        return sanPhamHomeDtos;
     }
 }

@@ -16,4 +16,6 @@ public interface KhachHangService {
     boolean addDiaChi(long khachHangId, DiaChiRequest diaChiRequest);
     boolean status(long khachHangId);
     List<KhachHangRequest> filter(String search);
+    boolean login (String email, String password);
+    boolean register (TaoKhachHangRequest khachHangRequest);
 }

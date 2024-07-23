@@ -1,5 +1,6 @@
 package com.datn.sd43_datn.service;
 
+import com.datn.sd43_datn.dto.SanPhamHomeDto;
 import com.datn.sd43_datn.entity.SanPham;
 import org.springframework.data.domain.Page;
 
@@ -9,10 +10,6 @@ import java.util.Optional;
 public interface SanPhamService {
 
     List<SanPham> getAllSanPham();
-
-
-
-
     List<SanPham> findBySanPhamKeyWord(String keyword);
 
     List<SanPham> findAll();
@@ -30,4 +27,5 @@ public interface SanPhamService {
     void findTrangThai1(Long id);
 
     void findTrangThai0(Integer id);
+    List<SanPhamHomeDto> getSanPhamHome();
 }

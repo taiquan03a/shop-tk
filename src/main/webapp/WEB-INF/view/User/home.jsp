@@ -27,7 +27,7 @@
             <div class="container">
 
                 <h2 class="h1 hero-title">
-                    Mùa hè <strong>Bộ sưu tập</strong>
+                    Mùa hè <strong>Bộ sưu tập ${khachHang}</strong>
                 </h2>
 
                 <p class="hero-text">
@@ -78,14 +78,15 @@
                 </ul> -->
 
                 <ul class="product-list">
-
+                <c:forEach var="sanPham" items="${sanPham}" varStatus="status">
                     <li class="product-item">
                         <div class="product-card" tabindex="0">
 
                             <figure class="card-banner">
-                                <img src="/img/product-1.jpg" width="312" height="350" loading="lazy"
+                                <a href="detail/${sanPham.ID}">
+                                <img src="${pageContext.request.contextPath}/img/${sanPham.anh}" width="312" height="350" loading="lazy"
                                      alt="Running Sneaker Shoes" class="image-contain">
-
+                                </a>
                                 <div class="card-badge">New</div>
 
                                 <ul class="card-action-list">
@@ -133,16 +134,18 @@
                                 </div>
 
                                 <h3 class="h3 card-title">
-                                    <a href="#">Running Sneaker Shoes</a>
+                                    <a href="detail/${sanPham.ID}">${sanPham.tenSanPham}</a>
                                 </h3>
 
-                                <data class="card-price" value="180.85">$180.85</data>
+                                <data class="card-price" value="180.85">${sanPham.giaBan} VNĐ</data>
 
                             </div>
 
                         </div>
                     </li>
+                </c:forEach>
                 </ul>
+
 
             </div>
         </section>
@@ -207,14 +210,12 @@
                     </h2>
 
                     <ul class="has-scrollbar">
-
+                    <c:forEach var="sanPham" items="${sanPham}" varStatus="status">
                         <li class="product-item">
                             <div class="product-card" tabindex="0">
-
                                 <figure class="card-banner">
-                                    <img src="/img/product-1.jpg" width="312" height="350" loading="lazy"
+                                    <img src="${pageContext.request.contextPath}/img/${sanPham.anh}" width="312" height="350" loading="lazy"
                                          alt="Running Sneaker Shoes" class="image-contain">
-
                                     <div class="card-badge">New</div>
 
                                     <ul class="card-action-list">
@@ -262,16 +263,16 @@
                                     </div>
 
                                     <h3 class="h3 card-title">
-                                        <a href="#">Running Sneaker Shoes</a>
+                                        <a href="detail/${sanPham.ID}">${sanPham.tenSanPham}</a>
                                     </h3>
 
-                                    <data class="card-price" value="180.85">$180.85</data>
+                                    <data class="card-price" value="180.85">${sanPham.giaBan} VNĐ</data>
 
                                 </div>
 
                             </div>
                         </li>
-
+                    </c:forEach>
                         <!-- <li class="product-item">
                           <div class="product-card" tabindex="0">
 

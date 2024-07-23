@@ -11,4 +11,7 @@ import java.util.List;
 public interface KhachHangRepository extends JpaRepository<KhachHang,Long> {
     @Query("SELECT k FROM KhachHang k WHERE k.kieuKhachHang = true")
     List<KhachHang> findAllKH();
+    KhachHang findKhachHangByEmailAndMatKhau(String email, String matKhau);
+    KhachHang findKhachHangByEmail(String email);
+    boolean existsKhachHangByEmail(String email);
 }
