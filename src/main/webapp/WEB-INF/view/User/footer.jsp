@@ -195,7 +195,7 @@
         <div class="container">
 
             <p class="copyright">
-                &copy; 2022 <a href="#" class="copyright-link">codewithsadee</a>. All Rights Reserved
+                &copy; 2022 <a href="#" class="copyright-link">FPT</a>. All Rights Reserved
             </p>
 
         </div>
