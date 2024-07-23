@@ -79,18 +79,35 @@
                 </li>
 
                 <li>
-                    <button class="nav-action-btn">
+                    <button class="nav-action-btn" onclick="goCart()">
                         <ion-icon name="bag-outline" aria-hidden="true"></ion-icon>
 
                         <data class="nav-action-text" value="318.00">Basket: <strong>$318.00</strong></data>
 
-                        <data class="nav-action-badge" value="4" aria-hidden="true">4</data>
+                        <data class="nav-action-badge cart-count" value="4" aria-hidden="true">4</data>
                     </button>
                 </li>
-
+                <form:form action="/user/home1" id="carttt" cssStyle="display: none">
+                    <input type="text" id="spct">
+                </form:form>
             </ul>
 
         </nav>
 
     </div>
 </header>
+
+<script>
+    var dataElement = document.querySelector('.cart-count');
+
+    var listProductSelected = JSON.parse(localStorage.getItem('product')) ?? {};
+
+    dataElement.setAttribute('value', Object.keys(listProductSelected).length);
+    dataElement.textContent = Object.keys(listProductSelected).length;
+
+    function goCart(){
+        var listProductSelected = localStorage.getItem('product') ?? {}
+        document.getElementById('spct').value = listProductSelected
+        document.getElementById('carttt').submit()
+    }
+</script>
