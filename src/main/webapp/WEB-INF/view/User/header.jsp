@@ -9,7 +9,7 @@
         <div class="overlay" data-overlay></div>
 
         <a href="#" class="logo">
-            <img src="/img/logo.jpg" width="100" height="100" alt="Footcap logo">
+            <img src="/img/logo.jpg" width="60" height="60" alt="Footcap logo">
         </a>
 
         <button class="nav-open-btn" data-nav-open-btn aria-label="Open Menu">

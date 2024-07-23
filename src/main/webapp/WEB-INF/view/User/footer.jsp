@@ -181,7 +181,7 @@
                     <form action="" class="newsletter-form">
                         <input type="email" name="email" required placeholder="Email Address" class="newsletter-input">
 
-                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                        <button type="submit" class="btn1 btn-primary1">Subscribe</button>
                     </form>
 
                 </div>
@@ -202,7 +202,3 @@
     </div>
 
 </footer>
-
-<a href="#top" class="go-top-btn" data-go-top>
-    <ion-icon name="arrow-up-outline"></ion-icon>
-</a>

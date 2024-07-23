@@ -168,7 +168,7 @@ body {
     text-transform: uppercase;
 }
 
-.btn {
+.btn1 {
     background: var(--background, var(--bittersweet));
     color: var(--color, var(--white));
     font-size: var(--fs-5);
@@ -179,7 +179,7 @@ body {
     border: 1px solid var(--border-color, var(--bittersweet));
 }
 
-.btn-primary:is(:hover, :focus) {
+.btn-primary1:is(:hover, :focus) {
     --background: var(--salmon);
     --border-color: var(--salmon);
 }
@@ -451,6 +451,8 @@ body {
     color: var(--rich-black-fogra-29);
     padding-block: 10px;
     transition: var(--transition-1);
+    text-decoration: none;
+    font-size: 18px;
 }
 
 .navbar-link:is(:hover, :focus) { color: var(--bittersweet); }
@@ -869,7 +871,7 @@ a.footer-link:is(:hover, :focus) { color: var(--bittersweet); }
     padding-right: 120px;
 }
 
-.newsletter-form .btn-primary {
+.newsletter-form .btn-primary1 {
     position: absolute;
     top: 0;
     bottom: 0;
