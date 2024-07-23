@@ -36,4 +36,6 @@ public interface SanPhamChiTietRepository extends JpaRepository<SanPhamChiTiet, 
 
     @Query("select p from SanPhamChiTiet p where p.sanPham=?1 order by p.giaBan asc limit 1")
     SanPhamChiTiet findBySanPham(SanPham sanPham);
+
+    List<SanPhamChiTiet> findSanPhamChiTietBySanPham(SanPham sanPham);
 }

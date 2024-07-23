@@ -2,10 +2,7 @@ package com.datn.sd43_datn.entity.ThuocTinhSp;
 
 import com.datn.sd43_datn.entity.ThuocTinhSp.Extend.CreateEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "kich_co")
@@ -13,6 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 public class KichCo extends CreateEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

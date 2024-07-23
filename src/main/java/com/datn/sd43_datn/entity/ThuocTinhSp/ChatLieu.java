@@ -10,6 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @Setter
 @Getter
+@Builder
 public class ChatLieu extends CreateEntity{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

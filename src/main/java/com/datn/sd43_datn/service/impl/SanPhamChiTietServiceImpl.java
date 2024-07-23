@@ -1,5 +1,7 @@
 package com.datn.sd43_datn.service.impl;
 
+import com.datn.sd43_datn.dto.SanPhamDetailDto;
+import com.datn.sd43_datn.dto.ThuocTinhDto;
 import com.datn.sd43_datn.entity.SanPham;
 import com.datn.sd43_datn.entity.SanPhamChiTiet;
 import com.datn.sd43_datn.entity.ThuocTinhSp.*;
@@ -174,5 +176,188 @@ public class SanPhamChiTietServiceImpl implements SanPhamChiTietService {
     @Override
     public void findTrangThai0(Long id){
         sanphamchitietEntityRepository.updateTrangThai0(id);
+    }
+
+    @Override
+    public List<SanPhamChiTiet> getBySanPham(SanPham sanPham) {
+        return sanPhamChiTietRepository.findSanPhamChiTietBySanPham(sanPham);
+    }
+
+    @Override
+    public SanPhamDetailDto getListThuocTinhs(SanPham sanPham) {
+        List<SanPhamChiTiet> sanPhamChiTietList = sanPhamChiTietRepository.findSanPhamChiTietBySanPham(sanPham);
+        List<SanPhamDetailDto> sanPhamDetailDtoList = new ArrayList<>();
+        List<Anh> anh = new ArrayList<>();
+        List<MauSac> mauSac = new ArrayList<>();
+        List<ChatLieu> chatLieu = new ArrayList<>();
+        List<ThuongHieu> thuongHieu = new ArrayList<>();
+        List<KichCo> kichCo = new ArrayList<>();
+        List<DangAo> dangAo = new ArrayList<>();
+        List<CoAo> coAo = new ArrayList<>();
+        List<TayAo> tayAo = new ArrayList<>();
+        List<HoaTiet> hoaTiet = new ArrayList<>();
+        for(SanPhamChiTiet sanPhamChiTiet : sanPhamChiTietList){
+            boolean check = true;
+            Anh ttAnh = Anh.builder()
+                    .ID(sanPhamChiTiet.getAnh().getID())
+                    .anh(sanPhamChiTiet.getAnh().getAnh())
+                    .build();
+            if(anh.isEmpty()){
+                anh.add(ttAnh);
+            }else {
+                check = true;
+                for(Anh anh1 : anh){
+                    if(anh1.getID() == ttAnh.getID()){
+                        check = false;
+                        break;
+                    }
+                }
+                if (check) anh.add(ttAnh);
+            }
+            MauSac ttMauSac = MauSac.builder()
+                    .ID(sanPhamChiTiet.getMauSac().getID())
+                    .tenMauSac(sanPhamChiTiet.getMauSac().getTenMauSac())
+                    .build();
+            if(mauSac.isEmpty()){
+                mauSac.add(ttMauSac);
+            }else {
+                check = true;
+                for(MauSac mauSac1 : mauSac){
+                    if(mauSac1.getID() == ttMauSac.getID()){
+                        check = false;
+                        break;
+                    }
+                }
+                if (check) mauSac.add(ttMauSac);
+            }
+
+            ChatLieu ttChatLieu = ChatLieu.builder()
+                    .ID(sanPhamChiTiet.getChatLieu().getID())
+                    .tenChatLieu(sanPhamChiTiet.getChatLieu().getTenChatLieu())
+                    .build();
+            if(chatLieu.isEmpty()){
+                chatLieu.add(ttChatLieu);
+            }else {
+                check = true;
+                for(ChatLieu chatLieu1 : chatLieu){
+                    if(chatLieu1.getID() == ttChatLieu.getID()){
+                        check = false;
+                        break;
+                    }
+                }
+                if (check) chatLieu.add(ttChatLieu);
+            }
+            ThuongHieu ttThuongHieu = ThuongHieu.builder()
+                    .ID(sanPhamChiTiet.getThuongHieu().getID())
+                    .tenThuongHieu(sanPhamChiTiet.getThuongHieu().getTenThuongHieu())
+                    .build();
+            if(thuongHieu.isEmpty()){
+                thuongHieu.add(ttThuongHieu);
+            }else {
+                check = true;
+                for(ThuongHieu thuongHieu1 : thuongHieu){
+                    if(thuongHieu1.getID() == ttThuongHieu.getID()){
+                        check = false;
+                        break;
+                    }
+                }
+                if (check) thuongHieu.add(ttThuongHieu);
+            }
+            KichCo ttKichCo = KichCo.builder()
+                    .ID(sanPhamChiTiet.getKichCo().getID())
+                    .tenKichCo(sanPhamChiTiet.getKichCo().getTenKichCo())
+                    .build();
+
+            if(kichCo.isEmpty()){
+                kichCo.add(ttKichCo);
+            }else {
+                check = true;
+                for(KichCo kichCo1 : kichCo){
+                    if(kichCo1.getID() == ttKichCo.getID()){
+                        check = false;
+                        break;
+                    }
+                }
+                if (check) kichCo.add(ttKichCo);
+            }
+            DangAo ttDangAo = DangAo.builder()
+                    .ID(sanPhamChiTiet.getDangAo().getID())
+                    .tenKieuDangAo(sanPhamChiTiet.getDangAo().getTenKieuDangAo())
+                    .build();
+            if(dangAo.isEmpty()){
+                dangAo.add(ttDangAo);
+            }else {
+                check = true;
+                for(DangAo dangAo1 : dangAo){
+                    if(dangAo1.getID() == ttDangAo.getID()){
+                        check = false;
+                        break;
+                    }
+                }
+                if (check) dangAo.add(ttDangAo);
+            }
+            CoAo ttCoAo = CoAo.builder()
+                    .ID(sanPhamChiTiet.getCoAo().getID())
+                    .tenLoaiCoAo(sanPhamChiTiet.getCoAo().getTenLoaiCoAo())
+                    .build();
+            if(coAo.isEmpty()){
+                coAo.add(ttCoAo);
+            }else {
+                check = true;
+                for(CoAo coAo1 : coAo){
+                    if(coAo1.getID() == ttCoAo.getID()){
+                        check = false;
+                        break;
+                    }
+                }
+                if (check) coAo.add(ttCoAo);
+            }
+            TayAo ttTayAo = TayAo.builder()
+                    .ID(sanPhamChiTiet.getTayAo().getID())
+                    .tenKieuTayAo(sanPhamChiTiet.getTayAo().getTenKieuTayAo())
+                    .build();
+
+            if(tayAo.isEmpty()){
+                tayAo.add(ttTayAo);
+            }else {
+                check = true;
+                for(TayAo tayAo1 : tayAo){
+                    if(tayAo1.getID() == ttTayAo.getID()){
+                        check = false;
+                        break;
+                    }
+                }
+                if (check) tayAo.add(ttTayAo);
+            }
+            HoaTiet ttHoaTiet = HoaTiet.builder()
+                    .ID(sanPhamChiTiet.getHoaTiet().getID())
+                    .tenHoaTiet(sanPhamChiTiet.getHoaTiet().getTenHoaTiet())
+                    .build();
+
+            if(hoaTiet.isEmpty()){
+                hoaTiet.add(ttHoaTiet);
+            }else {
+                check = true;
+                for(HoaTiet hoaTiet1 : hoaTiet){
+                    if(hoaTiet1.getID() == ttHoaTiet.getID()){
+                        check = false;
+                        break;
+                    }
+                }
+                if (check) hoaTiet.add(ttHoaTiet);
+            }
+        }
+        SanPhamDetailDto sanPhamDetail = SanPhamDetailDto.builder()
+                .anh(anh)
+                .mauSac(mauSac)
+                .chatLieu(chatLieu)
+                .thuongHieu(thuongHieu)
+                .kichCo(kichCo)
+                .dangAo(dangAo)
+                .coAo(coAo)
+                .tayAo(tayAo)
+                .hoaTiet(hoaTiet)
+                .build();
+        return sanPhamDetail;
     }
 }

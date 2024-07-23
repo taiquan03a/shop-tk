@@ -35,11 +35,10 @@
 
                     <p class="product-subtitle">Nike Company</p>
 
-                    <h1 class="h1 product-title">Fall Limited Edition Sneakers</h1>
+                    <h1 class="h1 product-title">${sanPham.tenSanPham}</h1>
 
                     <p class="product-text">
-                        These low-profile sneakers are your perfect casual wear companion. Featuring a
-                        durable rubber outer sole, they’ll withstand everything the weather can offer.
+                        ${sanPham.moTa}
                     </p>
 
                     <div class="wrapper">
@@ -53,15 +52,53 @@
                     </div>
                     <div style="display: flex; justify-content: space-between;">
                         <select name="" id="feature">
-                            <option value="">Chọn kích cỡ</option>
-                            <option value="">X</option>
-                            <option value="">XL</option>
-                        </select>
-
-                        <select name="" id="feature">
                             <option value="">Chọn Màu sắc</option>
-                            <option value="">X</option>
-                            <option value="">XL</option>
+                            <c:forEach items="${thuocTinh.mauSac}" var="mau">
+                            <option value="${mau.ID}">${mau.tenMauSac}</option>
+                            </c:forEach>
+                        </select>
+                        <select name="" id="feature">
+                            <option value="">Chọn chất liệu</option>
+                            <c:forEach items="${thuocTinh.chatLieu}" var="chatLieu">
+                                <option value="${chatLieu.ID}">${chatLieu.tenChatLieu}</option>
+                            </c:forEach>
+                        </select>
+                        <select name="" id="feature">
+                            <option value="">Chọn thương hiệu</option>
+                            <c:forEach items="${thuocTinh.thuongHieu}" var="thuongHieu">
+                                <option value="${thuongHieu.ID}">${thuongHieu.tenThuongHieu}</option>
+                            </c:forEach>
+                        </select>
+                        <select name="" id="feature">
+                            <option value="">Chọn kích cỡ</option>
+                            <c:forEach items="${thuocTinh.kichCo}" var="kichCo">
+                                <option value="${kichCo.ID}">${kichCo.tenKichCo}</option>
+                                <option value="">XL</option>
+                            </c:forEach>
+                        </select>
+                        <select name="" id="feature">
+                            <option value="">Chọn dáng áo</option>
+                            <c:forEach items="${thuocTinh.dangAo}" var="dangAo">
+                                <option value="${dangAo.ID}">${dangAo.tenKieuDangAo}</option>
+                            </c:forEach>
+                        </select>
+                        <select name="" id="feature">
+                            <option value="">Chọn kích cỡ</option>
+                            <c:forEach items="${thuocTinh.coAo}" var="coAo">
+                                <option value="${coAo.ID}">${coAo.tenLoaiCoAo}</option>
+                            </c:forEach>
+                        </select>
+                        <select name="" id="feature">
+                            <option value="">Chọn tay áo</option>
+                            <c:forEach items="${thuocTinh.tayAo}" var="tayAo">
+                                <option value="${tayAo.ID}">${tayAo.tenKieuTayAo}</option>
+                            </c:forEach>
+                        </select>
+                        <select name="" id="feature">
+                            <option value="">Chọn họa tiết</option>
+                            <c:forEach items="${thuocTinh.hoaTiet}" var="hoaTiet">
+                                <option value="${hoaTiet.ID}">${hoaTiet.tenHoaTiet}</option>
+                            </c:forEach>
                         </select>
                     </div>
                     <div class="btn-group">

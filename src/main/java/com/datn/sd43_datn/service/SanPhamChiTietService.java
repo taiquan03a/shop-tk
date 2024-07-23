@@ -1,5 +1,6 @@
 package com.datn.sd43_datn.service;
 
+import com.datn.sd43_datn.dto.SanPhamDetailDto;
 import com.datn.sd43_datn.entity.SanPham;
 import com.datn.sd43_datn.entity.SanPhamChiTiet;
 import com.datn.sd43_datn.entity.ThuocTinhSp.*;
@@ -45,5 +46,7 @@ public interface SanPhamChiTietService {
     void findTrangThai1(Long id);
 
     void findTrangThai0(Long id);
+    List<SanPhamChiTiet> getBySanPham(SanPham sanPham);
+    SanPhamDetailDto getListThuocTinhs(SanPham sanPham);
 
 }
