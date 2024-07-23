@@ -202,3 +202,10 @@
     </div>
 
 </footer>
+
+<style>
+    a, span, p{
+        text-decoration: none;
+        font-size: medium;
+    }
+</style>
