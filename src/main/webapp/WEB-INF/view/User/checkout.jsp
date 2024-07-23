@@ -35,39 +35,23 @@
 <section class="section billing section--xl pt-0">
     <div class="container">
         <div class="row billing__content">
+            <form:form action="checkout" method="post" modelAttribute="checkoutRequest">
             <div class="col-lg-8">
                 <div class="billing__content-card">
                     <div class="billing__content-card-header">
                         <h2 class="font-body--xxxl-500">Billing Information</h2>
                     </div>
                     <div class="billing__content-card-body">
-                        <form action="#">
+
                             <div class="contact-form__content">
                                 <div class="contact-form__content-group">
                                     <div class="contact-form-input">
-                                        <label for="fname1">First Name </label>
+                                        <label for="fname1">Full Name </label>
                                         <input
                                                 type="text"
                                                 id="fname1"
-                                                placeholder="Your first name"
-                                        />
-                                    </div>
-                                    <div class="contact-form-input">
-                                        <label for="lname2">Last Name </label>
-                                        <input
-                                                type="text"
-                                                id="lname2"
-                                                placeholder="Your last name"
-                                        />
-                                    </div>
-                                    <div class="contact-form-input">
-                                        <label for="company"
-                                        >Last Name <span>(Optional)</span>
-                                        </label>
-                                        <input
-                                                type="text"
-                                                id="company"
-                                                placeholder="Company name"
+                                                name="tenKhachHang"
+                                                placeholder="Your full name"
                                         />
                                     </div>
                                 </div>
@@ -77,6 +61,7 @@
                                     <input
                                             type="text"
                                             id="address"
+                                            name="soNha"
                                             placeholder="Your Address"
                                     />
                                 </div>
@@ -105,7 +90,7 @@
                                     <!-- zip -->
                                     <div class="contact-form-input">
                                         <label for="xa">Xã</label>
-                                        <select id="xa" class="contact-form-input__dropdown">
+                                        <select id="xa" class="contact-form-input__dropdown" name="idPhuong">
 
                                         </select>
                                     </div>
@@ -116,6 +101,7 @@
                                         <input
                                                 type="text"
                                                 id="email"
+                                                name="email"
                                                 placeholder="Email Address"
                                         />
                                     </div>
@@ -124,9 +110,11 @@
                                         <input
                                                 type="number"
                                                 id="phone"
+                                                name="sdt"
                                                 placeholder="Phone number"
                                         />
                                     </div>
+                                    <input type="hidden" name="spct" value="${spCart.spct}">
                                 </div>
 
                                 <div class="form-check">
@@ -144,7 +132,7 @@
                                     </label>
                                 </div>
                             </div>
-                        </form>
+
                     </div>
                 </div>
                 <div class="billing__content-card">
@@ -175,57 +163,42 @@
                         <div class="bill-card__body">
                             <!-- Product Info -->
                             <div class="bill-card__product">
+                                <c:forEach var="sanPham" items="${spCart.hoaDonChiTietList}" varStatus="status">
                                 <div class="bill-card__product-item">
                                     <div class="bill-card__product-item-content">
                                         <div class="img-wrapper">
                                             <img
-                                                    src="src/images/products/img-01.png"
+                                                    src="${pageContext.request.contextPath}/img/${sanPham.sanPhamChiTiet.anh.anh}"
                                                     alt="product-img"
                                             />
                                         </div>
                                         <h5 class="font-body--md-400">
-                                            Green Apple <span class="quantity"> x5</span>
+                                                ${sanPham.sanPhamChiTiet.sanPham.tenSanPham} <span class="quantity"> x${sanPham.soLuong}</span>
                                         </h5>
                                     </div>
 
                                     <p class="bill-card__product-price font-body--md-500">
-                                        $70.00
+                                            ${sanPham.thanhTien}
                                     </p>
                                 </div>
-                                <div class="bill-card__product-item">
-                                    <div class="bill-card__product-item-content">
-                                        <div class="img-wrapper">
-                                            <img
-                                                    src="src/images/products/img-02.png"
-                                                    alt="product-img"
-                                            />
-                                        </div>
-                                        <h5 class="font-body--md-400">
-                                            Orange <span class="quantity">x1</span>
-                                        </h5>
-                                    </div>
-
-                                    <p class="bill-card__product-price font-body--md-500">
-                                        $70.00
-                                    </p>
-                                </div>
+                                </c:forEach>
                             </div>
                             <!-- memo  -->
                             <div class="bill-card__memo">
                                 <!-- Subtotal  -->
                                 <div class="bill-card__memo-item subtotal">
                                     <p class="font-body--md-400">Subtotal:</p>
-                                    <span class="font-body--md-500">$84.00</span>
+                                    <span class="font-body--md-500">${spCart.thanhTien} VNĐ</span>
                                 </div>
                                 <!-- Shipping  -->
                                 <div class="bill-card__memo-item shipping">
                                     <p class="font-body--md-400">Shipping:</p>
-                                    <span class="font-body--md-500">Free</span>
+                                    <span class="font-body--md-500">${spCart.tienShip} VNĐ</span>
                                 </div>
                                 <!-- total  -->
                                 <div class="bill-card__memo-item total">
                                     <p class="font-body--lg-400">Total:</p>
-                                    <span class="font-body--xl-500">$84.00</span>
+                                    <span class="font-body--xl-500">${spCart.tongTien} VNĐ</span>
                                 </div>
                             </div>
                         </div>
@@ -239,15 +212,15 @@
                             </div>
                         </div>
                         <div class="bill-card__body">
-                            <form action="#">
+
                                 <button class="button button--lg w-100" type="submit">
                                     Place Order
                                 </button>
-                            </form>
                         </div>
                     </div>
                 </div>
             </div>
+            </form:form>
         </div>
     </div>
 </section>

@@ -1,6 +1,7 @@
 package com.datn.sd43_datn.service;
 
 import com.datn.sd43_datn.dto.KhachHangDto;
+import com.datn.sd43_datn.entity.KhachHang;
 import com.datn.sd43_datn.request.DiaChiRequest;
 import com.datn.sd43_datn.request.KhachHangRequest;
 import com.datn.sd43_datn.request.TaoKhachHangRequest;
@@ -16,6 +17,6 @@ public interface KhachHangService {
     boolean addDiaChi(long khachHangId, DiaChiRequest diaChiRequest);
     boolean status(long khachHangId);
     List<KhachHangRequest> filter(String search);
-    boolean login (String email, String password);
+    KhachHang login (String email, String password);
     boolean register (TaoKhachHangRequest khachHangRequest);
 }

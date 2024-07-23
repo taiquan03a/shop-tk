@@ -3,10 +3,8 @@ package com.datn.sd43_datn.service;
 import com.datn.sd43_datn.dto.HoaDonChiTietDto;
 import com.datn.sd43_datn.entity.HoaDon;
 import com.datn.sd43_datn.entity.HoaDonChiTiet;
-import com.datn.sd43_datn.request.HoaDonRequest;
-import com.datn.sd43_datn.request.TaoDonHangRequest;
-import com.datn.sd43_datn.request.UpdateDonHangRequest;
-import com.datn.sd43_datn.request.UpdateInfoKH;
+import com.datn.sd43_datn.entity.KhachHang;
+import com.datn.sd43_datn.request.*;
 
 import java.text.ParseException;
 import java.util.List;
@@ -20,4 +18,5 @@ public interface HoaDonService {
     boolean addHoaDon(TaoDonHangRequest createDonHangRequest);
     boolean updateKH(long hoaDonID, UpdateInfoKH updateInfoKH);
 //    boolean updateHoaDon(UpdateDonHangRequest updateDonHangRequest, long hoaDonId);
+    boolean checkout(KhachHang khachHang, CheckoutRequest checkoutRequest);
 }

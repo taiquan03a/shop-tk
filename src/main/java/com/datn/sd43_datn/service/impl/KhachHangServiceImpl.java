@@ -228,12 +228,8 @@ public class KhachHangServiceImpl implements KhachHangService {
     }
 
     @Override
-    public boolean login(String email, String password) {
-        KhachHang khachHang = khachHangRepository.findKhachHangByEmailAndMatKhau(email, password);
-        if (khachHang != null) {
-            return true;
-        }
-        return false;
+    public KhachHang login(String email, String password) {
+        return khachHangRepository.findKhachHangByEmailAndMatKhau(email, password);
     }
 
     @Override

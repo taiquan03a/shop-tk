@@ -42,9 +42,9 @@
                     </p>
 
                     <div class="wrapper">
-
-                        <span class="price" data-total-price>$125.00</span>
-
+                        <c:forEach items="${spct}" var="spct">
+                        <span class="price" data-total-price>ID chat lieu :${spct.chatLieu.ID}</span>
+                        </c:forEach>
                         <span class="badge">50%</span>
 
                         <del class="del">$250.00</del>
@@ -154,4 +154,5 @@
         qty++;
         qtySpan.textContent = qty;
     });
+
 </script>

@@ -39,7 +39,7 @@ public class HoaDon {
     @Column(name = "loai_hoa_don")
     private Boolean loaiHoaDon;
     @Column(name = "phi_van_chuyen")
-    private Float phiVanChuyen;
+    private Long phiVanChuyen;
     @Column(name = "dia_chi_giao_hang")
     private String diaCHiGiaoHang;
     @Column(name = "thoi_gian_giao_hang")

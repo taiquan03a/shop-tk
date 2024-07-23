@@ -427,7 +427,9 @@
                                     <span class="font-body--xl-500">$84.00</span>
                                 </div>
                             </div>
-                            <form action="#">
+                            <form:form action="checkout" method="get">
+
+                                <input type="hidden" name="spct" value="{&quot;20&quot;:&quot;3&quot;,&quot;21&quot;:&quot;5&quot;}">
                                 <button
                                         class="button button--lg w-100"
                                         style="margin-top: 20px"
@@ -435,7 +437,7 @@
                                 >
                                     Place Order
                                 </button>
-                            </form>
+                            </form:form>
                         </div>
                     </div>
                 </div>
