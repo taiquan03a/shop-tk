@@ -14,8 +14,8 @@ import java.util.List;
 
 @Repository
 public interface HoaDonRepository extends JpaRepository<HoaDon, Long> {
-    @Query("select count (h) from HoaDon h where h.trangThaiDon.ID = 5")
-    Long countHoaDon();
+    @Query("select h from HoaDon h where h.trangThaiDon.ID = 5")
+    List<HoaDon> hoaDonHoanThanh();
 
     @Query("SELECT SUM(h.thanhTien) FROM HoaDon h WHERE h.ngayTao BETWEEN :startDate AND :endDate and h.trangThaiDon.ID != 6 and h.trangThaiDon.ID != 7")
     Long getTotalRevenueByYearAndMonth(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
