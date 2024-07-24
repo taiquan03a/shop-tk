@@ -28,4 +28,5 @@ public interface SanPhamService {
 
     void findTrangThai0(Integer id);
     List<SanPhamHomeDto> getSanPhamHome();
+    List<SanPhamHomeDto> filter(String sort, String keyword);
 }

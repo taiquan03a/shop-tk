@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 public class SanPhamHomeDto {
     private long ID;
     private String tenSanPham;
-    private String giaBan;
+    private long giaBan;
     private String anh;
 }

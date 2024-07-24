@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -116,11 +117,41 @@ public class SanPhamServiceImpl implements SanPhamService {
                 SanPhamHomeDto sanPhamHomeDto = SanPhamHomeDto.builder()
                         .ID(sanPham.getID())
                         .tenSanPham(sanPham.getTenSanPham())
-                        .giaBan(String.valueOf(sanPhamChiTiet.getGiaBan()))
+                        .giaBan(sanPhamChiTiet.getGiaBan())
                         .anh(sanPhamChiTiet.getAnh().getAnh())
                         .build();
                 sanPhamHomeDtos.add(sanPhamHomeDto);
             }
+        }
+        return sanPhamHomeDtos;
+    }
+
+    @Override
+    public List<SanPhamHomeDto> filter(String sort, String keyword) {
+        List<SanPham> sanPhams = sanPhamRepository.findAll();
+        List<SanPhamHomeDto> sanPhamHomeDtos = new ArrayList<>();
+        String searchLowerCase = keyword != null ? keyword.toLowerCase() : null;
+        for (SanPham sanPham : sanPhams) {
+            boolean matchesSearch = (searchLowerCase == null) ||
+                    sanPham.getTenSanPham().toLowerCase().contains(searchLowerCase);
+            if(matchesSearch){
+                SanPhamChiTiet sanPhamChiTiet = sanPhamChiTietRepository.findBySanPham(sanPham);
+                if(sanPhamChiTiet != null) {
+                    SanPhamHomeDto sanPhamHomeDto = SanPhamHomeDto.builder()
+                            .ID(sanPham.getID())
+                            .tenSanPham(sanPham.getTenSanPham())
+                            .giaBan(sanPhamChiTiet.getGiaBan())
+                            .anh(sanPhamChiTiet.getAnh().getAnh())
+                            .build();
+                    sanPhamHomeDtos.add(sanPhamHomeDto);
+                }
+            }
+        }
+        System.out.println(sort);
+        if(sort.equals("0")) {
+            sanPhamHomeDtos.sort(Comparator.comparingLong(SanPhamHomeDto::getGiaBan));
+        }else if(sort.equals("1")) {
+            sanPhamHomeDtos.sort(Comparator.comparingLong(SanPhamHomeDto::getGiaBan).reversed());
         }
         return sanPhamHomeDtos;
     }

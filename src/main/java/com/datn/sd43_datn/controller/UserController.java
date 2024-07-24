@@ -40,6 +40,7 @@ public class UserController {
         model.addAttribute("sanPham",sanPhamService.getSanPhamHome());
         return "User/home";
     }
+
     @GetMapping("detail/{id}")
     public String detail(@PathVariable long id, Model model) {
         SanPham sanPham = sanPhamService.findById(id).get();
@@ -107,7 +108,17 @@ public class UserController {
         return "User/cart";
     }
     @GetMapping("list")
-    public String list(Model model) {
+    public String list(Model model,HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        KhachHang khachHang = (KhachHang) session.getAttribute("khachHang");
+        model.addAttribute("sanPham",sanPhamService.getSanPhamHome());
+        return "User/products";
+    }
+    @GetMapping("filter")
+    public String filter(Model model,@RequestParam String sort,@RequestParam String keyword,HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        KhachHang khachHang = (KhachHang) session.getAttribute("khachHang");
+        model.addAttribute("sanPham",sanPhamService.filter(sort,keyword));
         return "User/products";
     }
     @GetMapping("order-history")

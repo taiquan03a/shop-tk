@@ -27,7 +27,7 @@
             <div class="container">
 
                 <h2 class="h1 hero-title">
-                    Mùa hè <strong>Bộ sưu tập ${khachHang}</strong>
+                    Mùa hè <strong>Bộ sưu tập</strong>
                 </h2>
 
                 <p class="hero-text">

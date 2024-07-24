@@ -47,9 +47,9 @@
                             </svg>
                         </button>
                     </div>
-                    <form action="#">
+                    <form action="filter">
                         <div class="header__input-form">
-                            <input type="text" placeholder="Search" />
+                            <input type="text" name="keyword" placeholder="Search" />
                             <span class="search-icon">
                                         <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
                                             <path
@@ -61,7 +61,11 @@
                                             />
                                             <path d="M17.4999 18L13.8749 14.375" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                         </svg>
-                                    </span>
+                            </span>
+                            <select name="sort">
+                                <option value="0">tăng dần</option>
+                                <option value="1">giam dan</option>
+                            </select>
                             <button type="submit" class="search-btn button button--md">
                                 Search
                             </button>
