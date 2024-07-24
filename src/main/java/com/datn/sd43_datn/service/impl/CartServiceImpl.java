@@ -18,7 +18,7 @@ public class CartServiceImpl implements CartService {
 
     @Override
     public SanPhamGioHang getListSanPhamCart(String spct) {
-        if(spct.equals("[object Object]")) return new SanPhamGioHang();
+        if(spct.equals("[object Object]") || spct.equals("{}")) return new SanPhamGioHang();
         List<HoaDonChiTiet> hoaDonChiTietList = new ArrayList<>();
         String spctDto = "";
         String strippedInput = spct.substring
