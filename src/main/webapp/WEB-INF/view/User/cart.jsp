@@ -50,6 +50,7 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <c:forEach var="sanPham" items="${spCart.hoaDonChiTietList}" varStatus="status">
                             <tr>
                                 <!-- Product item  -->
                                 <td class="cart-table-item align-middle">
@@ -59,16 +60,16 @@
                                     >
                                         <div class="cart-table__product-item-img">
                                             <img
-                                                    src="src/images/products/img-01.png"
+                                                    src="${pageContext.request.contextPath}/img/${sanPham.sanPhamChiTiet.anh.anh}"
                                                     alt="product"
                                             />
                                         </div>
-                                        <h5 class="font-body--lg-400">Green Apple</h5>
+                                        <h5 class="font-body--lg-400">${sanPham.sanPhamChiTiet.sanPham.tenSanPham}</h5>
                                     </a>
                                 </td>
                                 <!-- Price  -->
                                 <td class="cart-table-item order-date align-middle">
-                                    $14.00
+                                        ${sanPham.sanPhamChiTiet.giaBan} VNĐ
                                 </td>
                                 <!-- quantity -->
                                 <td class="cart-table-item order-total align-middle">
@@ -85,6 +86,7 @@
                                                 class="counter-btn-counter"
                                                 min="1"
                                                 max="1000"
+                                                value="${sanPham.soLuong}"
                                                 placeholder="1"
                                         />
                                         <button
@@ -104,7 +106,7 @@
                             align-items-center
                           "
                                     >
-                                        <p class="font-body--md-500">$70.00</p>
+                                        <p class="font-body--md-500">${sanPham.thanhTien} VNĐ</p>
                                         <button class="delete-item">
                                             <svg
                                                     width="24"
@@ -137,93 +139,7 @@
                                     </div>
                                 </td>
                             </tr>
-                            <tr>
-                                <!-- Product item  -->
-                                <td class="cart-table-item align-middle">
-                                    <a
-                                            href="product-details.html"
-                                            class="cart-table__product-item"
-                                    >
-                                        <div class="cart-table__product-item-img">
-                                            <img
-                                                    src="src/images/products/img-02.png"
-                                                    alt="product"
-                                            />
-                                        </div>
-                                        <h5 class="font-body--lg-400">Fresh Orrange</h5>
-                                    </a>
-                                </td>
-                                <!-- Price  -->
-                                <td class="cart-table-item order-date align-middle">
-                                    $14.00
-                                </td>
-                                <!-- quantity -->
-                                <td class="cart-table-item order-total align-middle">
-                                    <div class="counter-btn-wrapper">
-                                        <button
-                                                class="counter-btn-dec counter-btn"
-                                                onclick="decrement()"
-                                        >
-                                            -
-                                        </button>
-                                        <input
-                                                type="number"
-                                                id="counter-btn-counter"
-                                                class="counter-btn-counter"
-                                                min="1"
-                                                max="1000"
-                                                placeholder="1"
-                                        />
-                                        <button
-                                                class="counter-btn-inc counter-btn"
-                                                onclick="increment()"
-                                        >
-                                            +
-                                        </button>
-                                    </div>
-                                </td>
-                                <!-- Subtotal  -->
-                                <td class="cart-table-item order-subtotal align-middle">
-                                    <div
-                                            class="
-                            d-flex
-                            justify-content-between
-                            align-items-center
-                          "
-                                    >
-                                        <p class="font-body--md-500">$70.00</p>
-                                        <button class="delete-item">
-                                            <svg
-                                                    width="24"
-                                                    height="25"
-                                                    viewBox="0 0 24 25"
-                                                    fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg"
-                                            >
-                                                <path
-                                                        d="M12 23.5C18.0748 23.5 23 18.5748 23 12.5C23 6.42525 18.0748 1.5 12 1.5C5.92525 1.5 1 6.42525 1 12.5C1 18.5748 5.92525 23.5 12 23.5Z"
-                                                        stroke="#CCCCCC"
-                                                        stroke-miterlimit="10"
-                                                />
-                                                <path
-                                                        d="M16 8.5L8 16.5"
-                                                        stroke="#666666"
-                                                        stroke-width="1.5"
-                                                        stroke-linecap="round"
-                                                        stroke-linejoin="round"
-                                                />
-                                                <path
-                                                        d="M16 16.5L8 8.5"
-                                                        stroke="#666666"
-                                                        stroke-width="1.5"
-                                                        stroke-linecap="round"
-                                                        stroke-linejoin="round"
-                                                />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
+                            </c:forEach>
                             </tbody>
                         </table>
                     </div>
@@ -243,19 +159,20 @@
                 </div>
 
                 <div class="shoping-cart__mobile">
+                    <c:forEach var="sanPham" items="${spCart.hoaDonChiTietList}" varStatus="status">
                     <div class="shoping-card">
                         <div class="shoping-card__img-wrapper">
                             <img
-                                    src="src/images/products/img-01.png "
+                                    src="${pageContext.request.contextPath}/img/${sanPham.sanPhamChiTiet.anh.anh}"
                                     alt="product-item"
                             />
                         </div>
                         <h5 class="shoping-card__product-caption font-body--lg-400">
-                            Green Apple
+                                ${sanPham.sanPhamChiTiet.sanPham.tenSanPham}
                         </h5>
 
                         <h6 class="shoping-card__product-price font-body--lg-400">
-                            $45.00
+                                ${sanPham.sanPhamChiTiet.giaBan} VNĐ
                         </h6>
 
                         <div class="counter-btn-wrapper">
@@ -271,6 +188,7 @@
                                     class="counter-btn-counter"
                                     min="0"
                                     max="1000"
+                                    value="${sanPham.soLuong}"
                                     placeholder="0"
                             />
                             <button
@@ -281,7 +199,7 @@
                             </button>
                         </div>
                         <h6 class="shoping-card__product-totalprice font-body--lg-600">
-                            $225.00
+                                ${sanPham.thanhTien} VNĐ
                         </h6>
                         <button class="close-btn">
                             <svg
@@ -313,77 +231,7 @@
                             </svg>
                         </button>
                     </div>
-                    <div class="shoping-card">
-                        <div class="shoping-card__img-wrapper">
-                            <img
-                                    src="src/images/products/img-02.png "
-                                    alt="product-item"
-                            />
-                        </div>
-                        <h5 class="shoping-card__product-caption font-body--lg-400">
-                            Fresh orange
-                        </h5>
-
-                        <h6 class="shoping-card__product-price font-body--lg-400">
-                            $45.00
-                        </h6>
-
-                        <div class="counter-btn-wrapper">
-                            <button
-                                    class="counter-btn-dec counter-btn"
-                                    onclick="decrement()"
-                            >
-                                -
-                            </button>
-                            <input
-                                    type="number"
-                                    id="counter-btn-counter"
-                                    class="counter-btn-counter"
-                                    min="0"
-                                    max="1000"
-                                    placeholder="0"
-                            />
-                            <button
-                                    class="counter-btn-inc counter-btn"
-                                    onclick="increment()"
-                            >
-                                +
-                            </button>
-                        </div>
-                        <h6 class="shoping-card__product-totalprice font-body--lg-600">
-                            $225.00
-                        </h6>
-                        <button class="close-btn">
-                            <svg
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                        d="M12 23C18.0748 23 23 18.0748 23 12C23 5.92525 18.0748 1 12 1C5.92525 1 1 5.92525 1 12C1 18.0748 5.92525 23 12 23Z"
-                                        stroke="#CCCCCC"
-                                        stroke-miterlimit="10"
-                                />
-                                <path
-                                        d="M16 8L8 16"
-                                        stroke="#666666"
-                                        stroke-width="1.5"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                />
-                                <path
-                                        d="M16 16L8 8"
-                                        stroke="#666666"
-                                        stroke-width="1.5"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                />
-                            </svg>
-                        </button>
-                    </div>
-
+                    </c:forEach>
                     <form action="#">
                         <div class="cart-table-action-btn d-flex">
                             <a
@@ -414,17 +262,17 @@
                                 <!-- Subtotal  -->
                                 <div class="bill-card__memo-item subtotal">
                                     <p class="font-body--md-400">Subtotal:</p>
-                                    <span class="font-body--md-500">$84.00</span>
+                                    <span class="font-body--md-500">${spCart.thanhTien} VNĐ</span>
                                 </div>
                                 <!-- Shipping  -->
                                 <div class="bill-card__memo-item shipping">
                                     <p class="font-body--md-400">Shipping:</p>
-                                    <span class="font-body--md-500">Free</span>
+                                    <span class="font-body--md-500">${spCart.tienShip} VNĐ</span>
                                 </div>
                                 <!-- total  -->
                                 <div class="bill-card__memo-item total">
                                     <p class="font-body--lg-400">Total:</p>
-                                    <span class="font-body--xl-500">$84.00</span>
+                                    <span class="font-body--xl-500">${spCart.tongTien} VNĐ</span>
                                 </div>
                             </div>
                             <form:form action="checkout" method="get">

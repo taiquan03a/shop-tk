@@ -19,4 +19,5 @@ public interface HoaDonService {
     boolean updateKH(long hoaDonID, UpdateInfoKH updateInfoKH);
 //    boolean updateHoaDon(UpdateDonHangRequest updateDonHangRequest, long hoaDonId);
     boolean checkout(KhachHang khachHang, CheckoutRequest checkoutRequest);
+    List<HoaDonRequest> orderHistory (KhachHang khachHang);
 }

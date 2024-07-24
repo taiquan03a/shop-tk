@@ -245,12 +245,13 @@
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    <c:forEach var="hoaDon" items="${hoaDon}" varStatus="status">
                                     <tr>
                                         <!-- Order Id  -->
                                         <td
                                                 class="dashboard__order-history-table-item order-id"
                                         >
-                                            #738
+                                                ${hoaDon.maHoaDon}
                                         </td>
                                         <!-- Date  -->
                                         <td
@@ -259,7 +260,7 @@
                               order-date
                             "
                                         >
-                                            8 Sep, 20220
+                                                ${hoaDon.ngayTao}
                                         </td>
                                         <!-- Total  -->
                                         <td
@@ -269,8 +270,8 @@
                             "
                                         >
                                             <p class="order-total-price">
-                                                $135.00
-                                                <span class="quantity"> (5 Products)</span>
+                                                    ${hoaDon.tongTien} VNĐ
+                                                <span class="quantity"> (${hoaDon.tongSp} Products)</span>
                                             </p>
                                         </td>
                                         <!-- Status -->
@@ -280,7 +281,7 @@
                               order-status
                             "
                                         >
-                                            Processing
+                                                ${hoaDon.trangThaiDon}
                                         </td>
                                         <!-- Details page  -->
                                         <td
@@ -292,53 +293,7 @@
                                             <a href="order-details.html"> View Details</a>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <!-- Order Id  -->
-                                        <td
-                                                class="dashboard__order-history-table-item order-id"
-                                        >
-                                            #703
-                                        </td>
-                                        <!-- Date  -->
-                                        <td
-                                                class="
-                              dashboard__order-history-table-item
-                              order-date
-                            "
-                                        >
-                                            24 May, 2020
-                                        </td>
-                                        <!-- Total  -->
-                                        <td
-                                                class="
-                              dashboard__order-history-table-item
-                              order-total
-                            "
-                                        >
-                                            <p class="order-total-price">
-                                                $25.00 <span class="quantity"> (1 Products)</span>
-                                            </p>
-                                        </td>
-                                        <!-- Status -->
-                                        <td
-                                                class="
-                              dashboard__order-history-table-item
-                              order-status
-                            "
-                                        >
-                                            on the way
-                                        </td>
-                                        <!-- Details page  -->
-                                        <td
-                                                class="
-                              dashboard__order-history-table-item
-                              order-details
-                            "
-                                        >
-                                            <a href="order-details.html"> View Details</a>
-                                        </td>
-                                    </tr>
-
+                                    </c:forEach>
                                     </tbody>
                                 </table>
                             </div>

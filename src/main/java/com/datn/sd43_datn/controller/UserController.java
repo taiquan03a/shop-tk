@@ -43,7 +43,9 @@ public class UserController {
     @GetMapping("detail/{id}")
     public String detail(@PathVariable long id, Model model) {
         SanPham sanPham = sanPhamService.findById(id).get();
+        String spCart = "";
         model.addAttribute("sanPham",sanPham);
+        model.addAttribute("spCart",spCart);
         model.addAttribute("spct",sanPhamChiTietService.getBySanPham(sanPham));
         model.addAttribute("thuocTinh",sanPhamChiTietService.getListThuocTinhs(sanPham));
         return "User/product-detail";
@@ -82,8 +84,7 @@ public class UserController {
     public String checkout(Model model,@RequestParam String spct,HttpServletRequest request) {
         HttpSession session = request.getSession();
         KhachHang khachHang = (KhachHang) session.getAttribute("khachHang");
-        System.out.println(khachHang);
-        String spctTest = "{\"20\":\"3\",\"21\":\"5\"}";
+        System.out.println(khachHang.getEmail());
         System.out.println(spct);
         CheckoutRequest checkoutRequest = new CheckoutRequest();
         model.addAttribute("spCart",cartService.getListSanPhamCart(spct));
@@ -99,7 +100,9 @@ public class UserController {
         return "User/checkout";
     }
     @GetMapping("cart")
-    public String cart(Model model) {
+    public String cart(Model model,@ModelAttribute("spCart") String spCart) {
+        System.out.println(spCart);
+        model.addAttribute("spCart",cartService.getListSanPhamCart(spCart));
         return "User/cart";
     }
     @GetMapping("list")
@@ -107,7 +110,10 @@ public class UserController {
         return "User/products";
     }
     @GetMapping("order-history")
-    public String orderHistory(Model model) {
+    public String orderHistory(Model model,HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        KhachHang khachHang = (KhachHang) session.getAttribute("khachHang");
+        model.addAttribute("hoaDon",hoaDonService.orderHistory(khachHang));
         return "User/order-history";
     }
 }

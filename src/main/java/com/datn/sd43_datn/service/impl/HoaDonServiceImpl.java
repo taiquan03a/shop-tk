@@ -521,4 +521,32 @@ public class HoaDonServiceImpl implements HoaDonService {
         }
         return true;
     }
+
+    @Override
+    public List<HoaDonRequest> orderHistory(KhachHang khachHang) {
+        List<HoaDon> hoaDons = hoaDonRepository.findHoaDonsByKhachHang(khachHang);
+        List<HoaDonRequest> hoaDonRequests = new ArrayList<>();
+        SimpleDateFormat formattedDate = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
+        for(HoaDon hoaDon : hoaDons){
+            long tongSl = 0,tongTien = 0;
+            for(HoaDonChiTiet hoaDonChiTiet : hoaDonChiTietRepository.findHoaDonChiTietsByHoaDon(hoaDon)){
+                tongSl += hoaDonChiTiet.getSoLuong();
+                tongTien += hoaDonChiTiet.getThanhTien();
+            }
+            String ngayTao = formattedDate.format(hoaDon.getNgayTao());
+            HoaDonRequest hoaDonRequest = HoaDonRequest.builder()
+                    .ID(hoaDon.getID())
+                    .maHoaDon(hoaDon.getMaHoaDon())
+                    .tenKH(hoaDon.getKhachHang().getTenKhachHang())
+                    .tongSp(tongSl)
+                    .tongTien(tongTien)
+                    .ngayTao(ngayTao)
+                    .loaiHoaDon(hoaDon.getLoaiHoaDon())
+                    .trangThaiDon(hoaDon.getTrangThaiDon().getTenTrangThai())
+                    .build();
+            hoaDonRequests.add(hoaDonRequest);
+        }
+        hoaDonRequests.sort(Comparator.comparingLong(HoaDonRequest::getID).reversed());
+        return hoaDonRequests;
+    }
 }

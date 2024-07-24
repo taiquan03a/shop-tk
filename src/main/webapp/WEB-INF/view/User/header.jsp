@@ -88,7 +88,7 @@
                     </button>
                 </li>
                 <form:form action="/user/cart" id="carttt" method="get" cssStyle="display: none">
-                    <input type="text" id="spct">
+                    <input type="text" id="spct" name="spCart">
                 </form:form>
             </ul>
 
