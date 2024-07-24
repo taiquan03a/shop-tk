@@ -76,7 +76,7 @@
                                     <div class="counter-btn-wrapper">
                                         <button
                                                 class="counter-btn-dec counter-btn"
-                                                onclick="decrement(this, ${sanPham.sanPhamChiTiet.ID})"
+                                                onclick="decrement(this, ${sanPham.sanPhamChiTiet.ID}, ${sanPham.sanPhamChiTiet.giaBan})"
                                         >
                                             -
                                         </button>
@@ -88,11 +88,11 @@
                                                 max="1000"
                                                 value="${sanPham.soLuong}"
                                                 placeholder="1"
-                                                onchange="updateProduct(this, ${sanPham.sanPhamChiTiet.ID})"
+                                                onchange="updateProduct(this, ${sanPham.sanPhamChiTiet.ID}, ${sanPham.sanPhamChiTiet.giaBan})"
                                         />
                                         <button
                                                 class="counter-btn-inc counter-btn"
-                                                onclick="increment(this, ${sanPham.sanPhamChiTiet.ID})"
+                                                onclick="increment(this, ${sanPham.sanPhamChiTiet.ID}, ${sanPham.sanPhamChiTiet.giaBan})"
                                         >
                                             +
                                         </button>
@@ -107,7 +107,7 @@
                             align-items-center
                           "
                                     >
-                                        <p class="font-body--md-500">${sanPham.thanhTien} VNĐ</p>
+                                        <p class="font-body--md-500 gia" id="subtotal${sanPham.sanPhamChiTiet.ID}">${sanPham.thanhTien} VNĐ</p>
                                         <button class="delete-item">
                                             <svg
                                                     width="24"
@@ -175,7 +175,7 @@
                                 <!-- Subtotal  -->
                                 <div class="bill-card__memo-item subtotal">
                                     <p class="font-body--md-400">Subtotal:</p>
-                                    <span class="font-body--md-500">${spCart.thanhTien} VNĐ</span>
+                                    <span class="font-body--md-500" id="subtotall">${spCart.thanhTien} VNĐ</span>
                                 </div>
                                 <!-- Shipping  -->
                                 <div class="bill-card__memo-item shipping">
@@ -185,7 +185,7 @@
                                 <!-- total  -->
                                 <div class="bill-card__memo-item total">
                                     <p class="font-body--lg-400">Total:</p>
-                                    <span class="font-body--xl-500">${spCart.tongTien} VNĐ</span>
+                                    <span class="font-body--xl-500" id="final-total">${spCart.tongTien} VNĐ</span>
                                 </div>
                             </div>
                             <form:form action="/user/checkout" method="get">
@@ -209,22 +209,26 @@
 <jsp:include page="footer.jsp"></jsp:include>
 
 <script>
-    function increment(e, product_id) {
+    function increment(e, product_id, price) {
         (e.parentNode.querySelector("input")).stepUp();
-        updateProduct(e.parentNode.querySelector("input"), product_id)
+        updateProduct(e.parentNode.querySelector("input"), product_id, price)
     }
 
-    function decrement(e, product_id) {
+    function decrement(e, product_id, price) {
         (e.parentNode.querySelector("input")).stepDown();
-        updateProduct(e.parentNode.querySelector("input"), product_id)
+        updateProduct(e.parentNode.querySelector("input"), product_id, price)
     }
 
-    function updateProduct(e, product_id){
+    function updateProduct(e, product_id, price){
         var listProductSelected = JSON.parse(localStorage.getItem('product')) ?? {};
         listProductSelected[product_id] = e.value
         localStorage.setItem('product', JSON.stringify(listProductSelected));
         document.getElementById('spct1').value = JSON.stringify(listProductSelected)
-        console.log(document.getElementById('spct').value)
+        document.getElementById('subtotal' + product_id.toString()).innerHTML = e.value * price + ' VNĐ'
+        var tong = 0
+        document.querySelectorAll('.gia').forEach(e => tong += parseInt(e.textContent.split(' ')[0]))
+        document.getElementById('subtotall').innerHTML = tong + ' VNĐ'
+        document.getElementById('final-total').innerHTML = tong - 15000 + ' VNĐ'
     }
 </script>
 

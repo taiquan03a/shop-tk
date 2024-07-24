@@ -29,7 +29,7 @@
             <ul class="navbar-list">
 
                 <li class="navbar-item">
-                    <a href="#" class="navbar-link">Trang chủ</a>
+                    <a href="/user/home" class="navbar-link">Trang chủ</a>
                 </li>
 
                 <li class="navbar-item">
@@ -37,7 +37,7 @@
                 </li>
 
                 <li class="navbar-item">
-                    <a href="#" class="navbar-link">Sản phẩm</a>
+                    <a href="/user/list" class="navbar-link">Sản phẩm</a>
                 </li>
 
                 <li class="navbar-item">
@@ -45,7 +45,7 @@
                 </li>
 
                 <li class="navbar-item">
-                    <a href="#" class="navbar-link">Liên hệ</a>
+                    <a href="/user/order-history" class="navbar-link">Đơn hàng</a>
                 </li>
 
             </ul>
@@ -61,7 +61,7 @@
                 </li>
 
                 <li>
-                    <a href="#" class="nav-action-btn">
+                    <a href="/user/logout" class="nav-action-btn">
                         <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
 
                         <span class="nav-action-text">Đăng nhập</span>

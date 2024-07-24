@@ -33,9 +33,9 @@
     <div class="form-container sign-in-container">
         <form action="login" method="post">
             <h1>Đăng nhập</h1>
-            <span>or use your account</span>
-            <input type="email" name="email" placeholder="Email" />
+            <input type="email" value="${email}" name="email" placeholder="Email" />
             <input type="password" name="password" placeholder="Password" />
+            <span style="color: red">${message}</span>
             <a href="#">Forgot your password?</a>
             <button type="submit">Đăng nhập</button>
         </form>

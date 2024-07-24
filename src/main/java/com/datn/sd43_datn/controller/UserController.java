@@ -60,6 +60,7 @@ public class UserController {
             return "redirect:home";
         }
         model.addAttribute("message", "Đăng nhập thất bại! Vui lòng thử lại.");
+        model.addAttribute("email", email);
         return "Auth/login";
     }
     @GetMapping("/login")
