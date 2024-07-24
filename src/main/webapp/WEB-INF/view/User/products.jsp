@@ -38,17 +38,9 @@
         <div class="header__center">
             <div class="container">
                 <div class="header__center-content d-flex justify-content-center">
-                    <div class="header__brand">
-                        <button class="header__sidebar-btn">
-                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M3 12H21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                <path d="M3 6H21" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                <path d="M3 18H15" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                            </svg>
-                        </button>
-                    </div>
                     <form action="filter">
                         <div class="header__input-form">
+
                             <input type="text" name="keyword" placeholder="Search" />
                             <span class="search-icon">
                                         <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -62,9 +54,9 @@
                                             <path d="M17.4999 18L13.8749 14.375" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                         </svg>
                             </span>
-                            <select name="sort">
-                                <option value="0">tăng dần</option>
-                                <option value="1">giam dan</option>
+                            <select class="mt-4 p-4 mb-4"  name="sort" style="border-radius: 5px">
+                                <option value="0">Sắp xếp theo giá tăng dần</option>
+                                <option value="1">Sắp xếp theo giá giảm dần</option>
                             </select>
                             <button type="submit" class="search-btn button button--md">
                                 Search
@@ -100,146 +92,12 @@
                             </button>
                         </div>
                     </form>
-                    <ul class="header__mobile-menu">
-                        <li class="header__mobile-menu-item active">
-                            <a href="#" class="header__mobile-menu-item-link">
-                                Home
-                                <span class="drop-icon">
-                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M3.33332 5.66667L7.99999 10.3333L12.6667 5.66667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                            </svg>
-                                        </span>
-                            </a>
-                            <ul class="header__mobile-dropdown-menu">
-                                <li class="header__mobile-dropdown-menu-link">
-                                    <a href="index.html">Home 01</a>
-                                </li>
-                                <li class="header__mobile-dropdown-menu-link active">
-                                    <a href="home-02.html">Home 02</a>
-                                </li>
-                                <li class="header__mobile-dropdown-menu-link">
-                                    <a href="home-03.html">Home 03</a>
-                                </li>
-                                <li class="header__mobile-dropdown-menu-link">
-                                    <a href="home-04.html">Home 04</a>
-                                </li>
-                                <li class="header__mobile-dropdown-menu-link">
-                                    <a href="home-05.html">Home 05</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="header__mobile-menu-item">
-                            <a href="#" class="header__mobile-menu-item-link">
-                                Shop
-                                <span class="drop-icon">
-                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M3.33332 5.66667L7.99999 10.3333L12.6667 5.66667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                            </svg>
-                                        </span>
-                            </a>
-                            <ul class="header__mobile-dropdown-menu">
-                                <li class="header__mobile-dropdown-menu-link">
-                                    <a href="shop-01.html">Shop 01</a>
-                                </li>
-                                <li class="header__mobile-dropdown-menu-link">
-                                    <a href="shop-02.html">Shop 02</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="header__mobile-menu-item">
-                            <a href="#" class="header__mobile-menu-item-link">
-                                Pages
-                                <span class="drop-icon">
-                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M3.33332 5.66667L7.99999 10.3333L12.6667 5.66667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                            </svg>
-                                        </span>
-                            </a>
-                            <ul class="header__mobile-dropdown-menu">
-                                <li class="header__mobile-dropdown-menu-link">
-                                    <a href="product-details.html">Product Details</a>
-                                </li>
-                                <li class="header__mobile-dropdown-menu-link">
-                                    <a href="wishlist.html">Wishlist</a>
-                                </li>
-                                <li class="header__mobile-dropdown-menu-link">
-                                    <a href="shopping-cart.html">Shopping Cart</a>
-                                </li>
-                                <li class="header__mobile-dropdown-menu-link">
-                                    <a href="checkout.html">Checkout</a>
-                                </li>
-                                <li class="header__mobile-dropdown-menu-link">
-                                    <a href="sign-in.html">Sign in</a>
-                                </li>
-                                <li class="header__mobile-dropdown-menu-link">
-                                    <a href="create-account.html">Create Account</a>
-                                </li>
-                                <li class="header__mobile-dropdown-menu-link">
-                                    <a href="user-dashboard.html">User Dashboard</a>
-                                </li>
-                                <li class="header__mobile-dropdown-menu-link">
-                                    <a href="order-history.html">order history</a>
-                                </li>
-                                <li class="header__mobile-dropdown-menu-link">
-                                    <a href="order-details.html">Order Details</a>
-                                </li>
-                                <li class="header__mobile-dropdown-menu-link">
-                                    <a href="account-setting.html">Account Settings</a>
-                                </li>
-                                <li class="header__mobile-dropdown-menu-link">
-                                    <a href="faq.html">faq</a>
-                                </li>
-                                <li class="header__mobile-dropdown-menu-link">
-                                    <a href="404.html">404</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="header__mobile-menu-item">
-                            <a href="#" class="header__mobile-menu-item-link">
-                                Blog
-                                <span class="drop-icon">
-                                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                <path d="M3.33332 5.66667L7.99999 10.3333L12.6667 5.66667" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-                                            </svg>
-                                        </span>
-                            </a>
-                            <ul class="header__mobile-dropdown-menu">
-                                <li class="header__mobile-dropdown-menu-link">
-                                    <a href="single-blog.html">Single Blog </a>
-                                </li>
-                                <li class="header__mobile-dropdown-menu-link">
-                                    <a href="blog-list.html">Blog list</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="header__mobile-menu-item">
-                            <a href="about.html" class="header__mobile-menu-item-link">About</a>
-                        </li>
-                        <li class="header__mobile-menu-item">
-                            <a href="contact.html" class="header__mobile-menu-item-link">Contacts</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="header__mobile-bottom">
-                    <div class="header__mobile-user">
-                        <div class="header__mobile-user--img">
-                            <img src="src/images/user/img-03.png" alt="user" />
-                        </div>
-                        <div class="header__mobile-user--info">
-                            <h2 class="font-body--lg-500">Dianne Russell</h2>
-                            <p class="font-body--md-400">dianne.russell@gmail.com</p>
-                        </div>
-                    </div>
-                    <div class="header__mobile-action d-none">
-                        <a href="#" class="button button--md">Sign in</a>
-                        <a href="#" class="button button--md button--disable">Sign up</a>
-                    </div>
                 </div>
             </div>
         </div>
     <!-- Header  Section start -->
 
-    <section class="section product">
+    <section class="section product mt-5">
         <div class="container">
 
             <h1 class="h2 section-title">Sản phẩm bán chạy</h1>
