@@ -23,7 +23,7 @@ public class CartServiceImpl implements CartService {
         String strippedInput = spct.substring
                 (1, spct.length() - 1);
         String[] pairs = strippedInput.split(",");
-        long thanhTien = 0,tongTien = 0,tienShip = 0;
+        long thanhTien = 0,tongTien = 0,tienShip = 15000;
         for (String pair : pairs) {
             pair = pair.replace("\"", "");
             String[] numbers = pair.split(":");
@@ -42,7 +42,7 @@ public class CartServiceImpl implements CartService {
             thanhTien += hoaDonChiTiet.getThanhTien();
             hoaDonChiTietList.add(hoaDonChiTiet);
         }
-        tongTien = thanhTien - tienShip;
+        tongTien = thanhTien + tienShip;
         return SanPhamGioHang.builder()
                 .hoaDonChiTietList(hoaDonChiTietList)
                 .tienShip(15000)

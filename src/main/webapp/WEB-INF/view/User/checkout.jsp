@@ -34,8 +34,9 @@
 <jsp:include page="header.jsp"></jsp:include>
 <section class="section billing section--xl pt-0">
     <div class="container">
+        <form:form action="checkout" method="post" modelAttribute="checkoutRequest">
         <div class="row billing__content">
-            <form:form action="checkout" method="post" modelAttribute="checkoutRequest">
+
             <div class="col-lg-8">
                 <div class="billing__content-card">
                     <div class="billing__content-card-header">
@@ -178,7 +179,7 @@
                                     </div>
 
                                     <p class="bill-card__product-price font-body--md-500">
-                                            ${sanPham.thanhTien}
+                                            ${sanPham.donGia}
                                     </p>
                                 </div>
                                 </c:forEach>
@@ -220,8 +221,9 @@
                     </div>
                 </div>
             </div>
-            </form:form>
+
         </div>
+        </form:form>
     </div>
 </section>
 <jsp:include page="footer.jsp"></jsp:include>

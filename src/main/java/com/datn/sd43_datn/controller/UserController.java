@@ -59,6 +59,7 @@ public class UserController {
             model.addAttribute("sanPham",sanPhamService.getSanPhamHome());
             return "redirect:home";
         }
+        model.addAttribute("message", "Đăng nhập thất bại! Vui lòng thử lại.");
         return "Auth/login";
     }
     @GetMapping("/login")
@@ -81,13 +82,12 @@ public class UserController {
         return "redirect:login";
     }
     @GetMapping("checkout")
-    public String checkout(Model model,@RequestParam String spct,HttpServletRequest request) {
+    public String checkout(Model model,@RequestParam String spct1,HttpServletRequest request) {
         HttpSession session = request.getSession();
         KhachHang khachHang = (KhachHang) session.getAttribute("khachHang");
-        System.out.println(khachHang.getEmail());
-        System.out.println(spct);
+        System.out.println(spct1);
         CheckoutRequest checkoutRequest = new CheckoutRequest();
-        model.addAttribute("spCart",cartService.getListSanPhamCart(spct));
+        model.addAttribute("spCart",cartService.getListSanPhamCart(spct1));
         model.addAttribute("checkoutRequest",checkoutRequest);
         return "User/checkout";
     }

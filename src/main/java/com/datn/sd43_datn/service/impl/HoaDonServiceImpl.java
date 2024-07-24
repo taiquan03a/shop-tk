@@ -461,7 +461,7 @@ public class HoaDonServiceImpl implements HoaDonService {
             tongTienDonHang += hd.getThanhTien();
         }
 
-        thanhTien = tongTienDonHang - tienShip;
+        thanhTien = tongTienDonHang + tienShip;
         Date ngayHienTai = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
         String formattedDate = sdf.format(ngayHienTai);
