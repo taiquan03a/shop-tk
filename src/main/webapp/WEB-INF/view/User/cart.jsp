@@ -76,7 +76,7 @@
                                     <div class="counter-btn-wrapper">
                                         <button
                                                 class="counter-btn-dec counter-btn"
-                                                onclick="decrement()"
+                                                onclick="decrement(this, ${sanPham.sanPhamChiTiet.ID})"
                                         >
                                             -
                                         </button>
@@ -88,10 +88,11 @@
                                                 max="1000"
                                                 value="${sanPham.soLuong}"
                                                 placeholder="1"
+                                                onchange="updateProduct(this, ${sanPham.sanPhamChiTiet.ID})"
                                         />
                                         <button
                                                 class="counter-btn-inc counter-btn"
-                                                onclick="increment()"
+                                                onclick="increment(this, ${sanPham.sanPhamChiTiet.ID})"
                                         >
                                             +
                                         </button>
@@ -158,94 +159,6 @@
                     </form>
                 </div>
 
-                <div class="shoping-cart__mobile">
-                    <c:forEach var="sanPham" items="${spCart.hoaDonChiTietList}" varStatus="status">
-                    <div class="shoping-card">
-                        <div class="shoping-card__img-wrapper">
-                            <img
-                                    src="${pageContext.request.contextPath}/img/${sanPham.sanPhamChiTiet.anh.anh}"
-                                    alt="product-item"
-                            />
-                        </div>
-                        <h5 class="shoping-card__product-caption font-body--lg-400">
-                                ${sanPham.sanPhamChiTiet.sanPham.tenSanPham}
-                        </h5>
-
-                        <h6 class="shoping-card__product-price font-body--lg-400">
-                                ${sanPham.sanPhamChiTiet.giaBan} VNĐ
-                        </h6>
-
-                        <div class="counter-btn-wrapper">
-                            <button
-                                    class="counter-btn-dec counter-btn"
-                                    onclick="decrement()"
-                            >
-                                -
-                            </button>
-                            <input
-                                    type="number"
-                                    id="counter-btn-counter"
-                                    class="counter-btn-counter"
-                                    min="0"
-                                    max="1000"
-                                    value="${sanPham.soLuong}"
-                                    placeholder="0"
-                            />
-                            <button
-                                    class="counter-btn-inc counter-btn"
-                                    onclick="increment()"
-                            >
-                                +
-                            </button>
-                        </div>
-                        <h6 class="shoping-card__product-totalprice font-body--lg-600">
-                                ${sanPham.thanhTien} VNĐ
-                        </h6>
-                        <button class="close-btn">
-                            <svg
-                                    width="24"
-                                    height="24"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                        d="M12 23C18.0748 23 23 18.0748 23 12C23 5.92525 18.0748 1 12 1C5.92525 1 1 5.92525 1 12C1 18.0748 5.92525 23 12 23Z"
-                                        stroke="#CCCCCC"
-                                        stroke-miterlimit="10"
-                                />
-                                <path
-                                        d="M16 8L8 16"
-                                        stroke="#666666"
-                                        stroke-width="1.5"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                />
-                                <path
-                                        d="M16 16L8 8"
-                                        stroke="#666666"
-                                        stroke-width="1.5"
-                                        stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                />
-                            </svg>
-                        </button>
-                    </div>
-                    </c:forEach>
-                    <form action="#">
-                        <div class="cart-table-action-btn d-flex">
-                            <a
-                                    href="shop-01.html"
-                                    class="button button--md button--disable shop"
-                            >Return to Shop</a
-                            >
-                            <a href="#" class="button button--md button--disable update"
-                            >Update to Cart</a
-                            >
-                        </div>
-                    </form>
-                </div>
-
             </div>
 
             <div class="col-lg-4">
@@ -275,9 +188,9 @@
                                     <span class="font-body--xl-500">${spCart.tongTien} VNĐ</span>
                                 </div>
                             </div>
-                            <form:form action="checkout" method="get">
+                            <form:form action="/user/checkout" method="get">
 
-                                <input type="hidden" name="spct" value="{&quot;20&quot;:&quot;3&quot;,&quot;21&quot;:&quot;5&quot;}">
+                                <input type="hidden" name="spct1" id="spct1" value="">
                                 <button
                                         class="button button--lg w-100"
                                         style="margin-top: 20px"
@@ -294,4 +207,24 @@
     </div>
 </section>
 <jsp:include page="footer.jsp"></jsp:include>
+
+<script>
+    function increment(e, product_id) {
+        (e.parentNode.querySelector("input")).stepUp();
+        updateProduct(e.parentNode.querySelector("input"), product_id)
+    }
+
+    function decrement(e, product_id) {
+        (e.parentNode.querySelector("input")).stepDown();
+        updateProduct(e.parentNode.querySelector("input"), product_id)
+    }
+
+    function updateProduct(e, product_id){
+        var listProductSelected = JSON.parse(localStorage.getItem('product')) ?? {};
+        listProductSelected[product_id] = e.value
+        localStorage.setItem('product', JSON.stringify(listProductSelected));
+        document.getElementById('spct1').value = JSON.stringify(listProductSelected)
+        console.log(document.getElementById('spct').value)
+    }
+</script>
 
