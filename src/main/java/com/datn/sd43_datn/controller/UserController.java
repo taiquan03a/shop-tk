@@ -102,7 +102,7 @@ public class UserController {
         return "User/checkout";
     }
     @GetMapping("cart")
-    public String cart(Model model,@ModelAttribute("spCart") String spCart) {
+    public String cart(Model model,@RequestParam String spCart) {
         System.out.println(spCart);
         model.addAttribute("spCart",cartService.getListSanPhamCart(spCart));
         return "User/cart";
