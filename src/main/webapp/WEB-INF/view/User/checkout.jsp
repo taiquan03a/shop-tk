@@ -53,6 +53,7 @@
                                                 id="fname1"
                                                 name="tenKhachHang"
                                                 placeholder="Your full name"
+                                                value="${khachHang.tenKhachHang}"
                                         />
                                     </div>
                                 </div>
@@ -63,6 +64,7 @@
                                             type="text"
                                             id="address"
                                             name="soNha"
+                                            value="${diaChi.soNha}"
                                             placeholder="Your Address"
                                     />
                                 </div>
@@ -103,6 +105,7 @@
                                                 type="text"
                                                 id="email"
                                                 name="email"
+                                                value="${khachHang.email}"
                                                 placeholder="Email Address"
                                         />
                                     </div>
@@ -112,6 +115,7 @@
                                                 type="number"
                                                 id="phone"
                                                 name="sdt"
+                                                value="${khachHang.sdt}"
                                                 placeholder="Phone number"
                                         />
                                     </div>

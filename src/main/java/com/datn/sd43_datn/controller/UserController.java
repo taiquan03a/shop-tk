@@ -5,6 +5,7 @@ import com.datn.sd43_datn.entity.HoaDonChiTiet;
 import com.datn.sd43_datn.entity.KhachHang;
 import com.datn.sd43_datn.entity.SanPham;
 import com.datn.sd43_datn.entity.SanPhamChiTiet;
+import com.datn.sd43_datn.repository.DiaChiRepository;
 import com.datn.sd43_datn.request.CheckoutRequest;
 import com.datn.sd43_datn.request.TaoKhachHangRequest;
 import com.datn.sd43_datn.service.*;
@@ -31,6 +32,8 @@ public class UserController {
     private CartService cartService;
     @Autowired
     private HoaDonService hoaDonService;
+    @Autowired
+    private DiaChiRepository diaChiRepository;
 
     @GetMapping("/home")
     public String home(Model model,HttpServletRequest request) {
@@ -89,6 +92,10 @@ public class UserController {
         KhachHang khachHang = (KhachHang) session.getAttribute("khachHang");
         System.out.println(spct1);
         CheckoutRequest checkoutRequest = new CheckoutRequest();
+        if(khachHang != null) {
+            model.addAttribute("khachHang", khachHang);
+            model.addAttribute("diaChi",diaChiRepository.findDiaChisByKhachHang(khachHang).get(0));
+        }
         model.addAttribute("spCart",cartService.getListSanPhamCart(spct1));
         model.addAttribute("checkoutRequest",checkoutRequest);
         return "User/checkout";

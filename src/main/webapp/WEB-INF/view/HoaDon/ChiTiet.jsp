@@ -164,7 +164,7 @@
                     </div>
                     <div class="mt-4 d-flex justify-content-between w-100 row">
                         <div class="col-4" ><b>SĐT nguười nhận:</b> ${detail.sdt}</div>
-                        <div class="col-4"><b>Tên người nhận:</b> ${detail.tenKH}</div>
+                        <div class="col-4"><b>Tên người nhận:</b> ${detail.tenNguoiNhan}</div>
                         <div class="col-4"><b>Hình thức thanh toán:</b> ${detail.hinhThucThanhToan}</div>
                     </div>
                     <div class="mt-4 d-flex justify-content-between w-100 row">

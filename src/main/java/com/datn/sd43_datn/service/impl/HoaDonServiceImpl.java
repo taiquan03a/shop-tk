@@ -38,8 +38,9 @@ public class HoaDonServiceImpl implements HoaDonService {
             long tongSl = 0,tongTien = 0;
             for(HoaDonChiTiet hoaDonChiTiet : hoaDonChiTietRepository.findHoaDonChiTietsByHoaDon(hoaDon)){
                 tongSl += hoaDonChiTiet.getSoLuong();
-                tongTien += hoaDonChiTiet.getThanhTien();
+
             }
+            tongTien = hoaDon.getThanhTien();
             String ngayTao = formattedDate.format(hoaDon.getNgayTao());
             HoaDonRequest hoaDonRequest = HoaDonRequest.builder()
                     .ID(hoaDon.getID())
@@ -89,7 +90,7 @@ public class HoaDonServiceImpl implements HoaDonService {
                 .maHoaDon(hoaDon.getMaHoaDon())
                 .tenKH(hoaDon.getKhachHang().getTenKhachHang())
                 .sdt(hoaDon.getSdtNguoiNhan())
-                .tenNguoiNhan(hoaDon.getKhachHang().getTenKhachHang())
+                .tenNguoiNhan(hoaDon.getNguoiThanhToan())
                 .trangThai(hoaDon.getTrangThaiDon().getTenTrangThai())
 //                .trangThaiDonList(trangThaiDonList)
                 .timeLineDTOList(timeLineDTOList)
@@ -155,7 +156,7 @@ public class HoaDonServiceImpl implements HoaDonService {
                 .tenKH(hoaDon.getKhachHang().getTenKhachHang())
                 .sdt(hoaDon.getSdtNguoiNhan())
                 .timeLineDTOList(timeLineDTOList)
-                .tenNguoiNhan(hoaDon.getKhachHang().getTenKhachHang())
+                .tenNguoiNhan(hoaDon.getNguoiThanhToan())
                 .trangThai(hoaDon.getTrangThaiDon().getTenTrangThai())
                 .trangThaiDonList(trangThaiDonList)
                 .trangThaiDon(trangThaiDonRepository.findById(idTrangThai).get())
@@ -245,7 +246,7 @@ public class HoaDonServiceImpl implements HoaDonService {
                 .maHoaDon(hoaDon.getMaHoaDon())
                 .tenKH(hoaDon.getKhachHang().getTenKhachHang())
                 .sdt(hoaDon.getSdtNguoiNhan())
-                .tenNguoiNhan(hoaDon.getKhachHang().getTenKhachHang())
+                .tenNguoiNhan(hoaDon.getNguoiThanhToan())
                 .trangThai(hoaDon.getTrangThaiDon().getTenTrangThai())
 //                .trangThaiDonList(trangThaiDonList)
                 .timeLineDTOList(timeLineDTOList)
@@ -358,7 +359,7 @@ public class HoaDonServiceImpl implements HoaDonService {
         }
 
         long tongTienDonHang = 0;
-        float tienGiamGia = 0, thanhTien = 0;
+        long tienGiamGia = 0, thanhTien = 0;
         for (HoaDonChiTiet hd : hoaDonChiTietList) {
             tongTienDonHang += hd.getThanhTien();
         }
@@ -379,7 +380,7 @@ public class HoaDonServiceImpl implements HoaDonService {
                 .khachHang(khachHang)
                 .ngayTao(ngayHienTai)
                 .nguoiTao(nhanVien.getHoTen())
-                .tongTienDonHang((float) tongTienDonHang)
+                .tongTienDonHang(tongTienDonHang)
                 .tienGiamGia(tienGiamGia)
                 .thanhTien((thanhTien))
                 .hinhThucThanhToan(hinhThuc)
@@ -467,32 +468,39 @@ public class HoaDonServiceImpl implements HoaDonService {
         String formattedDate = sdf.format(ngayHienTai);
         TrangThaiHoaDon trangThaiDon = trangThaiDonRepository.findById(1L).get();
         KhachHang khachHangCheck = new KhachHang();
-        DiaChi diaChi = DiaChi.builder()
-                .soNha(checkoutRequest.getSoNha())
-                .idPhuong(checkoutRequest.getIdPhuong())
-                .build();
+        DiaChi diaChi = new DiaChi();
         if(khachHang != null){
             khachHangCheck = khachHang;
+            if(checkoutRequest.getIdDiaChi() != 0) diaChi = diaChiRepository.findById(checkoutRequest.getIdDiaChi()).get();
+            else {
+                diaChi.setKhachHang(khachHangCheck);
+                diaChi.setTrangThai("true");
+                diaChi.setIdPhuong(checkoutRequest.getIdPhuong());
+                diaChi.setSoNha(checkoutRequest.getSoNha());
+                diaChiRepository.save(diaChi);
+            }
         }else {
             khachHangCheck.setKieuKhachHang(true);
+            //khachHangCheck.setEmail(checkoutRequest.getEmail());
+            khachHangCheck.setNgayTao(new Date(System.currentTimeMillis()));
+            khachHangCheck.setGioiTinh(true);
+            khachHangCheck.setTenKhachHang("Ẩn danh");
             diaChi.setGhiChu("địa chỉ của khách hàng ẩn danh");
+            khachHangCheck.setSdt(checkoutRequest.getSdt());
+            khachHangRepository.save(khachHangCheck);
+            diaChi.setKhachHang(khachHangCheck);
+            diaChiRepository.save(diaChi);
         }
-
-        khachHangCheck.setTenKhachHang(checkoutRequest.getTenKhachHang());
-        khachHangCheck.setSdt(checkoutRequest.getSdt());
-        //khachHangCheck.setEmail(checkoutRequest.getEmail());
-        khachHangRepository.save(khachHangCheck);
-        diaChi.setKhachHang(khachHangCheck);
-        diaChiRepository.save(diaChi);
         HoaDon hoaDon = HoaDon.builder()
                 .khachHang(khachHangCheck)
                 .ngayTao(ngayHienTai)
                 .nguoiTao(null)
-                .tongTienDonHang((float) tongTienDonHang)
-                .tienGiamGia(0F)
-                .thanhTien(Float.valueOf(thanhTien))
+                .nguoiThanhToan(checkoutRequest.getTenKhachHang())
+                .tongTienDonHang(tongTienDonHang)
+                .tienGiamGia(0L)
+                .thanhTien(thanhTien)
                 .hinhThucThanhToan("Thanh toán khi nhận được hàng")
-                .loaiHoaDon(true)
+                .loaiHoaDon(false)
                 .phiVanChuyen(tienShip)
                 .diaCHiGiaoHang(null)
                 .thoiGianGiaoHang(null)
@@ -531,8 +539,8 @@ public class HoaDonServiceImpl implements HoaDonService {
             long tongSl = 0,tongTien = 0;
             for(HoaDonChiTiet hoaDonChiTiet : hoaDonChiTietRepository.findHoaDonChiTietsByHoaDon(hoaDon)){
                 tongSl += hoaDonChiTiet.getSoLuong();
-                tongTien += hoaDonChiTiet.getThanhTien();
             }
+            tongTien = hoaDon.getThanhTien();
             String ngayTao = formattedDate.format(hoaDon.getNgayTao());
             HoaDonRequest hoaDonRequest = HoaDonRequest.builder()
                     .ID(hoaDon.getID())

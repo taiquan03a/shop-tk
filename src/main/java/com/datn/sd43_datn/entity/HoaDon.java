@@ -29,11 +29,11 @@ public class HoaDon {
     @Column(name = "nguoi_cap_nhat")
     private String nguoiCapNhat;
     @Column(name = "tong_tien_don_hang")
-    private Float tongTienDonHang;
+    private Long tongTienDonHang;
     @Column(name = "tien_giam_gia")
-    private Float tienGiamGia;
+    private Long tienGiamGia;
     @Column(name = "thanh_tien")
-    private Float thanhTien;
+    private Long thanhTien;
     @Column(name = "hinh_thuc_thanh_toan")
     private String hinhThucThanhToan;
     @Column(name = "loai_hoa_don")
