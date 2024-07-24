@@ -87,7 +87,7 @@
                         <data class="nav-action-badge cart-count" value="4" aria-hidden="true">4</data>
                     </button>
                 </li>
-                <form:form action="/user/home1" id="carttt" cssStyle="display: none">
+                <form:form action="/user/cart" id="carttt" method="get" cssStyle="display: none">
                     <input type="text" id="spct">
                 </form:form>
             </ul>
