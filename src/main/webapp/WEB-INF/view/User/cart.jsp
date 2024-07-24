@@ -108,7 +108,7 @@
                           "
                                     >
                                         <p class="font-body--md-500 gia" id="subtotal${sanPham.sanPhamChiTiet.ID}">${sanPham.thanhTien} VNĐ</p>
-                                        <button class="delete-item">
+                                        <button class="delete-item" onclick="deleteItem(this, ${sanPham.sanPhamChiTiet.ID}, ${sanPham.sanPhamChiTiet.giaBan})">
                                             <svg
                                                     width="24"
                                                     height="25"
@@ -228,7 +228,24 @@
         var tong = 0
         document.querySelectorAll('.gia').forEach(e => tong += parseInt(e.textContent.split(' ')[0]))
         document.getElementById('subtotall').innerHTML = tong + ' VNĐ'
-        document.getElementById('final-total').innerHTML = tong - 15000 + ' VNĐ'
+        document.getElementById('final-total').innerHTML = tong - 15000  + ' VNĐ'
+    }
+
+    function deleteItem(e, product_id, price) {
+        if(confirm("Bạn có muốn xóa sản phẩm này?")){
+            var trNode = e.parentNode.parentNode.parentNode
+            trNode.remove()
+            var listProductSelected = JSON.parse(localStorage.getItem('product')) ?? {};
+
+            if (listProductSelected.hasOwnProperty(product_id)) {
+                delete listProductSelected[product_id];
+            }
+            localStorage.setItem('product', JSON.stringify(listProductSelected));
+            var tong = 0
+            document.querySelectorAll('.gia').forEach(e => tong += parseInt(e.textContent.split(' ')[0]))
+            document.getElementById('subtotall').innerHTML = tong + ' VNĐ'
+            document.getElementById('final-total').innerHTML = (tong - 15000) > 0 ? (tong - 15000) : 0  + ' VNĐ'
+        }
     }
 </script>
 
