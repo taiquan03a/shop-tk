@@ -209,6 +209,8 @@
 <jsp:include page="footer.jsp"></jsp:include>
 
 <script>
+    var listProductSelected = JSON.parse(localStorage.getItem('product')) ?? {};
+    document.getElementById('spct1').value = JSON.stringify(listProductSelected)
     function increment(e, product_id, price) {
         (e.parentNode.querySelector("input")).stepUp();
         updateProduct(e.parentNode.querySelector("input"), product_id, price)
