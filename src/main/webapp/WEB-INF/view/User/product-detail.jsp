@@ -144,6 +144,7 @@
                 </div>
                 <div class="row gap-4">
                     <select name="" class="col-8" onchange="checkPrice()" id="sanpham">
+                        <option value="0">Chọn sản phẩm</option>
                         <c:forEach items="${spct}" var="spct">
                             <option value="${spct.ID} ${spct.giaBan} ${spct.anh.anh}">${spct.mauSac.tenMauSac} - ${spct.chatLieu.tenChatLieu} -
                                     ${spct.thuongHieu.tenThuongHieu} - ${spct.kichCo.tenKichCo} - ${spct.dangAo.tenKieuDangAo} -
@@ -158,7 +159,7 @@
                             <button class="counter-btn-dec counter-btn" onclick="decrement()">
                                 -
                             </button>
-                            <input type="number" id="counter-btn-counter" class="counter-btn-counter" min="1" max="1000" placeholder="1 " />
+                            <input type="number" id="counter-btn-counter" class="counter-btn-counter" min="1" max="1000" value="1" />
                             <button class="counter-btn-inc counter-btn" onclick="increment()">
                                 +
                             </button>
@@ -187,18 +188,26 @@
     var product_id = 0
     function checkPrice() {
         var lt = (document.getElementById('sanpham').value).split(' ')
-        document.getElementById('price').innerHTML = lt[1] + " VNĐ"
-        document.getElementById("main-img").src = "/img/" + lt[2]
-        product_id = lt[0]
+        console.log(lt)
+        if(lt.length > 2){
+            document.getElementById('price').innerHTML = lt[1] + " VNĐ"
+            document.getElementById("main-img").src = "/img/" + lt[2]
+            product_id = lt[0]
+        }
+
 
     }
     function addToCart(){
-        var listProductSelected = JSON.parse(localStorage.getItem('product')) ?? {};
-        listProductSelected[product_id] = document.getElementById('counter-btn-counter').value
+        if(product_id > 0){
+            var listProductSelected = JSON.parse(localStorage.getItem('product')) ?? {};
+            listProductSelected[product_id] = document.getElementById('counter-btn-counter').value
+            localStorage.setItem('product', JSON.stringify(listProductSelected));
+            alert("Thêm sản phẩm vào giỏ hàng thành công!")
+            location.href = "/user/home"
+        }else{
+            alert("Vui lòng chọn sản phẩm!")
+        }
 
-        localStorage.setItem('product', JSON.stringify(listProductSelected));
-        alert("Thêm sản phẩm vào giỏ hàng thành công!")
-        location.href = "/user/home"
     }
 
 
