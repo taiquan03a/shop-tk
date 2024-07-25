@@ -91,11 +91,6 @@
 </header>
 
 <script>
-    if ( ${khachHang.ID}) {
-        document.querySelector('.avatar').style.display = 'block';
-        document.querySelector('.logout').style.display = 'none ';
-    }
-
     var dataElement = document.querySelector('.cart-count');
 
     var listProductSelected = JSON.parse(localStorage.getItem('product')) ?? {};
@@ -107,5 +102,13 @@
         var listProductSelected = localStorage.getItem('product') ?? {}
         document.getElementById('spct').value = listProductSelected
         document.getElementById('carttt').submit()
+    }
+</script>
+
+<script>
+    var check = ${khachHang.ID} ? true : false
+    if (check) {
+        document.querySelector('.avatar').style.display = 'block';
+        document.querySelector('.logout').style.display = 'none ';
     }
 </script>
