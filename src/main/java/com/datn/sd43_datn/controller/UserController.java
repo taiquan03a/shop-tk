@@ -94,7 +94,7 @@ public class UserController {
         CheckoutRequest checkoutRequest = new CheckoutRequest();
         if(khachHang != null) {
             model.addAttribute("khachHang", khachHang);
-            model.addAttribute("diaChi",diaChiRepository.findDiaChisByKhachHang(khachHang).get(0));
+            model.addAttribute("diaChi",diaChiRepository.findDiaChisByKhachHang(khachHang));
         }
         model.addAttribute("spCart",cartService.getListSanPhamCart(spct1));
         model.addAttribute("checkoutRequest",checkoutRequest);
