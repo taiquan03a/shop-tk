@@ -147,7 +147,7 @@
                             </a>
                         </li>
                         <!--  Log out    -->
-                        <li class="dashboard__nav-item-link">
+                        <li onclick="logout()" class="dashboard__nav-item-link">
                             <a href="#" class="font-body--lg-400">
                     <span class="icon">
                       <svg
@@ -315,70 +315,12 @@
     }
 </style>
 <script>
-    $.ajax({
-        url: 'https://esgoo.net/api-tinhthanh/1/0.htm',
-        method: 'GET',
-        dataType: 'json',
-        success: function (data) {
-            var $province = $('#thanhPho');
-            $province.append('<option value="">Chọn tỉnh Tỉnh/Thành phố </option>');
-            $.each(data['data'], function (index, value) {
-                $province.append('<option value="' + value.id + '">' + value.name  + '</option>');
-            });
-        },
-        error: function () {
-            alert('Không thể lấy dữ liệu tỉnh thành.');
+    function logout(){
+        if(confirm("Bạn có muốn đăng xuất?")){
+            localStorage.clear()
+            location.href = '/user/logout'
         }
-    });
-
-    function populateDistricts(provinceId) {
-        var $huyen = $('#huyen');
-        $huyen.empty();
-        $.ajax({
-            url: 'https://esgoo.net/api-tinhthanh/2/' + provinceId + '.htm',
-            method: 'GET',
-            dataType: 'json',
-            success: function (data) {
-                $huyen.append('<option value="">Chọn Quận/Huyện </option>');
-                $.each(data['data'], function (index, value) {
-                    $huyen.append('<option value="' + value.id + '">' + value.name + '</option>');
-                });
-            },
-            error: function () {
-                alert('Không thể lấy dữ liệu huyện.');
-            }
-        });
     }
-
-    function populateWards(districtId) {
-        var $xa = $('#xa');
-        $xa.empty();
-        $.ajax({
-            url: 'https://esgoo.net/api-tinhthanh/3/' + districtId + '.htm',
-            method: 'GET',
-            dataType: 'json',
-            success: function (data) {
-                $xa.append('<option value="">Xã/Phường </option>');
-                $.each(data['data'], function (index, value) {
-                    $xa.append('<option value="' + value.id + '">' + value.name + '</option>');
-                });
-            },
-            error: function () {
-                alert('Không thể lấy dữ liệu xã.');
-            }
-        });
-    }
-
-    $('#thanhPho').on('change', function () {
-        var selectedProvinceId = $(this).val();
-        populateDistricts(selectedProvinceId);
-    });
-
-    $('#huyen').on('change', function () {
-        var selectedDistrictId = $(this).val();
-        populateWards(selectedDistrictId);
-    });
-
 </script>
 
 

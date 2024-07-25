@@ -2,7 +2,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 <header class="header" data-header>
     <div class="container">
 
@@ -50,24 +50,7 @@
 
             </ul>
 
-            <ul class="nav-action-list">
-
-                <li>
-                    <button class="nav-action-btn">
-                        <ion-icon name="search-outline" aria-hidden="true"></ion-icon>
-
-                        <span class="nav-action-text">Tìm kiếm</span>
-                    </button>
-                </li>
-
-                <li>
-                    <a href="/user/logout" class="nav-action-btn">
-                        <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
-
-                        <span class="nav-action-text">Đăng nhập</span>
-                    </a>
-                </li>
-
+            <ul class="nav-action-list" style="align-items: center">
                 <li>
                     <button class="nav-action-btn">
                         <ion-icon name="heart-outline" aria-hidden="true"></ion-icon>
@@ -87,6 +70,16 @@
                         <data class="nav-action-badge cart-count" value="4" aria-hidden="true">4</data>
                     </button>
                 </li>
+                <li class="logout">
+                    <a href="/user/logout" class="nav-action-btn">
+                        <i style="font-size: 22px" class="fa-solid fa-right-to-bracket"></i>
+                    </a>
+                </li>
+                <li class="avatar" style="display: none">
+                    <a href="" class="nav-action-btn">
+                        <img src="/img/logo.jpg" style="width: 60px; height: 60px; border-radius: 100%">
+                    </a>
+                </li>
                 <form:form action="/user/cart" id="carttt" method="get" cssStyle="display: none">
                     <input type="text" id="spct" name="spCart">
                 </form:form>
@@ -98,6 +91,11 @@
 </header>
 
 <script>
+    if ( ${khachHang.ID}) {
+        document.querySelector('.avatar').style.display = 'block';
+        document.querySelector('.logout').style.display = 'none ';
+    }
+
     var dataElement = document.querySelector('.cart-count');
 
     var listProductSelected = JSON.parse(localStorage.getItem('product')) ?? {};
