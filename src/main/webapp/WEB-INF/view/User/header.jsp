@@ -3,13 +3,13 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-<header class="header" data-header>
+<header class="header" data-header style="    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);">
     <div class="container">
 
         <div class="overlay" data-overlay></div>
 
         <a href="#" class="logo">
-            <img src="/img/logo.jpg" width="60" height="60" alt="Footcap logo">
+            <img src="/img/logo.jpg" width="80" height="80" alt="Footcap logo">
         </a>
 
         <button class="nav-open-btn" data-nav-open-btn aria-label="Open Menu">
