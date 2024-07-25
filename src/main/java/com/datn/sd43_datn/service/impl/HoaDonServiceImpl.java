@@ -471,7 +471,8 @@ public class HoaDonServiceImpl implements HoaDonService {
         DiaChi diaChi = new DiaChi();
         if(khachHang != null){
             khachHangCheck = khachHang;
-            if(checkoutRequest.getIdDiaChi() != 0) diaChi = diaChiRepository.findById(checkoutRequest.getIdDiaChi()).get();
+            long idDc = Long.valueOf(checkoutRequest.getIdDiaChi().split(" ")[0]);
+            if(idDc != 0) diaChi = diaChiRepository.findById(idDc).get();
             else {
                 diaChi.setKhachHang(khachHangCheck);
                 diaChi.setTrangThai("true");

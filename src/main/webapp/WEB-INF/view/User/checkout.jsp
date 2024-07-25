@@ -80,7 +80,7 @@
                                     </div>
                                     <input type="hidden" name="spct" value="${spCart.spct}">
                                 </div>
-                                <select class="mt-4 w-50" style="float: right" onchange="getAddress(this)" name="address" id="diachi">
+                                <select class="mt-4 w-50" style="float: right" onchange="getAddress(this)" name="idDiaChi" id="diachi">
                                     <option value="0"> Chọn địa chỉ</option>
                                 </select>
                                 <div class="contact-form__content-group">

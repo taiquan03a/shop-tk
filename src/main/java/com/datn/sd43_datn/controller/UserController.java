@@ -104,6 +104,7 @@ public class UserController {
     public String chechoutPost(Model model,@ModelAttribute("checkoutRequest") CheckoutRequest checkoutRequest,HttpServletRequest request) {
         HttpSession session = request.getSession();
         KhachHang khachHang = (KhachHang) session.getAttribute("khachHang");
+        System.out.println(checkoutRequest);
         hoaDonService.checkout(khachHang,checkoutRequest);
         System.out.println(checkoutRequest);
         return "User/checkout";

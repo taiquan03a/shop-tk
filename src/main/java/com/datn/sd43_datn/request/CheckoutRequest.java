@@ -19,5 +19,5 @@ public class CheckoutRequest {
     private String idPhuong;
     private String soNha;
     private String spct;
-    private long idDiaChi;
+    private String idDiaChi;
 }
