@@ -121,21 +121,6 @@
                                     </div>
                                     <input type="hidden" name="spct" value="${spCart.spct}">
                                 </div>
-
-                                <div class="form-check">
-                                    <input
-                                            class="form-check-input"
-                                            type="checkbox"
-                                            value=""
-                                            id="remember"
-                                    />
-                                    <label
-                                            class="form-check-label font-body--md-400"
-                                            for="remember"
-                                    >
-                                        Ship to a different address
-                                    </label>
-                                </div>
                             </div>
 
                     </div>
@@ -241,6 +226,7 @@
     }
 </style>
 <script>
+    getName(${diaChi.idPhuong})
     $.ajax({
         url: 'https://esgoo.net/api-tinhthanh/1/0.htm',
         method: 'GET',
@@ -298,12 +284,50 @@
     $('#thanhPho').on('change', function () {
         var selectedProvinceId = $(this).val();
         populateDistricts(selectedProvinceId);
+
     });
 
     $('#huyen').on('change', function () {
         var selectedDistrictId = $(this).val();
         populateWards(selectedDistrictId);
     });
+
+    function getName(wardId) {
+        $.ajax({
+            url: 'https://esgoo.net/api-tinhthanh/5/' + wardId + '.htm',
+            method: 'GET',
+            dataType: 'json',
+            success: async function (data) {
+                console.log(data['data']);
+                $('#thanhPho').val(data['data'].tinh);
+                populateDistricts(data['data'].tinh);
+                populateWards(data['data'].quan);
+                getName2(wardId)
+            },
+            error: function () {
+                alert('Không thể lấy dữ liệu xã.');
+            }
+        });
+    }
+
+    function getName2(wardId) {
+        $.ajax({
+            url: 'https://esgoo.net/api-tinhthanh/5/' + wardId + '.htm',
+            method: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                $('#thanhPho').val(data['data'].tinh);
+                $('#huyen').val(data['data'].quan);
+                $('#xa').val(wardId);
+            },
+            error: function () {
+                alert('Không thể lấy dữ liệu xã.');
+            }
+        });
+    }
+
+
+
 
 </script>
 
