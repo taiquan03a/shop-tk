@@ -57,18 +57,32 @@
                                         />
                                     </div>
                                 </div>
-
-                                <div class="contact-form-input">
-                                    <label for="address">Street Address </label>
-                                    <input
-                                            type="text"
-                                            id="address"
-                                            name="soNha"
-                                            value="${diaChi.soNha}"
-                                            placeholder="Your Address"
-                                    />
+                                <div class="contact-form__content-group">
+                                    <div class="contact-form-input">
+                                        <label for="email"> email </label>
+                                        <input
+                                                type="text"
+                                                id="email"
+                                                name="email"
+                                                value="${khachHang.email}"
+                                                placeholder="Email Address"
+                                        />
+                                    </div>
+                                    <div class="contact-form-input">
+                                        <label for="phone"> Phone </label>
+                                        <input
+                                                type="number"
+                                                id="phone"
+                                                name="sdt"
+                                                value="${khachHang.sdt}"
+                                                placeholder="Phone number"
+                                        />
+                                    </div>
+                                    <input type="hidden" name="spct" value="${spCart.spct}">
                                 </div>
-
+                                <select class="mt-4 w-50" style="float: right" onchange="getAddress(this)" name="address" id="diachi">
+                                    <option value="0"> Chọn địa chỉ</option>
+                                </select>
                                 <div class="contact-form__content-group">
                                     <!-- Country -->
                                     <div class="contact-form-input">
@@ -98,29 +112,17 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="contact-form__content-group">
-                                    <div class="contact-form-input">
-                                        <label for="email"> email </label>
-                                        <input
-                                                type="text"
-                                                id="email"
-                                                name="email"
-                                                value="${khachHang.email}"
-                                                placeholder="Email Address"
-                                        />
-                                    </div>
-                                    <div class="contact-form-input">
-                                        <label for="phone"> Phone </label>
-                                        <input
-                                                type="number"
-                                                id="phone"
-                                                name="sdt"
-                                                value="${khachHang.sdt}"
-                                                placeholder="Phone number"
-                                        />
-                                    </div>
-                                    <input type="hidden" name="spct" value="${spCart.spct}">
+                                <div class="contact-form-input">
+                                    <label for="address">Street Address </label>
+                                    <input
+                                            type="text"
+                                            id="address"
+                                            name="soNha"
+                                            value=""
+                                            placeholder="Your Address"
+                                    />
                                 </div>
+
                             </div>
 
                     </div>
@@ -226,7 +228,10 @@
     }
 </style>
 <script>
-    getName(${diaChi.idPhuong})
+    <c:forEach var="dc" items="${diaChi}" varStatus="status">
+        $('#diachi').append('<option id="${dc.ID}" value="${dc.ID} ${dc.idPhuong}"></option>');
+        getDetailAddress('${dc.ID}', '${dc.idPhuong}', ${dc.soNha})
+    </c:forEach>
     $.ajax({
         url: 'https://esgoo.net/api-tinhthanh/1/0.htm',
         method: 'GET',
@@ -243,6 +248,11 @@
         }
     });
 
+    function getAddress(e){
+        var wardId = e.value.split(' ')[1]
+        getName(wardId, e.selectedOptions[0].textContent.split(' ')[0])
+    }
+
     function populateDistricts(provinceId) {
         var $huyen = $('#huyen');
         $huyen.empty();
@@ -258,6 +268,20 @@
             },
             error: function () {
                 alert('Không thể lấy dữ liệu huyện.');
+            }
+        });
+    }
+
+    function getDetailAddress(id, wardId, soNha){
+        $.ajax({
+            url: 'https://esgoo.net/api-tinhthanh/5/' + wardId + '.htm',
+            method: 'GET',
+            dataType: 'json',
+            success: async function (data) {
+                $('#'+id).text(soNha + ' ' + data['data'].name)
+            },
+            error: function () {
+                alert('Không thể lấy dữ liệu xã.');
             }
         });
     }
@@ -292,17 +316,16 @@
         populateWards(selectedDistrictId);
     });
 
-    function getName(wardId) {
+    function getName(wardId, address) {
         $.ajax({
             url: 'https://esgoo.net/api-tinhthanh/5/' + wardId + '.htm',
             method: 'GET',
             dataType: 'json',
             success: async function (data) {
-                console.log(data['data']);
                 $('#thanhPho').val(data['data'].tinh);
                 populateDistricts(data['data'].tinh);
                 populateWards(data['data'].quan);
-                getName2(wardId)
+                getName2(wardId, address)
             },
             error: function () {
                 alert('Không thể lấy dữ liệu xã.');
@@ -310,7 +333,7 @@
         });
     }
 
-    function getName2(wardId) {
+    function getName2(wardId, address) {
         $.ajax({
             url: 'https://esgoo.net/api-tinhthanh/5/' + wardId + '.htm',
             method: 'GET',
@@ -319,16 +342,13 @@
                 $('#thanhPho').val(data['data'].tinh);
                 $('#huyen').val(data['data'].quan);
                 $('#xa').val(wardId);
+                $('#address').val(address)
             },
             error: function () {
                 alert('Không thể lấy dữ liệu xã.');
             }
         });
     }
-
-
-
-
 </script>
 
 
