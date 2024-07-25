@@ -76,9 +76,7 @@
                     </a>
                 </li>
                 <li class="avatar" style="display: none">
-                    <a href="" class="nav-action-btn">
-                        <img src="/img/logo.jpg" style="width: 60px; height: 60px; border-radius: 100%">
-                    </a>
+                    <h5>${khachHang.email}</h5>
                 </li>
                 <form:form action="/user/cart" id="carttt" method="get" cssStyle="display: none">
                     <input type="text" id="spct" name="spCart">
