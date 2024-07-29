@@ -5,6 +5,7 @@ import com.datn.sd43_datn.entity.SanPham;
 import com.datn.sd43_datn.entity.SanPhamChiTiet;
 import com.datn.sd43_datn.repository.SanPhamChiTietRepository;
 import com.datn.sd43_datn.repository.SanPhamRepository;
+import com.datn.sd43_datn.request.FilterRequest;
 import com.datn.sd43_datn.service.SanPhamService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -127,16 +128,20 @@ public class SanPhamServiceImpl implements SanPhamService {
     }
 
     @Override
-    public List<SanPhamHomeDto> filter(String sort, String keyword) {
+    public List<SanPhamHomeDto> filter(FilterRequest filterRequest) {
         List<SanPham> sanPhams = sanPhamRepository.findAll();
         List<SanPhamHomeDto> sanPhamHomeDtos = new ArrayList<>();
-        String searchLowerCase = keyword != null ? keyword.toLowerCase() : null;
+        String searchLowerCase = filterRequest.getKeyword() != null ? filterRequest.getKeyword().toLowerCase() : null;
         for (SanPham sanPham : sanPhams) {
             boolean matchesSearch = (searchLowerCase == null) ||
                     sanPham.getTenSanPham().toLowerCase().contains(searchLowerCase);
             if(matchesSearch){
                 SanPhamChiTiet sanPhamChiTiet = sanPhamChiTietRepository.findBySanPham(sanPham);
-                if(sanPhamChiTiet != null) {
+                List<SanPhamChiTiet> sanPhamChiTietTT = sanPhamChiTietRepository.findAllByFilter(
+                        filterRequest.getIdMauSac(),filterRequest.getIdThuongHieu(),filterRequest.getIdTayAo(),filterRequest.getIdKichCo(),
+                        filterRequest.getIdHoaTiet(),filterRequest.getIdDangAo(),filterRequest.getIdChatLieu(),filterRequest.getIdCoAo(),sanPham
+                ) ;
+                if(sanPhamChiTiet != null && !sanPhamChiTietTT.isEmpty()) {
                     SanPhamHomeDto sanPhamHomeDto = SanPhamHomeDto.builder()
                             .ID(sanPham.getID())
                             .tenSanPham(sanPham.getTenSanPham())
@@ -147,10 +152,9 @@ public class SanPhamServiceImpl implements SanPhamService {
                 }
             }
         }
-        System.out.println(sort);
-        if(sort.equals("0")) {
+        if(filterRequest.getSort().equals("0")) {
             sanPhamHomeDtos.sort(Comparator.comparingLong(SanPhamHomeDto::getGiaBan));
-        }else if(sort.equals("1")) {
+        }else if(filterRequest.getSort().equals("1")) {
             sanPhamHomeDtos.sort(Comparator.comparingLong(SanPhamHomeDto::getGiaBan).reversed());
         }
         return sanPhamHomeDtos;

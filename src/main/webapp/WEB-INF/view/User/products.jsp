@@ -38,7 +38,7 @@
         <div class="header__center">
             <div class="container">
                 <div class="header__center-content d-flex justify-content-center">
-                    <form action="filter">
+                    <form:form action="filter" modelAttribute="filterRequest" method="get">
                         <div class="header__input-form">
 
                             <input type="text" name="keyword" placeholder="Search" />
@@ -54,6 +54,54 @@
                                             <path d="M17.4999 18L13.8749 14.375" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                         </svg>
                             </span>
+                            <select name="idMauSac">
+                                <option value="">Mau sac</option>
+                                <c:forEach items="${mauSac}" var="mauSac">
+                                    <option value="${mauSac.ID}">${mauSac.tenMauSac}</option>
+                                </c:forEach>
+                            </select>
+                            <select name="idChatLieu">
+                                <option value="">Chat lieu</option>
+                                <c:forEach items="${chatLieu}" var="chatLieu">
+                                    <option value="${chatLieu.ID}">${chatLieu.tenChatLieu}</option>
+                                </c:forEach>
+                            </select>
+                            <select name="idThuongHieu">
+                                <option value="">Thuong hieu</option>
+                                <c:forEach items="${thuongHieu}" var="thuongHieu">
+                                    <option value="${thuongHieu.ID}">${thuongHieu.tenThuongHieu}</option>
+                                </c:forEach>
+                            </select>
+                            <select name="idKichCo">
+                                <option value="">Kich co</option>
+                                <c:forEach items="${kichCo}" var="kichCo">
+                                    <option value="${kichCo.ID}">${kichCo.tenKichCo}</option>
+                                </c:forEach>
+                            </select>
+                            <select name="idDangAo">
+                                <option value="">Dang ao</option>
+                                <c:forEach items="${dangAo}" var="dangAo">
+                                    <option value="${dangAo.ID}">${dangAo.tenKieuDangAo}</option>
+                                </c:forEach>
+                            </select>
+                            <select name="idCoAo">
+                                <option value="">Co Ao</option>
+                                <c:forEach items="${coAo}" var="coAo">
+                                    <option value="${coAo.ID}">${coAo.tenLoaiCoAo}</option>
+                                </c:forEach>
+                            </select>
+                            <select class="mt-4 p-4 mb-4" name="idTayAo">
+                                <option value="">Tay Ao</option>
+                                <c:forEach items="${tayAo}" var="tayAo">
+                                    <option value="${tayAo.ID}">${tayAo.tenKieuTayAo}</option>
+                                </c:forEach>
+                            </select>
+                            <select class="mt-4 p-4 mb-4" name="idHoaTiet">
+                                <option value="">Hoa Tiet</option>
+                                <c:forEach items="${hoaTiet}" var="hoaTiet">
+                                    <option value="${hoaTiet.ID}">${hoaTiet.tenHoaTiet}</option>
+                                </c:forEach>
+                            </select>
                             <select class="mt-4 p-4 mb-4"  name="sort" style="border-radius: 5px">
                                 <option value="0">Sắp xếp theo giá tăng dần</option>
                                 <option value="1">Sắp xếp theo giá giảm dần</option>
@@ -62,7 +110,7 @@
                                 Search
                             </button>
                         </div>
-                    </form>
+                    </form:form>
                 </div>
             </div>
         </div>

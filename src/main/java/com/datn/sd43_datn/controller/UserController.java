@@ -1,12 +1,15 @@
 package com.datn.sd43_datn.controller;
 
 import com.datn.sd43_datn.dto.SanPhamGioHang;
+import com.datn.sd43_datn.dto.SanPhamHomeDto;
 import com.datn.sd43_datn.entity.HoaDonChiTiet;
 import com.datn.sd43_datn.entity.KhachHang;
 import com.datn.sd43_datn.entity.SanPham;
 import com.datn.sd43_datn.entity.SanPhamChiTiet;
+import com.datn.sd43_datn.entity.ThuocTinhSp.*;
 import com.datn.sd43_datn.repository.DiaChiRepository;
 import com.datn.sd43_datn.request.CheckoutRequest;
+import com.datn.sd43_datn.request.FilterRequest;
 import com.datn.sd43_datn.request.TaoKhachHangRequest;
 import com.datn.sd43_datn.service.*;
 import jakarta.servlet.http.HttpServletRequest;
@@ -118,15 +121,37 @@ public class UserController {
     @GetMapping("list")
     public String list(Model model,HttpServletRequest request) {
         HttpSession session = request.getSession();
+        FilterRequest filterRequest = new FilterRequest();
         KhachHang khachHang = (KhachHang) session.getAttribute("khachHang");
         model.addAttribute("sanPham",sanPhamService.getSanPhamHome());
+        List<ChatLieu> chatlieu = sanPhamChiTietService.findChatLieuCreateAt();
+        List<CoAo> coao = sanPhamChiTietService.findCoAoCreateAt();
+        List<DangAo> dangao = sanPhamChiTietService.findDangAoCreateAt();
+        List<HoaTiet> hoatiet = sanPhamChiTietService.findHoaTietCreateAt();
+        List<KichCo> kichco = sanPhamChiTietService.findKichCoCreateAt();
+        List<MauSac> mausac = sanPhamChiTietService.findMauSacCreateAt();
+        List<TayAo> tayao = sanPhamChiTietService.findTayAoCreateAt();
+        List<ThuongHieu> thuonghieu = sanPhamChiTietService.findThuongHieuCreateAt();
+        model.addAttribute("thuongHieu", thuonghieu);
+        model.addAttribute("tayAo", tayao);
+        model.addAttribute("mauSac", mausac);
+        model.addAttribute("kichCo", kichco);
+        model.addAttribute("hoaTiet", hoatiet);
+        model.addAttribute("dangAo", dangao);
+        model.addAttribute("coAo", coao);
+        model.addAttribute("chatLieu", chatlieu);
+        model.addAttribute("filterRequest", filterRequest);
         return "User/products";
     }
     @GetMapping("filter")
-    public String filter(Model model,@RequestParam String sort,@RequestParam String keyword,HttpServletRequest request) {
+    public String filter(Model model,
+                         HttpServletRequest request,
+                         @ModelAttribute FilterRequest filterRequest
+    ) {
         HttpSession session = request.getSession();
         KhachHang khachHang = (KhachHang) session.getAttribute("khachHang");
-        model.addAttribute("sanPham",sanPhamService.filter(sort,keyword));
+        List<SanPhamHomeDto> sanPhamHomeDtos = sanPhamService.filter(filterRequest);
+        model.addAttribute("sanPham", sanPhamHomeDtos);
         return "User/products";
     }
     @GetMapping("order-history")

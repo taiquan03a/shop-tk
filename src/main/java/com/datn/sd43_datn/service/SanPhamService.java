@@ -2,6 +2,7 @@ package com.datn.sd43_datn.service;
 
 import com.datn.sd43_datn.dto.SanPhamHomeDto;
 import com.datn.sd43_datn.entity.SanPham;
+import com.datn.sd43_datn.request.FilterRequest;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -28,5 +29,5 @@ public interface SanPhamService {
 
     void findTrangThai0(Integer id);
     List<SanPhamHomeDto> getSanPhamHome();
-    List<SanPhamHomeDto> filter(String sort, String keyword);
+    List<SanPhamHomeDto> filter(FilterRequest filterRequest);
 }
