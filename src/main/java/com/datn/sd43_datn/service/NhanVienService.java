@@ -1,6 +1,7 @@
 package com.datn.sd43_datn.service;
 
 import com.datn.sd43_datn.dto.NhanVienDto;
+import com.datn.sd43_datn.entity.NhanVien;
 import com.datn.sd43_datn.request.*;
 
 import java.util.List;
@@ -12,4 +13,8 @@ public interface NhanVienService {
     boolean addNhanVien(TaoNhanVienRequest createNhanVien);
     boolean status(long nhanVienId);
     List<NhanVienRequest> filter(String search);
+
+    boolean nhanVienExists(String email);
+
+    NhanVien createNewNhanVien(NhanVien nhanVien);
 }

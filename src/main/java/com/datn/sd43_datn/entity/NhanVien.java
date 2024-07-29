@@ -37,7 +37,7 @@ public class NhanVien {
     @Column(name = "trang_thai")
     private boolean trangThai;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     @JoinColumn(name = "id_chuc_vu")
     private ChucVu chucVu;
 }

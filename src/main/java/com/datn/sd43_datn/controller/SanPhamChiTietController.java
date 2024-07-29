@@ -12,6 +12,7 @@ import com.datn.sd43_datn.service.impl.SanPhamChiTietServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
@@ -55,7 +56,10 @@ public class SanPhamChiTietController {
 
 
     public String list(Model model) {
-
+        if(SecurityContextHolder.getContext().getAuthentication().getName() != null) {
+            model.addAttribute("email", SecurityContextHolder.getContext().getAuthentication().getName());
+            System.out.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
+        }
         String keyword = null;
 
         return pageKeyword(model, keyword, 1);
@@ -97,11 +101,19 @@ public class SanPhamChiTietController {
     }
     @GetMapping("filter")
     public String filter(@RequestParam("keyword") String keyword, Model model) {
+        if(SecurityContextHolder.getContext().getAuthentication().getName() != null) {
+            model.addAttribute("email", SecurityContextHolder.getContext().getAuthentication().getName());
+            System.out.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
+        }
         model.addAttribute("spct", sanPhamChiTietServiceImpl.findBySanPhamKeyWord(keyword));
         return "SanPhamChiTiet/list";
     }
     @GetMapping("/create")
     public String create(Model model) {
+        if(SecurityContextHolder.getContext().getAuthentication().getName() != null) {
+            model.addAttribute("email", SecurityContextHolder.getContext().getAuthentication().getName());
+            System.out.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
+        }
         SanPhamChiTiet spct = new SanPhamChiTiet();
         List<Anh> anh = SanPhamChiTietServiceIpm.findAnhCreateAt();
         List<ChatLieu> chatlieu = SanPhamChiTietServiceIpm.findChatLieuCreateAt();
@@ -145,6 +157,10 @@ public class SanPhamChiTietController {
 
     @GetMapping("getId")
     public String getId(Model model, @RequestParam Long id) {
+        if(SecurityContextHolder.getContext().getAuthentication().getName() != null) {
+            model.addAttribute("email", SecurityContextHolder.getContext().getAuthentication().getName());
+            System.out.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
+        }
         SanPhamChiTiet spct = SanPhamChiTietServiceIpm.findById(id);
         List<Anh> anh = SanPhamChiTietServiceIpm.findAnhCreateAt();
         List<ChatLieu> chatlieu = SanPhamChiTietServiceIpm.findChatLieuCreateAt();

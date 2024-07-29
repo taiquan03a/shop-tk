@@ -490,6 +490,10 @@ public class HoaDonServiceImpl implements HoaDonService {
             khachHangCheck.setSdt(checkoutRequest.getSdt());
             khachHangRepository.save(khachHangCheck);
             diaChi.setKhachHang(khachHangCheck);
+            diaChi.setKhachHang(khachHangCheck);
+            diaChi.setTrangThai("true");
+            diaChi.setIdPhuong(checkoutRequest.getIdPhuong());
+            diaChi.setSoNha(checkoutRequest.getSoNha());
             diaChiRepository.save(diaChi);
         }
         HoaDon hoaDon = HoaDon.builder()

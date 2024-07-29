@@ -10,6 +10,7 @@ import com.datn.sd43_datn.request.NhanVienRequest;
 import com.datn.sd43_datn.request.TaoNhanVienRequest;
 import com.datn.sd43_datn.service.NhanVienService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -92,7 +93,7 @@ public class NhanVienServiceImpl implements NhanVienService {
         if(nhanVien != null){
             nhanVien.setHoTen(nhanVienDto.getTenNhanVien());
             nhanVien.setEmail(nhanVienDto.getEmail());
-            nhanVien.setMatKhau(nhanVienDto.getMatKhau());
+            nhanVien.setMatKhau(new BCryptPasswordEncoder().encode(nhanVienDto.getMatKhau()));
             nhanVien.setGioiTinh(nhanVienDto.isGioiTinh());
             nhanVien.setSdt(nhanVienDto.getSdt());
             nhanVien.setChucVu(nhanVienDto.getChucVu());
@@ -107,7 +108,7 @@ public class NhanVienServiceImpl implements NhanVienService {
         NhanVien nhanVien = NhanVien.builder()
                 .hoTen(createNhanVien.getTenNhanVien())
                 .email(createNhanVien.getEmail())
-                .matKhau(createNhanVien.getMatKhau())
+                .matKhau(new BCryptPasswordEncoder().encode(createNhanVien.getMatKhau()))
                 .sdt(createNhanVien.getSdt())
                 .gioiTinh(createNhanVien.isGioiTinh())
                 .ngayTao(new Date(System.currentTimeMillis()))
@@ -183,5 +184,18 @@ public class NhanVienServiceImpl implements NhanVienService {
         }
         nhanVienRequestList.sort(Comparator.comparingLong(NhanVienRequest::getID).reversed());
         return nhanVienRequestList;
+    }
+
+    @Override
+    public boolean nhanVienExists(String email) {
+        if(nhanVienRepository.findNhanVienByEmail(email) == null) return false;
+        return true;
+    }
+
+    @Override
+    public NhanVien createNewNhanVien(NhanVien nhanVien) {
+        nhanVien.setMatKhau(new BCryptPasswordEncoder().encode(nhanVien.getMatKhau()));
+        System.out.println(nhanVien.getChucVu().getTenChucVu());
+        return nhanVienRepository.save(nhanVien);
     }
 }

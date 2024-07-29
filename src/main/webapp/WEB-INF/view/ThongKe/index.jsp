@@ -3,6 +3,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@taglib  uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -71,10 +72,12 @@
                 <i class="fa-solid fa-user-group" style="margin-right: 10px"></i>
                 <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" style="background-color: white">Tài khoản</a>
                 <ul class="dropdown-menu" style="margin: 10px">
+                    <security:authorize access="hasAuthority('QUANLY')">
                     <li >
                         <i class="fa-solid fa-user-group" style="margin-right: 10px"></i>
                         <a class="dropdown-item" href="/nhan-vien/index" >Nhân viên</a>
                     </li>
+                    </security:authorize>
                     <li>
                         <i class="fa-solid fa-user-group" style="margin-right: 10px"></i>
                         <a class="dropdown-item" href="/khach-hang/index">Khách hàng</a>
@@ -89,8 +92,16 @@
                 <i class="fas fa-align-left"></i>
             </button>
             <div class="d-flex gap-3">
-                <i class="fa-regular fa-bell"></i>
+                <i class="fa-regular fa-bell">
+                </i>
                 <a href="#">Tài khoản</a>
+                <c:if test="${not empty pageContext.request.remoteUser}">
+                    <span>Welcome, ${email}!</span>
+
+                    <form:form action="/signout" method="post">
+                        <button type="submit">Signout</button>
+                    </form:form>
+                </c:if>
             </div>
 
         </div>

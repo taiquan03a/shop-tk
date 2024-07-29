@@ -3,6 +3,7 @@ package com.datn.sd43_datn.controller;
 import com.datn.sd43_datn.dto.DoanhThuDto;
 import com.datn.sd43_datn.service.ThongKeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,10 @@ public class ThongKeController {
 
     @GetMapping("index")
     public String index(@RequestParam(required = false) String type, Model model) throws ParseException {
+        if(SecurityContextHolder.getContext().getAuthentication().getName() != null) {
+            model.addAttribute("email", SecurityContextHolder.getContext().getAuthentication().getName());
+            System.out.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
+        }
         model.addAttribute("thongKe", thongKeService.doanhThu(type));
         model.addAttribute("type", type);
         System.out.println(thongKeService.doanhThu(type));
