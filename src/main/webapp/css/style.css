@@ -895,6 +895,7 @@ a {
   line-height: 21px;
   color: #1a1a1a;
   padding-left: 45px;
+  margin-bottom: 25px;
 }
 .header__input-form input::-moz-placeholder {
   font-size: inherit;

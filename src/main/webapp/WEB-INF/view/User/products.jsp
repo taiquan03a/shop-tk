@@ -30,17 +30,11 @@
 
 <jsp:include page="header.jsp"></jsp:include>
 <main class="box-layout">
-    <!-- Header Section start -->
-        <div class="header__top">
-            <div class="container">
-            </div>
-        </div>
         <div class="header__center">
             <div class="container">
                 <div class="header__center-content d-flex justify-content-center">
                     <form:form action="filter" modelAttribute="filterRequest" method="get">
                         <div class="header__input-form">
-
                             <input type="text" name="keyword" placeholder="Search" />
                             <span class="search-icon">
                                         <svg width="20" height="21" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -54,58 +48,60 @@
                                             <path d="M17.4999 18L13.8749 14.375" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
                                         </svg>
                             </span>
-                            <select name="idMauSac">
-                                <option value="">Mau sac</option>
-                                <c:forEach items="${mauSac}" var="mauSac">
-                                    <option value="${mauSac.ID}">${mauSac.tenMauSac}</option>
-                                </c:forEach>
-                            </select>
-                            <select name="idChatLieu">
-                                <option value="">Chat lieu</option>
-                                <c:forEach items="${chatLieu}" var="chatLieu">
-                                    <option value="${chatLieu.ID}">${chatLieu.tenChatLieu}</option>
-                                </c:forEach>
-                            </select>
-                            <select name="idThuongHieu">
-                                <option value="">Thuong hieu</option>
-                                <c:forEach items="${thuongHieu}" var="thuongHieu">
-                                    <option value="${thuongHieu.ID}">${thuongHieu.tenThuongHieu}</option>
-                                </c:forEach>
-                            </select>
-                            <select name="idKichCo">
-                                <option value="">Kich co</option>
-                                <c:forEach items="${kichCo}" var="kichCo">
-                                    <option value="${kichCo.ID}">${kichCo.tenKichCo}</option>
-                                </c:forEach>
-                            </select>
-                            <select name="idDangAo">
-                                <option value="">Dang ao</option>
-                                <c:forEach items="${dangAo}" var="dangAo">
-                                    <option value="${dangAo.ID}">${dangAo.tenKieuDangAo}</option>
-                                </c:forEach>
-                            </select>
-                            <select name="idCoAo">
-                                <option value="">Co Ao</option>
-                                <c:forEach items="${coAo}" var="coAo">
-                                    <option value="${coAo.ID}">${coAo.tenLoaiCoAo}</option>
-                                </c:forEach>
-                            </select>
-                            <select class="mt-4 p-4 mb-4" name="idTayAo">
-                                <option value="">Tay Ao</option>
-                                <c:forEach items="${tayAo}" var="tayAo">
-                                    <option value="${tayAo.ID}">${tayAo.tenKieuTayAo}</option>
-                                </c:forEach>
-                            </select>
-                            <select class="mt-4 p-4 mb-4" name="idHoaTiet">
-                                <option value="">Hoa Tiet</option>
-                                <c:forEach items="${hoaTiet}" var="hoaTiet">
-                                    <option value="${hoaTiet.ID}">${hoaTiet.tenHoaTiet}</option>
-                                </c:forEach>
-                            </select>
-                            <select class="mt-4 p-4 mb-4"  name="sort" style="border-radius: 5px">
-                                <option value="0">Sắp xếp theo giá tăng dần</option>
-                                <option value="1">Sắp xếp theo giá giảm dần</option>
-                            </select>
+                            <div class="d-flex justify-content-center select-box gap-3">
+                                <select name="idMauSac">
+                                    <option value="">Mau sac</option>
+                                    <c:forEach items="${mauSac}" var="mauSac">
+                                        <option value="${mauSac.ID}">${mauSac.tenMauSac}</option>
+                                    </c:forEach>
+                                </select>
+                                <select name="idChatLieu">
+                                    <option value="">Chat lieu</option>
+                                    <c:forEach items="${chatLieu}" var="chatLieu">
+                                        <option value="${chatLieu.ID}">${chatLieu.tenChatLieu}</option>
+                                    </c:forEach>
+                                </select>
+                                <select name="idThuongHieu">
+                                    <option value="">Thuong hieu</option>
+                                    <c:forEach items="${thuongHieu}" var="thuongHieu">
+                                        <option value="${thuongHieu.ID}">${thuongHieu.tenThuongHieu}</option>
+                                    </c:forEach>
+                                </select>
+                                <select name="idKichCo">
+                                    <option value="">Kich co</option>
+                                    <c:forEach items="${kichCo}" var="kichCo">
+                                        <option value="${kichCo.ID}">${kichCo.tenKichCo}</option>
+                                    </c:forEach>
+                                </select>
+                                <select name="idDangAo">
+                                    <option value="">Dang ao</option>
+                                    <c:forEach items="${dangAo}" var="dangAo">
+                                        <option value="${dangAo.ID}">${dangAo.tenKieuDangAo}</option>
+                                    </c:forEach>
+                                </select>
+                                <select name="idCoAo">
+                                    <option value="">Co Ao</option>
+                                    <c:forEach items="${coAo}" var="coAo">
+                                        <option value="${coAo.ID}">${coAo.tenLoaiCoAo}</option>
+                                    </c:forEach>
+                                </select>
+                                <select name="idTayAo">
+                                    <option value="">Tay Ao</option>
+                                    <c:forEach items="${tayAo}" var="tayAo">
+                                        <option value="${tayAo.ID}">${tayAo.tenKieuTayAo}</option>
+                                    </c:forEach>
+                                </select>
+                                <select name="idHoaTiet">
+                                    <option value="">Hoa Tiet</option>
+                                    <c:forEach items="${hoaTiet}" var="hoaTiet">
+                                        <option value="${hoaTiet.ID}">${hoaTiet.tenHoaTiet}</option>
+                                    </c:forEach>
+                                </select>
+                                <select  name="sort" style="border-radius: 5px">
+                                    <option value="0">Sắp xếp theo giá tăng dần</option>
+                                    <option value="1">Sắp xếp theo giá giảm dần</option>
+                                </select>
+                            </div>
                             <button type="submit" class="search-btn button button--md">
                                 Search
                             </button>
@@ -145,7 +141,7 @@
         </div>
     <!-- Header  Section start -->
 
-    <section class="section product mt-5">
+    <section class="section product" style="margin-top: 90px">
         <div class="container">
 
             <h1 class="h2 section-title">Sản phẩm bán chạy</h1>
@@ -1020,7 +1016,13 @@
     </section>
     <!-- Shipping  Section end  -->
 </main>
-
-
 <jsp:include page="footer.jsp"></jsp:include>
 
+<style>
+    .select-box select {
+        border: 1px solid #ccc;
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+
+</style>

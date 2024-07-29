@@ -200,7 +200,10 @@
     function addToCart(){
         if(product_id > 0){
             var listProductSelected = JSON.parse(localStorage.getItem('product')) ?? {};
-            listProductSelected[product_id] = document.getElementById('counter-btn-counter').value
+            if(!listProductSelected.hasOwnProperty(product_id))
+                listProductSelected[product_id] = document.getElementById('counter-btn-counter').value
+            else
+                listProductSelected[product_id] = parseInt(listProductSelected[product_id]) + parseInt(document.getElementById('counter-btn-counter').value)
             localStorage.setItem('product', JSON.stringify(listProductSelected));
             alert("Thêm sản phẩm vào giỏ hàng thành công!")
             location.href = "/user/home"
