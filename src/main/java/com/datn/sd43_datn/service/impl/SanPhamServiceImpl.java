@@ -8,6 +8,7 @@ import com.datn.sd43_datn.repository.SanPhamRepository;
 import com.datn.sd43_datn.request.FilterRequest;
 import com.datn.sd43_datn.service.SanPhamService;
 import lombok.AllArgsConstructor;
+import org.hibernate.internal.util.SubSequence;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -148,7 +149,11 @@ public class SanPhamServiceImpl implements SanPhamService {
                             .giaBan(sanPhamChiTiet.getGiaBan())
                             .anh(sanPhamChiTiet.getAnh().getAnh())
                             .build();
-                    sanPhamHomeDtos.add(sanPhamHomeDto);
+                    if(!filterRequest.getPriceMin().equals("") && !filterRequest.getPriceMax().equals("")){
+                        if(sanPhamHomeDto.getGiaBan() >= Long.parseLong(filterRequest.getPriceMin()) && sanPhamHomeDto.getGiaBan() <= Long.parseLong(filterRequest.getPriceMax())){
+                            sanPhamHomeDtos.add(sanPhamHomeDto);
+                        }
+                    }else sanPhamHomeDtos.add(sanPhamHomeDto);
                 }
             }
         }

@@ -101,6 +101,8 @@
                                     <option value="0">Sắp xếp theo giá tăng dần</option>
                                     <option value="1">Sắp xếp theo giá giảm dần</option>
                                 </select>
+                                <input type="number" name="priceMin" placeholder="priceMin" />
+                                <input type="number" name="priceMax" placeholder="priceMax" />
                             </div>
                             <button type="submit" class="search-btn button button--md">
                                 Search
