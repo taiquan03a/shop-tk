@@ -150,6 +150,22 @@ public class UserController {
     ) {
         HttpSession session = request.getSession();
         KhachHang khachHang = (KhachHang) session.getAttribute("khachHang");
+        List<ChatLieu> chatlieu = sanPhamChiTietService.findChatLieuCreateAt();
+        List<CoAo> coao = sanPhamChiTietService.findCoAoCreateAt();
+        List<DangAo> dangao = sanPhamChiTietService.findDangAoCreateAt();
+        List<HoaTiet> hoatiet = sanPhamChiTietService.findHoaTietCreateAt();
+        List<KichCo> kichco = sanPhamChiTietService.findKichCoCreateAt();
+        List<MauSac> mausac = sanPhamChiTietService.findMauSacCreateAt();
+        List<TayAo> tayao = sanPhamChiTietService.findTayAoCreateAt();
+        List<ThuongHieu> thuonghieu = sanPhamChiTietService.findThuongHieuCreateAt();
+        model.addAttribute("thuongHieu", thuonghieu);
+        model.addAttribute("tayAo", tayao);
+        model.addAttribute("mauSac", mausac);
+        model.addAttribute("kichCo", kichco);
+        model.addAttribute("hoaTiet", hoatiet);
+        model.addAttribute("dangAo", dangao);
+        model.addAttribute("coAo", coao);
+        model.addAttribute("chatLieu", chatlieu);
         List<SanPhamHomeDto> sanPhamHomeDtos = sanPhamService.filter(filterRequest);
         model.addAttribute("sanPham", sanPhamHomeDtos);
         return "User/products";

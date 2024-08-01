@@ -122,19 +122,19 @@
                                     <option value="1">Sắp xếp theo giá giảm dần</option>
                                 </select>
                             </div>
-                            <h4 style="margin-top: 20px; margin-left: 8px;">Khoảng giá (triệu đồng)</h4>
+                            <h4 style="margin-top: 20px; margin-left: 8px;">Khoảng giá đồng</h4>
                             <div class="range-slide">
                                 <div class="slide">
                                     <div class="line" id="line" style="left: 0%; right: 0%;"></div>
                                     <span class="thumb" id="thumbMin" style="left: 0%;"></span>
                                     <span class="thumb" id="thumbMax" style="left: 100%;"></span>
                                 </div>
-                                <input id="rangeMin" name="priceMin" type="range" max="100" min="0" step="1" value="0">
-                                <input id="rangeMax" name="priceMax" type="range" max="100" min="0" step="1" value="100">
+                                <input id="rangeMin" name="priceMin" type="range" max="2000000" min="0" step="1" value="0">
+                                <input id="rangeMax" name="priceMax" type="range" max="2000000" min="0" step="1" value="2000000">
                             </div>
                             <div class="display">
                                 <span id="min">0</span>
-                                <span id="max">100</span>
+                                <span id="max">2000000</span>
                             </div>
 
                             <button type="submit" class="search-btn button">
@@ -921,9 +921,9 @@
 
 <script>
     let min = 0;
-    let max = 100;
+    let max = 2000000;
 
-    const calcLeftPosition = value => 100 / (100) *  (value);
+    const calcLeftPosition = value => 100 / (2000000) *  (value);
 
     $('#rangeMin').on('input', function(e) {
         const newValue = parseInt(e.target.value);

@@ -19,4 +19,6 @@ public class FilterRequest {
     private HoaTiet idHoaTiet;
     private String sort;
     private String keyword;
+    private String priceMin;
+    private String priceMax;
 }

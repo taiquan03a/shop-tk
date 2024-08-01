@@ -148,7 +148,12 @@ public class SanPhamServiceImpl implements SanPhamService {
                             .giaBan(sanPhamChiTiet.getGiaBan())
                             .anh(sanPhamChiTiet.getAnh().getAnh())
                             .build();
-                    sanPhamHomeDtos.add(sanPhamHomeDto);
+                    if(!filterRequest.getPriceMin().equals("") && !filterRequest.getPriceMax().equals("")){
+                        if(sanPhamHomeDto.getGiaBan() >= Long.parseLong(filterRequest.getPriceMin()) && sanPhamHomeDto.getGiaBan() <= Long.parseLong(filterRequest.getPriceMax())){
+                            sanPhamHomeDtos.add(sanPhamHomeDto);
+                        }
+                    }
+                    else sanPhamHomeDtos.add(sanPhamHomeDto);
                 }
             }
         }
