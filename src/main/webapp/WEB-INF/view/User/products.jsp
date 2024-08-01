@@ -142,80 +142,158 @@
     <!-- Header  Section start -->
 
     <section class="section product" style="margin-top: 90px">
-        <div class="container">
-
-            <h1 class="h2 section-title">Sản phẩm bán chạy</h1>
-
-            <ul class="product-list">
-                <c:forEach var="sanPham" items="${sanPham}" varStatus="status">
-                    <li class="product-item">
-                        <div class="product-card" tabindex="0">
-
-                            <figure class="card-banner">
-                                <a href="detail/${sanPham.ID}">
-                                    <img src="${pageContext.request.contextPath}/img/${sanPham.anh}" width="312" height="350" loading="lazy"
-                                         alt="Running Sneaker Shoes" class="image-contain">
-                                </a>
-                                <div class="card-badge">New</div>
-
-                                <ul class="card-action-list">
-
-                                    <li class="card-action-item">
-                                        <button class="card-action-btn" aria-labelledby="card-label-1">
-                                            <ion-icon name="cart-outline"></ion-icon>
-                                        </button>
-
-                                        <div class="card-action-tooltip" id="card-label-1">Thêm vào giỏ hàng</div>
-                                    </li>
-
-                                    <li class="card-action-item">
-                                        <button class="card-action-btn" aria-labelledby="card-label-2">
-                                            <ion-icon name="heart-outline"></ion-icon>
-                                        </button>
-
-                                        <div class="card-action-tooltip" id="card-label-2">Thêm vào danh sách yêu thích</div>
-                                    </li>
-
-                                    <li class="card-action-item">
-                                        <button class="card-action-btn" aria-labelledby="card-label-3">
-                                            <ion-icon name="eye-outline"></ion-icon>
-                                        </button>
-
-                                        <div class="card-action-tooltip" id="card-label-3">Xem nhanh</div>
-                                    </li>
-
-                                    <li class="card-action-item">
-                                        <button class="card-action-btn" aria-labelledby="card-label-4">
-                                            <ion-icon name="repeat-outline"></ion-icon>
-                                        </button>
-
-                                        <div class="card-action-tooltip" id="card-label-4">So sánh</div>
-                                    </li>
-
-                                </ul>
-                            </figure>
-
-                            <div class="card-content">
-
-                                <div class="card-cat">
-                                    <a href="#" class="card-cat-link">Men</a> /
-                                    <a href="#" class="card-cat-link">Women</a>
+        <div class="row">
+            <div style="width: 22%; margin-top:6rem;">
+                    <form:form action="filter" modelAttribute="filterRequest" method="get">
+                        <div>
+                            <h2 class="mb-3">Lọc sản phẩm</h2>
+                            <input style="border: 1px solid  hsl(5, 100%, 69%); border-radius: 5px" class="p-3 mb-3" type="text" name="keyword" placeholder="Tìm kiếm theo tên sản phẩm" />
+                            <div class="selectt gap-3">
+                                <select name="idMauSac">
+                                    <option value="">Mau sac</option>
+                                    <c:forEach items="${mauSac}" var="mauSac">
+                                        <option value="${mauSac.ID}">${mauSac.tenMauSac}</option>
+                                    </c:forEach>
+                                </select>
+                                <select name="idChatLieu">
+                                    <option value="">Chat lieu</option>
+                                    <c:forEach items="${chatLieu}" var="chatLieu">
+                                        <option value="${chatLieu.ID}">${chatLieu.tenChatLieu}</option>
+                                    </c:forEach>
+                                </select>
+                                <select name="idThuongHieu">
+                                    <option value="">Thuong hieu</option>
+                                    <c:forEach items="${thuongHieu}" var="thuongHieu">
+                                        <option value="${thuongHieu.ID}">${thuongHieu.tenThuongHieu}</option>
+                                    </c:forEach>
+                                </select>
+                                <select name="idKichCo">
+                                    <option value="">Kich co</option>
+                                    <c:forEach items="${kichCo}" var="kichCo">
+                                        <option value="${kichCo.ID}">${kichCo.tenKichCo}</option>
+                                    </c:forEach>
+                                </select>
+                                <select name="idDangAo">
+                                    <option value="">Dang ao</option>
+                                    <c:forEach items="${dangAo}" var="dangAo">
+                                        <option value="${dangAo.ID}">${dangAo.tenKieuDangAo}</option>
+                                    </c:forEach>
+                                </select>
+                                <select name="idCoAo">
+                                    <option value="">Co Ao</option>
+                                    <c:forEach items="${coAo}" var="coAo">
+                                        <option value="${coAo.ID}">${coAo.tenLoaiCoAo}</option>
+                                    </c:forEach>
+                                </select>
+                                <select name="idTayAo">
+                                    <option value="">Tay Ao</option>
+                                    <c:forEach items="${tayAo}" var="tayAo">
+                                        <option value="${tayAo.ID}">${tayAo.tenKieuTayAo}</option>
+                                    </c:forEach>
+                                </select>
+                                <select name="idHoaTiet">
+                                    <option value="">Hoa Tiet</option>
+                                    <c:forEach items="${hoaTiet}" var="hoaTiet">
+                                        <option value="${hoaTiet.ID}">${hoaTiet.tenHoaTiet}</option>
+                                    </c:forEach>
+                                </select>
+                                <select  name="sort" style="border-radius: 5px">
+                                    <option value="0">Sắp xếp theo giá tăng dần</option>
+                                    <option value="1">Sắp xếp theo giá giảm dần</option>
+                                </select>
+                            </div>
+                            <h4 style="margin-top: 20px; margin-left: 8px;">Khoảng giá (triệu đồng)</h4>
+                            <div class="range-slide">
+                                <div class="slide">
+                                    <div class="line" id="line" style="left: 0%; right: 0%;"></div>
+                                    <span class="thumb" id="thumbMin" style="left: 0%;"></span>
+                                    <span class="thumb" id="thumbMax" style="left: 100%;"></span>
                                 </div>
-
-                                <h3 class="h3 card-title">
-                                    <a href="detail/${sanPham.ID}">${sanPham.tenSanPham}</a>
-                                </h3>
-
-                                <data class="card-price" value="180.85">${sanPham.giaBan} VNĐ</data>
-
+                                <input id="rangeMin" name="priceMin" type="range" max="100" min="0" step="1" value="0">
+                                <input id="rangeMax" name="priceMax" type="range" max="100" min="0" step="1" value="100">
+                            </div>
+                            <div class="display">
+                                <span id="min">0</span>
+                                <span id="max">100</span>
                             </div>
 
+                            <button type="submit" class="search-btn button">
+                                Search
+                            </button>
                         </div>
-                    </li>
-                </c:forEach>
-            </ul>
+                    </form:form>
+            </div>
+            <div class="container col-9">
+                <h1 class="h2 mb-5">Sản phẩm bán chạy</h1>
+                <ul class="product-list">
+                    <c:forEach var="sanPham" items="${sanPham}" varStatus="status">
+                        <li class="product-item">
+                            <div class="product-card" tabindex="0">
 
+                                <figure class="card-banner">
+                                    <a href="detail/${sanPham.ID}">
+                                        <img src="${pageContext.request.contextPath}/img/${sanPham.anh}" width="312" height="350" loading="lazy"
+                                             alt="Running Sneaker Shoes" class="image-contain">
+                                    </a>
+                                    <div class="card-badge">New</div>
 
+                                    <ul class="card-action-list">
+
+                                        <li class="card-action-item">
+                                            <button class="card-action-btn" aria-labelledby="card-label-1">
+                                                <ion-icon name="cart-outline"></ion-icon>
+                                            </button>
+
+                                            <div class="card-action-tooltip" id="card-label-1">Thêm vào giỏ hàng</div>
+                                        </li>
+
+                                        <li class="card-action-item">
+                                            <button class="card-action-btn" aria-labelledby="card-label-2">
+                                                <ion-icon name="heart-outline"></ion-icon>
+                                            </button>
+
+                                            <div class="card-action-tooltip" id="card-label-2">Thêm vào danh sách yêu thích</div>
+                                        </li>
+
+                                        <li class="card-action-item">
+                                            <button class="card-action-btn" aria-labelledby="card-label-3">
+                                                <ion-icon name="eye-outline"></ion-icon>
+                                            </button>
+
+                                            <div class="card-action-tooltip" id="card-label-3">Xem nhanh</div>
+                                        </li>
+
+                                        <li class="card-action-item">
+                                            <button class="card-action-btn" aria-labelledby="card-label-4">
+                                                <ion-icon name="repeat-outline"></ion-icon>
+                                            </button>
+
+                                            <div class="card-action-tooltip" id="card-label-4">So sánh</div>
+                                        </li>
+
+                                    </ul>
+                                </figure>
+
+                                <div class="card-content">
+
+                                    <div class="card-cat">
+                                        <a href="#" class="card-cat-link">Men</a> /
+                                        <a href="#" class="card-cat-link">Women</a>
+                                    </div>
+
+                                    <h3 class="h3 card-title">
+                                        <a href="detail/${sanPham.ID}">${sanPham.tenSanPham}</a>
+                                    </h3>
+
+                                    <data class="card-price" value="180.85">${sanPham.giaBan} VNĐ</data>
+
+                                </div>
+
+                            </div>
+                        </li>
+                    </c:forEach>
+                </ul>
+            </div>
         </div>
     </section>
     <section class="section special">
@@ -303,195 +381,6 @@
                             </div>
                         </li>
                     </c:forEach>
-                    <!-- <li class="product-item">
-                      <div class="product-card" tabindex="0">
-
-                        <figure class="card-banner">
-                          <img src="/img/product-2.jpg" width="312" height="350" loading="lazy"
-                            alt="Leather Mens Slipper" class="image-contain">
-
-                          <ul class="card-action-list">
-
-                            <li class="card-action-item">
-                              <button class="card-action-btn" aria-labelledby="card-label-1">
-                                <ion-icon name="cart-outline"></ion-icon>
-                              </button>
-
-                              <div class="card-action-tooltip" id="card-label-1">Add to Cart</div>
-                            </li>
-
-                            <li class="card-action-item">
-                              <button class="card-action-btn" aria-labelledby="card-label-2">
-                                <ion-icon name="heart-outline"></ion-icon>
-                              </button>
-
-                              <div class="card-action-tooltip" id="card-label-2">Add to Whishlist</div>
-                            </li>
-
-                            <li class="card-action-item">
-                              <button class="card-action-btn" aria-labelledby="card-label-3">
-                                <ion-icon name="eye-outline"></ion-icon>
-                              </button>
-
-                              <div class="card-action-tooltip" id="card-label-3">Quick View</div>
-                            </li>
-
-                            <li class="card-action-item">
-                              <button class="card-action-btn" aria-labelledby="card-label-4">
-                                <ion-icon name="repeat-outline"></ion-icon>
-                              </button>
-
-                              <div class="card-action-tooltip" id="card-label-4">Compare</div>
-                            </li>
-
-                          </ul>
-                        </figure>
-
-                        <div class="card-content">
-
-                          <div class="card-cat">
-                            <a href="#" class="card-cat-link">Men</a> /
-                            <a href="#" class="card-cat-link">Sports</a>
-                          </div>
-
-                          <h3 class="h3 card-title">
-                            <a href="#">Leather Mens Slipper</a>
-                          </h3>
-
-                          <data class="card-price" value="190.85">$190.85</data>
-
-                        </div>
-
-                      </div>
-                    </li>
-
-                    <li class="product-item">
-                      <div class="product-card" tabindex="0">
-
-                        <figure class="card-banner">
-                          <img src="/img/product-3.jpg" width="312" height="350" loading="lazy"
-                            alt="Simple Fabric Shoe" class="image-contain">
-
-                          <div class="card-badge">New</div>
-
-                          <ul class="card-action-list">
-
-                            <li class="card-action-item">
-                              <button class="card-action-btn" aria-labelledby="card-label-1">
-                                <ion-icon name="cart-outline"></ion-icon>
-                              </button>
-
-                              <div class="card-action-tooltip" id="card-label-1">Add to Cart</div>
-                            </li>
-
-                            <li class="card-action-item">
-                              <button class="card-action-btn" aria-labelledby="card-label-2">
-                                <ion-icon name="heart-outline"></ion-icon>
-                              </button>
-
-                              <div class="card-action-tooltip" id="card-label-2">Add to Whishlist</div>
-                            </li>
-
-                            <li class="card-action-item">
-                              <button class="card-action-btn" aria-labelledby="card-label-3">
-                                <ion-icon name="eye-outline"></ion-icon>
-                              </button>
-
-                              <div class="card-action-tooltip" id="card-label-3">Quick View</div>
-                            </li>
-
-                            <li class="card-action-item">
-                              <button class="card-action-btn" aria-labelledby="card-label-4">
-                                <ion-icon name="repeat-outline"></ion-icon>
-                              </button>
-
-                              <div class="card-action-tooltip" id="card-label-4">Compare</div>
-                            </li>
-
-                          </ul>
-                        </figure>
-
-                        <div class="card-content">
-
-                          <div class="card-cat">
-                            <a href="#" class="card-cat-link">Men</a> /
-                            <a href="#" class="card-cat-link">Women</a>
-                          </div>
-
-                          <h3 class="h3 card-title">
-                            <a href="#">Simple Fabric Shoe</a>
-                          </h3>
-
-                          <data class="card-price" value="160.85">$160.85</data>
-
-                        </div>
-
-                      </div>
-                    </li>
-
-                    <li class="product-item">
-                      <div class="product-card" tabindex="0">
-
-                        <figure class="card-banner">
-                          <img src="/img/product-4.jpg" width="312" height="350" loading="lazy"
-                            alt="Air Jordan 7 Retro " class="image-contain">
-
-                          <div class="card-badge"> -25%</div>
-
-                          <ul class="card-action-list">
-
-                            <li class="card-action-item">
-                              <button class="card-action-btn" aria-labelledby="card-label-1">
-                                <ion-icon name="cart-outline"></ion-icon>
-                              </button>
-
-                              <div class="card-action-tooltip" id="card-label-1">Add to Cart</div>
-                            </li>
-
-                            <li class="card-action-item">
-                              <button class="card-action-btn" aria-labelledby="card-label-2">
-                                <ion-icon name="heart-outline"></ion-icon>
-                              </button>
-
-                              <div class="card-action-tooltip" id="card-label-2">Add to Whishlist</div>
-                            </li>
-
-                            <li class="card-action-item">
-                              <button class="card-action-btn" aria-labelledby="card-label-3">
-                                <ion-icon name="eye-outline"></ion-icon>
-                              </button>
-
-                              <div class="card-action-tooltip" id="card-label-3">Quick View</div>
-                            </li>
-
-                            <li class="card-action-item">
-                              <button class="card-action-btn" aria-labelledby="card-label-4">
-                                <ion-icon name="repeat-outline"></ion-icon>
-                              </button>
-
-                              <div class="card-action-tooltip" id="card-label-4">Compare</div>
-                            </li>
-
-                          </ul>
-                        </figure>
-
-                        <div class="card-content">
-
-                          <div class="card-cat">
-                            <a href="#" class="card-cat-link">Men</a> /
-                            <a href="#" class="card-cat-link">Sports</a>
-                          </div>
-
-                          <h3 class="h3 card-title">
-                            <a href="#">Air Jordan 7 Retro </a>
-                          </h3>
-
-                          <data class="card-price" value="170.85">$170.85 <del>$200.21</del></data>
-
-                        </div>
-
-                      </div>
-                    </li> -->
 
                 </ul>
 
@@ -1019,10 +908,125 @@
 <jsp:include page="footer.jsp"></jsp:include>
 
 <style>
-    .select-box select {
-        border: 1px solid #ccc;
-        padding: 5px 10px;
+    .selectt select{
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 5px;
+        border: 1px solid  hsl(5, 100%, 69%);;
         border-radius: 5px;
+
+    }
+
+    form{
+        padding: 15px;
+        border: 1px solid hsl(5, 100%, 69%);;
+        border-radius: 8px;
+    }
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .range-slide {
+        position: relative;
+        margin: 24px 4px;
+        height: 4px;
+        width: 220px;
+    }
+
+    .slide {
+        position: absolute;
+        top: 0;
+        height: 4px;
+        background: #ccc;
+        left: 9px;
+        right: 9px;
+    }
+
+    .line {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        height: 4px;
+        background-color: red;
+    }
+
+    .thumb {
+        position: absolute;
+        z-index: 2;
+        text-align: left;
+        border: 1px solid red;
+        background-color: #4ee44e;
+        border-radius: 50%;
+        outline: none;
+        top: -7px;
+        height: 18px;
+        width: 18px;
+        margin-left: -9px;
+    }
+
+    input {
+        -webkit-appearance: none;
+        appearance: none;
+        position: absolute;
+        pointer-events: none;
+        z-index: 3;
+        height: 3px;
+        top: 0;
+        width: 100%;
+        opacity: 0;
+        margin: 0;
+    }
+
+    input::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        pointer-events: all;
+        border-radius: 50%;
+        cursor: pointer;
+        width: 18px;
+        height: 18px;
+    }
+
+    .display {
+        margin: 24px 4px;
+        width: 220px;
+        display: flex;
+        justify-content: space-between;
     }
 
 </style>
+
+<script>
+    let min = 0;
+    let max = 100;
+
+    const calcLeftPosition = value => 100 / (100) *  (value);
+
+    $('#rangeMin').on('input', function(e) {
+        const newValue = parseInt(e.target.value);
+        if (newValue > max) return;
+        min = newValue;
+        $('#thumbMin').css('left', calcLeftPosition(newValue) + '%');
+        $('#min').html(newValue);
+        $('#line').css({
+            'left': calcLeftPosition(newValue) + '%',
+            'right': (100 - calcLeftPosition(max)) + '%'
+        });
+    });
+
+    $('#rangeMax').on('input', function(e) {
+        const newValue = parseInt(e.target.value);
+        if (newValue < min) return;
+        max = newValue;
+        $('#thumbMax').css('left', calcLeftPosition(newValue) + '%');
+        $('#max').html(newValue);
+        $('#line').css({
+            'left': calcLeftPosition(min) + '%',
+            'right': (100 - calcLeftPosition(newValue)) + '%'
+        });
+    });
+
+</script>
