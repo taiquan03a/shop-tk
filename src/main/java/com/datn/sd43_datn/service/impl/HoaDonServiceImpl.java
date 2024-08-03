@@ -85,6 +85,7 @@ public class HoaDonServiceImpl implements HoaDonService {
         }
         SimpleDateFormat formattedDate = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
         String ngayTao = formattedDate.format(hoaDon.getNgayTao());
+        String[] diaChi = hoaDon.getDiaCHiGiaoHang().split(" ");
         HoaDonChiTietDto hoaDonDetailDTO = HoaDonChiTietDto.builder()
                 .id(hoaDonId)
                 .maHoaDon(hoaDon.getMaHoaDon())
@@ -107,6 +108,8 @@ public class HoaDonServiceImpl implements HoaDonService {
                 .phiVanChuyen(String.valueOf(hoaDon.getPhiVanChuyen()))
                 .tongTien(String.valueOf(hoaDon.getThanhTien()))
                 .lichSuThanhToanList(lichSuThanhToanRepository.findLichSuThanhToansByHoaDon(hoaDon))
+                .soNha(diaChi[0])
+                .idPhuong(diaChi[1])
                 .build();
         return hoaDonDetailDTO;
     }

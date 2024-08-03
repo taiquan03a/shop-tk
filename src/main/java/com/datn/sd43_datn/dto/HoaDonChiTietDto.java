@@ -33,4 +33,6 @@ public class HoaDonChiTietDto {
     private String phiVanChuyen;
     private String tongTien;
     private List<TimeLineDto> timeLineDTOList;
+    private String soNha;
+    private String idPhuong;
 }
