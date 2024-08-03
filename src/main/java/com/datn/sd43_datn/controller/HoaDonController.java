@@ -49,6 +49,17 @@ public class HoaDonController {
 //        model.addAttribute("updateDonHangRequest",updateDonHangRequest);
         return "HoaDon/ChiTiet";
     }
+    @PostMapping("edit/{id}")
+    public String editHoaDon(@PathVariable long id,@RequestParam String soNha,@RequestParam String idPhuong, Model model) {
+        HoaDon hoaDon = hoaDonRepository.findById(id).get();
+        hoaDon.setDiaCHiGiaoHang(soNha + " " + idPhuong);
+        hoaDonRepository.save(hoaDon);
+        UpdateInfoKH updateInfoKH = new UpdateInfoKH();
+        model.addAttribute("detail",hoaDonService.getHoaDonDetail(id));
+        model.addAttribute("sanPhams",sanPhamChiTietService.getSanPhamChiTiet());
+        model.addAttribute("updateInfoKH",updateInfoKH);
+        return "redirect:/hoa-don/donHang/"+id;
+    }
     @PostMapping("updateKH/{id}")
     public String updateKH(@PathVariable long id, Model model,@ModelAttribute("updateInfoKH") UpdateInfoKH updateInfoKH) {
         if(hoaDonService.updateKH(id, updateInfoKH)) {
