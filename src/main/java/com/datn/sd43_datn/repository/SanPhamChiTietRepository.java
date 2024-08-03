@@ -61,4 +61,12 @@ public interface SanPhamChiTietRepository extends JpaRepository<SanPhamChiTiet, 
                                          @Param("idChatLieu") ChatLieu chatLieu,
                                          @Param("idCoAo") CoAo coAo,
                                          @Param("sanPham") SanPham sanPham);
+
+    @Query("SELECT s FROM SanPhamChiTiet s WHERE " +
+            "(:idMauSac IS NULL OR s.mauSac = :idMauSac) AND " +
+            "(:idKichCo is null or s.kichCo= :idKichCo) and" +
+            "(:sanPham IS NULL OR s.sanPham = :sanPham)")
+    List<SanPhamChiTiet> getBySizeAndColor(@Param("idMauSac") MauSac idMauSac,
+                                         @Param("idKichCo") KichCo kichCo,
+                                         @Param("sanPham") SanPham sanPham);
 }

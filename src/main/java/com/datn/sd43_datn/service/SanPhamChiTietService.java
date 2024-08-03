@@ -48,5 +48,6 @@ public interface SanPhamChiTietService {
     void findTrangThai0(Long id);
     List<SanPhamChiTiet> getBySanPham(SanPham sanPham);
     SanPhamDetailDto getListThuocTinhs(SanPham sanPham);
+    List<SanPhamChiTiet> getBySizeAndColor(SanPham sanPham, MauSac idMauSac,KichCo idKichCo);
 
 }

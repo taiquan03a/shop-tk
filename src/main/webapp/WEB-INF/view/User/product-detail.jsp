@@ -151,6 +151,21 @@
                                     ${spct.coAo.tenLoaiCoAo} - ${spct.tayAo.tenKieuTayAo} - ${spct.hoaTiet.tenHoaTiet}</option>
                         </c:forEach>
                     </select>
+                    <form:form action="" method="post" modelAttribute="filterSizeAndColor">
+                        <select name="idKichCo">
+                            <option value="">Kich co</option>
+                            <c:forEach items="${thuocTinh.kichCo}" var="kichCo">
+                                <option value="${kichCo.ID}">${kichCo.tenKichCo}</option>
+                            </c:forEach>
+                        </select>
+                        <select name="idMauSac">
+                            <option value="">Mau sac</option>
+                            <c:forEach items="${thuocTinh.mauSac}" var="mauSac">
+                                <option value="${mauSac.ID}">${mauSac.tenMauSac}</option>
+                            </c:forEach>
+                        </select>
+                        <button type="submit" style="background-color: green;width: 30px;height: 30px">tim</button>
+                    </form:form>
                   </div>
                 <!-- Action button -->
                 <div class="products__content">

@@ -10,6 +10,7 @@ import com.datn.sd43_datn.entity.ThuocTinhSp.*;
 import com.datn.sd43_datn.repository.DiaChiRepository;
 import com.datn.sd43_datn.request.CheckoutRequest;
 import com.datn.sd43_datn.request.FilterRequest;
+import com.datn.sd43_datn.request.FilterSizeAndColor;
 import com.datn.sd43_datn.request.TaoKhachHangRequest;
 import com.datn.sd43_datn.service.*;
 import jakarta.servlet.http.HttpServletRequest;
@@ -49,12 +50,26 @@ public class UserController {
 
     @GetMapping("detail/{id}")
     public String detail(@PathVariable long id, Model model) {
+        FilterSizeAndColor filterSizeAndColor = new FilterSizeAndColor();
         SanPham sanPham = sanPhamService.findById(id).get();
         String spCart = "";
         model.addAttribute("sanPham",sanPham);
         model.addAttribute("spCart",spCart);
         model.addAttribute("spct",sanPhamChiTietService.getBySanPham(sanPham));
+        model.addAttribute("filterSizeAndColor",filterSizeAndColor);
         model.addAttribute("thuocTinh",sanPhamChiTietService.getListThuocTinhs(sanPham));
+        return "User/product-detail";
+    }
+    @PostMapping("detail/{id}")
+    public String detailBySizeAndColor(@PathVariable long id, Model model,@ModelAttribute FilterSizeAndColor filterSizeAndColor) {
+        SanPham sanPham = sanPhamService.findById(id).get();
+        String spCart = "";
+        model.addAttribute("sanPham",sanPham);
+        model.addAttribute("spCart",spCart);
+        model.addAttribute("spct",sanPhamChiTietService.getBySizeAndColor( sanPham,  filterSizeAndColor.getIdMauSac(), filterSizeAndColor.getIdKichCo()));
+        FilterSizeAndColor filterSizeAndColor1 = new FilterSizeAndColor();
+        model.addAttribute("thuocTinh",sanPhamChiTietService.getListThuocTinhs(sanPham));
+        model.addAttribute("filterSizeAndColor",filterSizeAndColor1);
         return "User/product-detail";
     }
     @PostMapping("/login")

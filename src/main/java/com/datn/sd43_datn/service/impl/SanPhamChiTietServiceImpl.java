@@ -50,7 +50,10 @@ public class SanPhamChiTietServiceImpl implements SanPhamChiTietService {
     ThuongHieuRepository thuonghieuEntityRepository;
     @Autowired
     private SanPhamChiTietRepository sanphamchitietEntityRepository;
-
+    @Autowired
+    private MauSacRepository mauSacRepository;
+    @Autowired
+    private KichCoRepository kichCoRepository;
 
 
     @Override
@@ -359,5 +362,11 @@ public class SanPhamChiTietServiceImpl implements SanPhamChiTietService {
                 .hoaTiet(hoaTiet)
                 .build();
         return sanPhamDetail;
+    }
+
+    @Override
+    public List<SanPhamChiTiet> getBySizeAndColor(SanPham sanPham, MauSac idMauSac,KichCo idKichCo) {
+        List<SanPhamChiTiet> sanPhamChiTietList = sanPhamChiTietRepository.getBySizeAndColor(idMauSac,idKichCo,sanPham);
+        return sanPhamChiTietList;
     }
 }
