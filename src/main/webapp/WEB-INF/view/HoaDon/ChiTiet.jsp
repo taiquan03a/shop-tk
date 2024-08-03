@@ -142,6 +142,45 @@
                                         <label for="name" class="form-label">Số điện thoại</label>
                                         <input type="text" name="sdt" class="form-control" id="sdt" aria-describedby="emailHelp" value="${detail.sdt}" required>
 
+                                    <div class="contact-form__content-group">
+                                        <!-- Country -->
+                                        <div class="contact-form-input">
+                                            <label for="thanhPho">Tỉnh </label>
+                                            <select
+                                                    id="thanhPho"
+                                                    class="contact-form-input__dropdown"
+                                            >
+
+                                            </select>
+                                        </div>
+                                        <!-- states -->
+                                        <div class="contact-form-input">
+                                            <label for="huyen">Huyện </label>
+                                            <select
+                                                    id="huyen"
+                                                    class="contact-form-input__dropdown"
+                                            >
+
+                                            </select>
+                                        </div>
+                                        <!-- zip -->
+                                        <div class="contact-form-input">
+                                            <label for="xa">Xã</label>
+                                            <select id="xa" class="contact-form-input__dropdown" name="idPhuong">
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="contact-form-input mt-4">
+                                        <label for="address">Địa chỉ chi tiết </label>
+                                        <input
+                                                type="text"
+                                                id="address"
+                                                name="soNha"
+                                                value=""
+                                                placeholder="Your Address"
+                                        />
+                                    </div>
 
                                 </div>
                                 <div class="modal-footer">
@@ -171,6 +210,10 @@
                         <div class="col-4" ><b>Nhân viên tiếp nhận:</b> ${detail.nhanVien}</div>
                         <div class="col-4"><b>Loại đơn hàng:</b> ${detail.loaiHoaDon ? 'Tại quầy':'Trực tuyến'}</div>
                         <div class="col-4"><b>Trạng thái: </b> ${detail.trangThai}</div>
+                    </div>
+                    <div class="mt-4 d-flex justify-content-between w-100 row">
+                        <div class="col-4" id="detail-address"></div>
+
                     </div>
                 </div>
             </div>
@@ -350,28 +393,21 @@
         });
 
     });
-
+    console.log('${detail.idPhuong}')
     new DataTable('#example', {
         select: false,
         searching: true
     });
-
-    // function handleButtonClick(s) {
-    //     if(!confirm("Xác nhận thay đổi trạng thái?") ){
-    //         event.preventDefault();
-    //     } else {
-    //         window.location.href = s
-    //     }
-    // }
 </script>
 
 <script>
-    var btnSubmit = document.getElementById('btn-submit');
-    btnSubmit.addEventListener('click', function(event) {
-        event.preventDefault();
-        localStorage.clear();
-        event.target.form.submit();
-    });
+    // var btnSubmit = document.getElementById('btn-submit');
+    // console.log(btnSubmit)
+    // btnSubmit.addEventListener('click', function(event) {
+    //     event.preventDefault();
+    //     localStorage.clear();
+    //     event.target.form.submit();
+    // });
 
     function confirmChuyenTT() {
         return confirm("Bạn có chắc chắn muốn chuyển trạng thái không?");
@@ -382,3 +418,131 @@
     }
 
 </script>
+
+<script>
+    getDetailAddress('${detail.idPhuong}', ${detail.soNha})
+    $.ajax({
+        url: 'https://esgoo.net/api-tinhthanh/1/0.htm',
+        method: 'GET',
+        dataType: 'json',
+        success: function (data) {
+            var $province = $('#thanhPho');
+            $province.append('<option value="">Chọn tỉnh Tỉnh/Thành phố </option>');
+            $.each(data['data'], function (index, value) {
+                $province.append('<option value="' + value.id + '">' + value.name  + '</option>');
+            });
+        },
+        error: function () {
+            alert('Không thể lấy dữ liệu tỉnh thành.');
+        }
+    });
+
+    getName('${detail.idPhuong}', '${detail.soNha}')
+
+    function populateDistricts(provinceId) {
+        var $huyen = $('#huyen');
+        $huyen.empty();
+        $.ajax({
+            url: 'https://esgoo.net/api-tinhthanh/2/' + provinceId + '.htm',
+            method: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                $huyen.append('<option value="">Chọn Quận/Huyện </option>');
+                $.each(data['data'], function (index, value) {
+                    $huyen.append('<option value="' + value.id + '">' + value.name + '</option>');
+                });
+            },
+            error: function () {
+                alert('Không thể lấy dữ liệu huyện.');
+            }
+        });
+    }
+
+    function getDetailAddress(wardId, soNha){
+        $.ajax({
+            url: 'https://esgoo.net/api-tinhthanh/5/' + wardId + '.htm',
+            method: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                var detailAddress = document.getElementById('detail-address');
+                detailAddress.innerHTML = '<b>Địa chỉ chi tiết: </b>' + soNha + ' ' + data['data'].full_name;            },
+            error: function () {
+                alert('Không thể lấy dữ liệu xã.');
+            }
+        });
+    }
+
+    function populateWards(districtId) {
+        var $xa = $('#xa');
+        $xa.empty();
+        $.ajax({
+            url: 'https://esgoo.net/api-tinhthanh/3/' + districtId + '.htm',
+            method: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                $xa.append('<option value="">Xã/Phường </option>');
+                $.each(data['data'], function (index, value) {
+                    $xa.append('<option value="' + value.id + '">' + value.name + '</option>');
+                });
+            },
+            error: function () {
+                alert('Không thể lấy dữ liệu xã.');
+            }
+        });
+    }
+
+    $('#thanhPho').on('change', function () {
+        var selectedProvinceId = $(this).val();
+        populateDistricts(selectedProvinceId);
+
+    });
+
+    $('#huyen').on('change', function () {
+        var selectedDistrictId = $(this).val();
+        populateWards(selectedDistrictId);
+    });
+
+    function getName(wardId, address) {
+        $.ajax({
+            url: 'https://esgoo.net/api-tinhthanh/5/' + wardId + '.htm',
+            method: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                $('#thanhPho').val(data['data'].tinh);
+                populateDistricts(data['data'].tinh);
+                populateWards(data['data'].quan);
+                getName2(wardId, address)
+            },
+            error: function () {
+                alert('Không thể lấy dữ liệu xã.');
+            }
+        });
+    }
+
+    function getName2(wardId, address) {
+        $.ajax({
+            url: 'https://esgoo.net/api-tinhthanh/5/' + wardId + '.htm',
+            method: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                $('#thanhPho').val(data['data'].tinh);
+                $('#huyen').val(data['data'].quan);
+                $('#xa').val(wardId);
+                $('#address').val(address)
+            },
+            error: function () {
+                alert('Không thể lấy dữ liệu xã.');
+            }
+        });
+    }
+</script>
+
+<style>
+    select, #address {
+        width: 100%;
+        border-radius: 4px;
+        padding: 10px;
+        border: 1px solid #ccc;
+    }
+
+</style>
