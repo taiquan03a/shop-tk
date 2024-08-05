@@ -6,4 +6,6 @@ import lombok.Data;
 public class UpdateInfoKH {
     private String ten;
     private String sdt;
+    private String idPhuong;
+    private String soNha;
 }

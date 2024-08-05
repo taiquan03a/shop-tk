@@ -431,6 +431,7 @@ public class HoaDonServiceImpl implements HoaDonService {
         KhachHang khachHang = hoaDon.getKhachHang();
         khachHang.setTenKhachHang(updateInfoKH.getTen());
         hoaDon.setKhachHang(khachHang);
+        hoaDon.setDiaCHiGiaoHang(updateInfoKH.getSoNha() + " " + updateInfoKH.getIdPhuong());
         hoaDon.setSdtNguoiNhan(updateInfoKH.getSdt());
         khachHangRepository.save(khachHang);
         hoaDonRepository.save(hoaDon);
