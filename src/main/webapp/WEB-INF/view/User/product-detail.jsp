@@ -151,7 +151,7 @@
                                     ${spct.coAo.tenLoaiCoAo} - ${spct.tayAo.tenKieuTayAo} - ${spct.hoaTiet.tenHoaTiet}</option>
                         </c:forEach>
                     </select>
-                    <form:form action="" method="post" modelAttribute="filterSizeAndColor">
+                    <form:form action="" cssStyle="display: flex; gap: 10px; padding: 0" method="post" modelAttribute="filterSizeAndColor">
                         <select name="idKichCo">
                             <option value="">Kich co</option>
                             <c:forEach items="${thuocTinh.kichCo}" var="kichCo">
@@ -164,7 +164,7 @@
                                 <option value="${mauSac.ID}">${mauSac.tenMauSac}</option>
                             </c:forEach>
                         </select>
-                        <button type="submit" style="background-color: green;width: 30px;height: 30px">tim</button>
+                        <button class="btn btn-danger p-3" type="submit">Tìm</button>
                     </form:form>
                   </div>
                 <!-- Action button -->
@@ -200,10 +200,13 @@
 <jsp:include page="footer.jsp"></jsp:include>
 
 <script>
+    var listProduct = {}
+    <c:forEach items="${spct}" var="spct">
+        listProduct['${spct.ID}'] = ${spct.soLuong}
+    </c:forEach>
     var product_id = 0
     function checkPrice() {
         var lt = (document.getElementById('sanpham').value).split(' ')
-        console.log(lt)
         if(lt.length > 2){
             document.getElementById('price').innerHTML = lt[1] + " VNĐ"
             document.getElementById("main-img").src = "/img/" + lt[2]
@@ -213,7 +216,10 @@
 
     }
     function addToCart(){
-        if(product_id > 0){
+        if (parseInt(document.getElementById('counter-btn-counter').value) > listProduct[product_id]){
+            alert("Không đủ số lượng!")
+        }
+        else if(product_id > 0){
             var listProductSelected = JSON.parse(localStorage.getItem('product')) ?? {};
             if(!listProductSelected.hasOwnProperty(product_id))
                 listProductSelected[product_id] = document.getElementById('counter-btn-counter').value

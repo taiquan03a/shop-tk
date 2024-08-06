@@ -188,13 +188,14 @@
                                     <span class="font-body--xl-500" id="final-total">${spCart.tongTien} VNĐ</span>
                                 </div>
                             </div>
-                            <form:form action="/user/checkout" method="get">
+                            <form:form id="checkout" action="/user/checkout" method="get">
 
                                 <input type="hidden" name="spct1" id="spct1" value="">
                                 <button
                                         class="button button--lg w-100"
                                         style="margin-top: 20px"
-                                        type="submit"
+                                        type="button"
+                                        onclick="handleOrder(this)"
                                 >
                                     Place Order
                                 </button>
@@ -209,6 +210,11 @@
 <jsp:include page="footer.jsp"></jsp:include>
 
 <script>
+    var listProduct = {}
+    <c:forEach items="${spCart.hoaDonChiTietList}" var="spct">
+        listProduct['${spct.sanPhamChiTiet.ID}'] = ${spct.sanPhamChiTiet.soLuong}
+    </c:forEach>
+    var tmpListItemSelected = JSON.parse(localStorage.getItem('product')) ?? {};
     var listProductSelected = JSON.parse(localStorage.getItem('product')) ?? {};
     document.getElementById('spct1').value = JSON.stringify(listProductSelected)
     function increment(e, product_id, price) {
@@ -247,6 +253,24 @@
             document.querySelectorAll('.gia').forEach(e => tong += parseInt(e.textContent.split(' ')[0]))
             document.getElementById('subtotall').innerHTML = tong + ' VNĐ'
             document.getElementById('final-total').innerHTML = (tong - 15000) > 0 ? (tong - 15000) : 0  + ' VNĐ'
+        }
+    }
+
+    function handleOrder(e){
+        check = true
+        var listProductSelected = JSON.parse(localStorage.getItem('product')) ?? {};
+        for (const key in listProductSelected) {
+                const item = listProductSelected[key];
+                if(item > listProduct[key]){
+                    check = false
+                    alert("Không đủ " + item + " sản phẩm")
+                }
+        }
+        if (check){
+            document.getElementById('checkout').submit()
+            e.submit()
+        }else{
+            localStorage.setItem('product', JSON.stringify(tmpListItemSelected));
         }
     }
 </script>
