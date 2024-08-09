@@ -218,8 +218,6 @@
                 </div>
             </div>
 
-
-
             <div class="filter mt-5">
                 <div class="d-flex justify-content-between line-bottom">
                     <h3 style=" padding-bottom: 15px;">Danh sách sản phẩm</h3>
@@ -286,29 +284,43 @@
 
                 </div>
                 <div class="w-100">
-                    <c:forEach var="hoaDon" items="${detail.hoaDonChiTietList}">
-                        <div class="row d-flex align-items-center line-bottom">
+                    <c:forEach var="sanPham" items="${sanPhams}">
+                        <div id="item-${sanPham.ID}" class="row d-flex align-items-center line-bottom d-none">
                             <div class="col-3 d-flex">
-                                <img style="width: 60px; height: 60px; margin: auto;" src="/img/${hoaDon.sanPhamChiTiet.anh.anh}" alt="">
+                                <img style="width: 60px; height: 60px; margin: auto;" src="/img/${sanPham.anh.anh}" alt="">
                             </div>
                             <div class="col-3">
-                                <div>${hoaDon.sanPhamChiTiet.sanPham.tenSanPham}</div>
-                                <div style="color: red;">${hoaDon.donGia} VNĐ</div>
-                                <div>Size: ${hoaDon.sanPhamChiTiet.kichCo.tenKichCo}</div>
-                                <div class="sl-${hoaDon.sanPhamChiTiet.ID}">Số lượng: ${hoaDon.soLuong}</div>
+                                <div>${sanPham.sanPham.tenSanPham}</div>
+                                <div style="color: red;">${sanPham.giaBan} đ</div>
+                                <div>Size ${sanPham.kichCo.tenKichCo}</div>
+                                <div class="sl-${sanPham.ID}">x1</div>
                             </div>
-                            <div class="col-3">
-                                <div class="quantity" style="display: block">
-                                    <input style="width: 100px;" onblur="updateQuantity(${hoaDon.sanPhamChiTiet.ID}, ${hoaDon.donGia}, ${hoaDon.sanPhamChiTiet.soLuong})" id = "${hoaDon.sanPhamChiTiet.ID}"
-                                           type="number" class="input-box" value="${hoaDon.soLuong}" min="1" max="20">
-                                    <span style="color: red; margin-left: 5px" id="message-${hoaDon.sanPhamChiTiet.ID}"></span>
+                            <div class="col-2">
+                                <div class="quantity" style="display: block !important;">
+                                    <input type="number" onblur="updateQuantity(${sanPham.ID}, ${sanPham.giaBan}, ${sanPham.soLuong})" id = "${sanPham.ID}" style="width: 100px; margin-right: 210px" class="input-box" value="1" min="1">
+                                    <span style="color: red; margin-left: 5px" id="message-${sanPham.ID}"></span>
                                 </div>
                             </div>
-                            <div class="col-3 price-${hoaDon.sanPhamChiTiet.ID}" style="font-weight: 700; color: red;">${hoaDon.thanhTien} VNĐ</div>
+                            <div class="col-2 price-${sanPham.ID}" style="font-weight: 700; color: red;"> ${sanPham.giaBan} VNĐ</div>
+                            <div class="col-2" style="cursor: pointer; color: red;" onclick="handleButtonDelete(${sanPham.ID})"><i class="fa-solid fa-trash"></i></div>
+
                         </div>
                     </c:forEach>
                 </div>
-
+                <form:form action="/hoa-don/donHang/${detail.id}" modelAttribute="updateDonHangRequest" method="post" enctype="multipart/form-data">
+                    <c:choose>
+                        <c:when test="${detail.trangThaiDon.ID < 3}">
+                            <button id="btn-submit" style="background-color: #ffa500; float: right; width: 80px" type="submit" class="btn btn-primary d-none">Lưu</button>
+                            <input type="text" name="list_product" value="" class="form-control d-none" id="list_product">
+                            <br />
+                        </c:when>
+                        <c:otherwise>
+                            <button id="btn-submit" style="background-color: #ffa500; float: right; width: 80px" type="submit" class="btn btn-primary d-none">Lưu</button>
+                            <input type="text" name="list_product" value="" class="form-control d-none" id="list_product" readonly>
+                            <br />
+                        </c:otherwise>
+                    </c:choose>
+                </form:form>
             </div>
 
             <div class="filter mt-5">
@@ -393,7 +405,7 @@
         });
 
     });
-    console.log('${detail.idPhuong}')
+
     new DataTable('#example', {
         select: false,
         searching: true
@@ -401,22 +413,106 @@
 </script>
 
 <script>
-    // var btnSubmit = document.getElementById('btn-submit');
-    // console.log(btnSubmit)
-    // btnSubmit.addEventListener('click', function(event) {
-    //     event.preventDefault();
-    //     localStorage.clear();
-    //     event.target.form.submit();
-    // });
+    getListProductSelected()
+    updateTotalPrice()
+    setValueInput()
+    function getListProductSelected(){
+        const newObject = JSON.parse(localStorage.getItem('quanlity')) ?? {};
+        <c:forEach var="hoaDon" items="${detail.hoaDonChiTietList}">
+        newObject[${hoaDon.sanPhamChiTiet.ID}] = ${hoaDon.soLuong};
+        </c:forEach>
+        localStorage.setItem('quanlity', JSON.stringify(newObject));
+        var listItemSelected = JSON.parse(localStorage.getItem('quanlity')) ?? {};
 
-    function confirmChuyenTT() {
-        return confirm("Bạn có chắc chắn muốn chuyển trạng thái không?");
+        <c:forEach var="sanPham" items="${sanPhams}">
+        if (listItemSelected.hasOwnProperty(${sanPham.ID})){
+            document.getElementById('item-${sanPham.ID}').classList.remove("d-none")
+            document.getElementById('${sanPham.ID}').value = listItemSelected['${sanPham.ID}']
+            document.querySelector(".price-" + ${sanPham.ID}).innerHTML = listItemSelected['${sanPham.ID}'] * ${sanPham.giaBan} + " VNĐ";
+            document.querySelector(".sl-" + ${sanPham.ID}).innerHTML = 'x'+document.getElementById(${sanPham.ID}).value
+        }
+        </c:forEach>
     }
 
-    function confirmHuyDon() {
-        return confirm("Bạn có chắc chắn muốn hủy đơn hàng này không?");
+    function handleButtonDelete(s) {
+        if( ! confirm("Bạn có muốn xóa sản phẩm này?") ){
+            event.preventDefault();
+        } else {
+            var storedArray = localStorage.getItem('quanlity');
+            var newObject = {};
+            newObject = JSON.parse(storedArray);
+            if (newObject.hasOwnProperty(s)) {
+                delete newObject[s];
+            }
+            localStorage.setItem('quanlity', JSON.stringify(newObject));
+            setValueInput();
+            location.reload();
+        }
     }
 
+    function updateQuantity(n, price, amount) {
+        document.getElementById('message-' + n).classList.remove("thua")
+        var idObject = JSON.parse(localStorage.getItem('quanlity')) ?? {};
+        idObject[n] = document.getElementById(n).value;
+        if(document.getElementById(n).value <= amount){
+            document.getElementById('message-' + n).innerHTML = ''
+            localStorage.setItem('quanlity', JSON.stringify(idObject));
+            document.querySelector(".price-" + n).innerHTML = document.getElementById(n).value * price + " VNĐ";
+            document.querySelector(".sl-" + n).innerHTML = 'x'+document.getElementById(n).value
+            updateTotalPrice()
+            setValueInput(1)
+        }else{
+            document.getElementById('message-' + n).innerHTML = 'Không đủ hàng!'
+            document.getElementById('message-' + n).classList.add("thua")
+        }
+
+    }
+
+    function handleSelect(s) {
+        var storedArray =  JSON.parse(localStorage.getItem('quanlity')) ?? {};
+        const selectedObj = JSON.parse(localStorage.getItem('selected')) ?? [];
+        if (!storedArray.hasOwnProperty(s)) selectedObj.push(s)
+        if (!storedArray.hasOwnProperty(s)) storedArray[s] = 1;
+        localStorage.setItem('selected', JSON.stringify(selectedObj));
+        localStorage.setItem('quanlity', JSON.stringify(storedArray));
+        location.reload();
+
+    }
+
+    function updateTotalPrice() {
+        totalPrice = 0
+        var listItemSelected = JSON.parse(localStorage.getItem('quanlity')) ?? {};
+        <c:forEach var="sanPham" items="${sanPhams}">
+        if (listItemSelected.hasOwnProperty(${sanPham.ID})) {
+            var s =  document.querySelector('.price-${sanPham.ID}').innerText.trim()
+            var priceValue = s.split(" ")[0];
+            totalPrice += parseInt(priceValue)
+        }
+        </c:forEach>
+        document.getElementById('prices').innerHTML = totalPrice.toFixed(1) + " VNĐ"
+        // document.getElementById('money-discount').innerHTML = totalPrice.toFixed(0) + " VNĐ"
+        document.getElementById('total-money').innerHTML = (totalPrice - ${detail.phiVanChuyen}).toFixed(1) + " VNĐ"
+    }
+
+    function setValueInput(check = 0){
+        var idValue = localStorage.getItem('quanlity');
+        if(localStorage.getItem('selected') || check === 1) document.getElementById('btn-submit').classList.remove('d-none')
+        var inputElement = document.getElementById('list_product');
+        inputElement.value = idValue;
+    }
+</script>
+
+<script>
+    var btnSubmit = document.getElementById('btn-submit');
+    btnSubmit.addEventListener('click', function(event) {
+        event.preventDefault();
+        if(document.querySelector('.thua')){
+            alert("Không đủ hàng")
+        }else{
+            localStorage.clear();
+            event.target.form.submit();
+        }
+    });
 </script>
 
 <script>
