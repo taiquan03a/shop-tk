@@ -18,6 +18,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import com.datn.sd43_datn.service.KhachHangService;
+
 
 import java.text.ParseException;
 import java.util.List;
@@ -32,6 +34,8 @@ public class HoaDonController {
     final private SanPhamChiTietService sanPhamChiTietService;
     final private GiamGiaService giamGiaService;
     final private TrangThaiDonHangRepository trangThaiDonRepository;
+    final private KhachHangService khachHangService;
+
 
     @GetMapping("/index")
     public String getDonHang(Model model) {
@@ -88,6 +92,8 @@ public class HoaDonController {
         model.addAttribute("sanPhams",sanPhamChiTietService.getSanPhamChiTiet());
         model.addAttribute("giamGias",giamGiaService.getGiamGia());
         model.addAttribute("createDonHangRequest",createDonHangRequest);
+        model.addAttribute("khachHangs", khachHangService.getKhachHang());
+
         return "HoaDon/BanHangTaiQuay";
     }
 

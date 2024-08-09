@@ -172,74 +172,110 @@
                         </div>
                     </c:forEach>
                 </div>
-            </div>
 
-            <div class="filter mt-5">
-                <div class="d-flex justify-content-between line-bottom">
-                    <h3 style=" padding-bottom: 15px;">Thông tin khách hàng</h3>
-                </div>
-                <form:form action="create" id="myForm" method="post" modelAttribute="createDonHangRequest">
-                    <div class="row d-flex justify-content-between">
-                        <div class="col-6">
-                            <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Tên khách hàng</label>
-                                <input type="text" name="name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="phone" class="form-label">Số điện thoại</label>
-                                <input type="text" name="phone" class="form-control" id="phone" required>
-                            </div>
-                            <div class="type d-flex gap-2 align-items-center" style="font-size: 14px;">
-                                <div style="font-weight: 700; margin-bottom: 4px;">Phương thức thanh toán:</div>
-                                <input type="radio" id="css" name="type" value="2" required>
-                                <label  for="css">Chuyển khoản</label>
-                                <input type="radio" id="javascript" name="type" value="3" required>
-                                <label  for="javascript">Tiền mặt</label>
-                            </div>
-                            <div class="mb-3">
-                                <label for="total_price" class="form-label">Tiền khách trả</label>
-                                <input type="number" name="phone1" class="form-control" id="total_price" required>
-                                <label for="return" class="form-label">Còn Dư</label>
-                                <input type="number" name="phone2" value="0" class="form-control" id="return" readonly>
-                            </div>
-                            <div class="mb-3" style="display: none;">
-                                <label for="list_product" class="form-label"></label>
-                                <input type="text" name="list_product" path="listProduct" value="" class="form-control" id="list_product">
-                            </div>
-                            <div class="mb-3">
-                                <label for="w3review" class="form-label">Ghi chú</label>
-                                <textarea id="w3review" name="note" rows="4" class="w-100" required></textarea>
-                            </div>
-                            <button id="btn-submit" style="background-color: #ffa500;" type="submit" class="btn btn-primary">Xác nhận</button>
+                <div style="margin-top: 120px;">
+                    <div class="d-flex justify-content-between line-bottom">
+                        <h3 style=" padding-bottom: 15px;">Thông tin khách hàng</h3>
+                        <a style="cursor: pointer;"><div data-toggle="modal" data-target="#myModal1" class="function">Chọn khách hàng</div></a>
+                        <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-log modal-dialog-centered mt-4" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="myModalLabel1">Chọn khách hàng</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form action="">
+                                        </form>
+                                        <div class="w-100 d-flex justify-content-center align-items-center" style="background-color: #fff; border-radius: 10px;">
+                                            <table id="example1" class="table table-striped p-5" style="width:100%">
+                                                <thead>
+                                                <tr>
+                                                    <th>STT</th>
+                                                    <th>Tên</th>
+                                                    <th>Số điện thoại</th>
+                                                    <th style="width: 130px">Hành động</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody class="index">
+                                                <c:forEach var="khachHang" items="${khachHangs}" varStatus="i">
+                                                <tr>
+                                                    <td>${i.index + 1}</td>
+                                                    <td>${khachHang.tenKhachHang}</td>
+                                                    <td>${khachHang.sdt}</td>
+                                                    <td><a href="#" data-dismiss="modal"><div class="function" onclick="selectedCustomer('${khachHang.tenKhachHang}', '${khachHang.sdt}')">Chọn</div></a></td>
+                                                </tr>
+                                                </c:forEach>
 
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="col-4">
-<%--                            <div class="d-flex mb-3 gap-3">--%>
-<%--                                <input onblur="checkDiscount(this)" name="discount_name" style="padding: 5px 5px; border-radius: 4px; width: 48%; border: 2px solid #ccc;" type="text" placeholder="Mã giảm giá">--%>
-<%--                                <span style="margin-left: 5px; color: red" id="discount-message"></span>--%>
-<%--                                <input id="discount-percent" style="padding: 5px 5px; border-radius: 4px; width: 48%; border: 2px solid #ccc;" type="text" placeholder="Phần trăm giảm giá" readonly>--%>
-<%--                            </div>--%>
-                            <div class="d-flex mb-3 gap-3">
-                                <h3 style="color: red">Thông tin đơn giá</h3>
-                            </div>
-                            <div class="d-flex mb-3 justify-content-between">
-                                <div>Tổng tiền hàng</div>
-                                <b class="total-items-price"></b>
-                            </div>
-                            <div class="d-flex mb-3 justify-content-between">
-                                <div>Phí vận chuyển</div>
-                                <b id="money-discount">0 VND</b>
-                            </div>
-                            <i>Miễn phí vận chuyển với đơn hàng có giá trị trên 1.000.000vnđ</i>
-                            <div class="line-bottom"></div>
-                            <div  class="d-flex justify-content-between">
-                                <b>Tổng tiền</b>
-                                <b style="color: red;" id = "prices">0 VND</b>
-                            </div>
-                        </div>
                     </div>
-                </form:form>
+                    <form:form action="create" id="myForm" method="post" modelAttribute="createDonHangRequest">
+                        <div class="row d-flex justify-content-between">
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Tên khách hàng</label>
+                                    <input type="text" name="name" class="form-control" id="name" aria-describedby="emailHelp" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="phone" class="form-label">Số điện thoại</label>
+                                    <input type="text" name="phone" class="form-control" id="phone" required>
+                                </div>
+                                <div class="type d-flex gap-2 align-items-center" style="font-size: 14px;">
+                                    <div style="font-weight: 700; margin-bottom: 4px;">Phương thức thanh toán:</div>
+                                    <input type="radio" id="css" name="type" value="2" required>
+                                    <label  for="css">Chuyển khoản</label>
+                                    <input type="radio" id="javascript" name="type" value="3" required>
+                                    <label  for="javascript">Tiền mặt</label>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="total_price" class="form-label">Tiền khách trả</label>
+                                    <input type="number" name="phone1" class="form-control" id="total_price" required>
+                                    <label for="return" class="form-label">Còn Dư</label>
+                                    <input type="number" name="phone2" value="0" class="form-control" id="return" readonly>
+                                </div>
+                                <div class="mb-3" style="display: none;">
+                                    <label for="list_product" class="form-label"></label>
+                                    <input type="text" name="list_product" path="listProduct" value="" class="form-control" id="list_product">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="w3review" class="form-label">Ghi chú</label>
+                                    <textarea id="w3review" name="note" rows="4" class="w-100" required></textarea>
+                                </div>
+                                <button id="btn-submit" style="background-color: #ffa500;" type="submit" class="btn btn-primary">Xác nhận</button>
+
+                            </div>
+
+                            <div class="col-4">
+                                <div class="d-flex mb-3 gap-3">
+                                    <h3 style="color: red">Thông tin đơn giá</h3>
+                                </div>
+                                <div class="d-flex mb-3 justify-content-between">
+                                    <div>Tổng tiền hàng</div>
+                                    <b class="total-items-price"></b>
+                                </div>
+                                <div class="d-flex mb-3 justify-content-between">
+                                    <div>Phí vận chuyển</div>
+                                    <b id="money-discount">0 VND</b>
+                                </div>
+                                <i>Miễn phí vận chuyển với đơn hàng có giá trị trên 1.000.000vnđ</i>
+                                <div class="line-bottom"></div>
+                                <div  class="d-flex justify-content-between">
+                                    <b>Tổng tiền</b>
+                                    <b style="color: red;" id = "prices">0 VND</b>
+                                </div>
+                            </div>
+                        </div>
+                    </form:form>
+                </div>
+
             </div>
 
         </div>
@@ -249,6 +285,19 @@
 </div>
 </body>
 </html>
+
+<style>
+    #example1 thead th{
+        text-align: center;
+    }
+    .nav-active{
+        border-bottom: 1.5px solid #0d6efd;
+    }
+
+    .nav-active b {
+        color: #0d6efd !important;
+    }
+</style>
 
 <script>
     $(document).ready(function () {
@@ -268,6 +317,48 @@
     updateTotalPrice()
     getListSelected()
     setValueInput()
+    localStorage.setItem('bills', JSON.stringify({}))
+    var n = 1
+    function selectedCustomer(name, phone){
+        document.getElementById('name').value = name
+        document.getElementById('phone').value = phone
+    }
+
+    function addBill() {
+        var idObject = JSON.parse(localStorage.getItem('bills')) ?? {};
+        if(Object.keys(idObject).length >= 5) alert("Tối đa 5 hóa đơn")
+        else{
+            var activeElement = document.querySelector('.nav-active');
+            if (activeElement) {
+                activeElement.classList.remove('nav-active');
+            }
+            $('.bills').append('<div style="width: 15%" onclick="chooseHD(this,' + (Object.keys(idObject).length + 1) + ')" class="nav-active d-flex align-items-center justify-content-between sp">' +
+                '<b style="cursor: pointer"> HĐ0' + n + '</b>' +
+                '<i class="fa-solid fa-xmark" onclick="removeItem(this,' + (Object.keys(idObject).length + 1) + ')" style="color: red; cursor: pointer"></i>' +
+                '</div>' +
+                '<div id="line' + (Object.keys(idObject).length + 1) + '" style="width: 8px; border-right: 1.5px solid #CCB; height: 26px"></div>');            idObject[Object.keys(idObject).length + 1] = {}
+            localStorage.setItem('bills', JSON.stringify(idObject))
+            n += 1
+        }
+    }
+
+    function chooseHD(e, n){
+        document.querySelector('.nav-active').classList.remove('nav-active');
+        e.classList.add('nav-active')
+
+    }
+
+    function removeItem(e, n){
+        e.parentNode.remove()
+        document.getElementById('line' + n).remove()
+        var idObject = JSON.parse(localStorage.getItem('bills')) ?? {};
+        if (idObject.hasOwnProperty(n)) {
+            delete idObject[n];
+        }
+        localStorage.setItem('bills', JSON.stringify(idObject))
+
+    }
+
     function handleButtonDelete(s) {
         if( ! confirm("Bạn có muốn xóa sản phẩm này?") ){
             event.preventDefault();

@@ -82,10 +82,9 @@
                                         </button>
                                         <input
                                                 type="number"
-                                                id="counter-btn-counter"
+                                                id="product-${sanPham.sanPhamChiTiet.ID}"
                                                 class="counter-btn-counter"
                                                 min="1"
-                                                max="1000"
                                                 value="${sanPham.soLuong}"
                                                 placeholder="1"
                                                 onchange="updateProduct(this, ${sanPham.sanPhamChiTiet.ID}, ${sanPham.sanPhamChiTiet.giaBan})"
@@ -264,6 +263,8 @@
                 if(item > listProduct[key]){
                     check = false
                     alert("Không đủ " + item + " sản phẩm")
+                    document.getElementById('product-' + key).value = tmpListItemSelected[key]
+
                 }
         }
         if (check){
