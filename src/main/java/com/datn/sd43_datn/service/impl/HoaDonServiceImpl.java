@@ -10,7 +10,7 @@ import com.datn.sd43_datn.service.HoaDonService;
 import com.datn.sd43_datn.service.MailService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-//import org.thymeleaf.context.Context;
+import org.thymeleaf.context.Context;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -124,6 +124,7 @@ public class HoaDonServiceImpl implements HoaDonService {
         List<TimeLineDto> timeLineDTOList = new ArrayList<>();
         long idTrangThai = hoaDon.getTrangThaiDon().getID();
         String status = hoaDon.getIdStatus();
+        String statusCheck = status;
         String timeLine = hoaDon.getThoiGianDonHang();
         Date now = new Date();
         String dateString = formattedDate.format(now);
@@ -155,7 +156,7 @@ public class HoaDonServiceImpl implements HoaDonService {
 
         String ngayTao = formattedDate.format(hoaDon.getNgayTao());
 
-
+        List<HoaDonChiTiet> hoaDonChiTietList = hoaDonChiTietRepository.findHoaDonChiTietsByHoaDon(hoaDon);
         HoaDonChiTietDto hoaDonDetailDTO = HoaDonChiTietDto.builder()
                 .id(hoaDonId)
                 .maHoaDon(hoaDon.getMaHoaDon())
@@ -166,7 +167,7 @@ public class HoaDonServiceImpl implements HoaDonService {
                 .trangThai(hoaDon.getTrangThaiDon().getTenTrangThai())
                 .trangThaiDonList(trangThaiDonList)
                 .trangThaiDon(trangThaiDonRepository.findById(idTrangThai).get())
-                .hoaDonChiTietList(hoaDonChiTietRepository.findHoaDonChiTietsByHoaDon(hoaDon))
+                .hoaDonChiTietList(hoaDonChiTietList)
                 .ngayTao(ngayTao)
                 .nhanVien(hoaDon.getNguoiTao())
                 .tenGiamGia(tenGiamGia)
@@ -176,7 +177,21 @@ public class HoaDonServiceImpl implements HoaDonService {
                 .phiVanChuyen(String.valueOf(hoaDon.getPhiVanChuyen()))
                 .tongTien(String.valueOf(hoaDon.getThanhTien()))
                 .build();
+
+        if(!statusCheck.equals(status)){
+            String title = "Đơn hàng đã được cập nhật trạng thái!!!!";
+            String userEmail = hoaDon.getKhachHang().getEmail();
+            Context context = new Context();
+            context.setVariable("userEmail", userEmail);
+            context.setVariable("userName", hoaDon.getKhachHang().getTenKhachHang());
+            context.setVariable("orders", hoaDon);
+            context.setVariable("orderItems", hoaDonChiTietList);
+            context.setVariable("orderDate", hoaDon.getNgayTao());
+            mailService.sendEmailWithHtmlTemplate(userEmail, title, "confirm-order", context);
+        }
+
         return hoaDonDetailDTO;
+
     }
 
     @Override
@@ -194,6 +209,7 @@ public class HoaDonServiceImpl implements HoaDonService {
 
         long idTrangThai = hoaDon.getTrangThaiDon().getID();
         String status = hoaDon.getIdStatus();
+        String statusCheck = status;
 
         if (idTrangThai != 4 && idTrangThai != 5 && idTrangThai != 6 && idTrangThai != 7) {
             idTrangThai = 6;
@@ -247,6 +263,7 @@ public class HoaDonServiceImpl implements HoaDonService {
 //        lichSuThanhToanRepository.save(lichSuThanhToan);
 
         String ngayTao = sdf.format(hoaDon.getNgayTao());
+        List<HoaDonChiTiet> hoaDonChiTietList = hoaDonChiTietRepository.findHoaDonChiTietsByHoaDon(hoaDon);
         HoaDonChiTietDto hoaDonDetailDTO = HoaDonChiTietDto.builder()
                 .id(hoaDonId)
                 .maHoaDon(hoaDon.getMaHoaDon())
@@ -270,6 +287,17 @@ public class HoaDonServiceImpl implements HoaDonService {
                 .tongTien(String.valueOf(hoaDon.getThanhTien()))
                 .lichSuThanhToanList(lichSuThanhToanRepository.findLichSuThanhToansByHoaDon(hoaDon))
                 .build();
+        if(!status.equals(statusCheck)){
+            String title = "Đơn hàng đã được cập nhật trạng thái!!!!";
+            String userEmail = hoaDon.getKhachHang().getEmail();
+            Context context = new Context();
+            context.setVariable("userEmail", userEmail);
+            context.setVariable("userName", hoaDon.getKhachHang().getTenKhachHang());
+            context.setVariable("orders", hoaDon);
+            context.setVariable("orderItems", hoaDonChiTietList);
+            context.setVariable("orderDate", hoaDon.getNgayTao());
+            mailService.sendEmailWithHtmlTemplate(userEmail, title, "confirm-order", context);
+        }
         return hoaDonDetailDTO;
     }
 
@@ -425,15 +453,6 @@ public class HoaDonServiceImpl implements HoaDonService {
                 .ghiChu("Bán hàng tại quầy")
                 .build();
         lichSuThanhToanRepository.save(lichSuThanhToan);
-        String title = "Đặt hàng thành công!";
-        String userEmail = khachHang.getEmail();
-//        Context context = new Context();
-//        context.setVariable("userEmail", userEmail);
-//        context.setVariable("userName", khachHang.getTenKhachHang());
-//        context.setVariable("orders", hoaDon);
-//        context.setVariable("orderItems", hoaDonChiTietList);
-//        context.setVariable("orderDate", hoaDon.getNgayTao());
-        //mailService.sendEmailWithHtmlTemplate(userEmail, title, "confirm-order", context);
         return true;
     }
 
@@ -547,6 +566,7 @@ public class HoaDonServiceImpl implements HoaDonService {
             khachHangCheck.setTenKhachHang("Ẩn danh");
             diaChi.setGhiChu("địa chỉ của khách hàng ẩn danh");
             khachHangCheck.setSdt(checkoutRequest.getSdt());
+            khachHangCheck.setEmail(checkoutRequest.getEmail());
             khachHangRepository.save(khachHangCheck);
             diaChi.setKhachHang(khachHangCheck);
             diaChi.setKhachHang(khachHangCheck);
@@ -591,6 +611,15 @@ public class HoaDonServiceImpl implements HoaDonService {
             hoaDonChiTiet.setHoaDon(hoaDon);
             hoaDonChiTietRepository.save(hoaDonChiTiet);
         }
+        String title = "Đặt hàng thành công!";
+        String userEmail = khachHangCheck.getEmail();
+        Context context = new Context();
+        context.setVariable("userEmail", userEmail);
+        context.setVariable("userName", khachHangCheck.getTenKhachHang());
+        context.setVariable("orders", hoaDon);
+        context.setVariable("orderItems", hoaDonChiTietList);
+        context.setVariable("orderDate", hoaDon.getNgayTao());
+        mailService.sendEmailWithHtmlTemplate(userEmail, title, "confirm-order", context);
         return true;
     }
 

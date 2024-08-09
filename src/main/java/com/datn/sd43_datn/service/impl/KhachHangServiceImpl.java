@@ -234,7 +234,11 @@ public class KhachHangServiceImpl implements KhachHangService {
 
     @Override
     public boolean register(TaoKhachHangRequest khachHangRequest) {
-        boolean kh = khachHangRepository.existsKhachHangByEmail(khachHangRequest.getEmail());
+        KhachHang khachHangOld = khachHangRepository.findKhachHangByEmail(khachHangRequest.getEmail()).get(0);
+        boolean kh = false;
+        if (khachHangOld != null) {
+            kh = khachHangOld.isTrangThai();
+        }
         if(!kh) {
             KhachHang khachHang = KhachHang.builder()
                     .tenKhachHang(khachHangRequest.getTenKhachHang())

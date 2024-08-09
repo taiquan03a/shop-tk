@@ -6,12 +6,13 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface KhachHangRepository extends JpaRepository<KhachHang,Long> {
     @Query("SELECT k FROM KhachHang k WHERE k.kieuKhachHang = true")
     List<KhachHang> findAllKH();
     KhachHang findKhachHangByEmailAndMatKhau(String email, String matKhau);
-    KhachHang findKhachHangByEmail(String email);
+    List <KhachHang> findKhachHangByEmail(String email);
     boolean existsKhachHangByEmail(String email);
 }
