@@ -7,8 +7,10 @@ import com.datn.sd43_datn.entity.KHang.DiaChi;
 import com.datn.sd43_datn.repository.*;
 import com.datn.sd43_datn.request.*;
 import com.datn.sd43_datn.service.HoaDonService;
+import com.datn.sd43_datn.service.MailService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+//import org.thymeleaf.context.Context;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,6 +30,7 @@ public class HoaDonServiceImpl implements HoaDonService {
     private final SanPhamChiTietRepository sanPhamChiTietRepository;
     final private LichSuThanhToanRepository lichSuThanhToanRepository;
     private final DiaChiRepository diaChiRepository;
+    final private MailService mailService;
 
     @Override
     public List<HoaDonRequest> getHoaDonRequests() {
@@ -351,13 +354,13 @@ public class HoaDonServiceImpl implements HoaDonService {
             HoaDonChiTiet hoaDonChiTiet = HoaDonChiTiet.builder()
                     .sanPhamChiTiet(sanPhamChiTiet)
                     .soLuong(Long.valueOf(sl))
-                    .donGia(Long.valueOf(sanPhamChiTiet.getGiaBan()))
-                    .thanhTien(Long.valueOf(sl) * Long.valueOf(sanPhamChiTiet.getGiaBan()))
+                    .donGia(sanPhamChiTiet.getGiaBan())
+                    .thanhTien(Long.parseLong(sl) * sanPhamChiTiet.getGiaBan())
                     .trangThai(true)
                     .build();
             hoaDonChiTietList.add(hoaDonChiTiet);
 
-            sanPhamChiTiet.setSoLuong(sanPhamChiTiet.getSoLuong() - Long.valueOf(sl));
+            sanPhamChiTiet.setSoLuong(sanPhamChiTiet.getSoLuong() - Long.parseLong(sl));
             sanPhamChiTietRepository.save(sanPhamChiTiet);
         }
 
@@ -422,6 +425,15 @@ public class HoaDonServiceImpl implements HoaDonService {
                 .ghiChu("Bán hàng tại quầy")
                 .build();
         lichSuThanhToanRepository.save(lichSuThanhToan);
+        String title = "Đặt hàng thành công!";
+        String userEmail = khachHang.getEmail();
+//        Context context = new Context();
+//        context.setVariable("userEmail", userEmail);
+//        context.setVariable("userName", khachHang.getTenKhachHang());
+//        context.setVariable("orders", hoaDon);
+//        context.setVariable("orderItems", hoaDonChiTietList);
+//        context.setVariable("orderDate", hoaDon.getNgayTao());
+        //mailService.sendEmailWithHtmlTemplate(userEmail, title, "confirm-order", context);
         return true;
     }
 
@@ -437,6 +449,49 @@ public class HoaDonServiceImpl implements HoaDonService {
         hoaDonRepository.save(hoaDon);
         return true;
     }
+
+    @Override
+    public boolean updateHoaDon(UpdateDonHangRequest updateDonHangRequest, long hoaDonId) {
+        HoaDon hoaDon = hoaDonRepository.findById(hoaDonId).get();
+        System.out.println("hihi");
+
+        hoaDonChiTietRepository.deleteAll(hoaDonChiTietRepository.findHoaDonChiTietsByHoaDon(hoaDon));
+
+        List<HoaDonChiTiet> hoaDonChiTietList = new ArrayList<>();
+        String strippedInput = updateDonHangRequest.getList_product().substring(1, updateDonHangRequest.getList_product().length() - 1);
+        String[] pairs = strippedInput.split(",");
+        for (String pair : pairs) {
+            pair = pair.replace("\"", "");
+            String[] numbers = pair.split(":");
+            String id = numbers[0];
+            String sl = numbers[1];
+
+            SanPhamChiTiet  sanPhamChiTiet = sanPhamChiTietRepository.findById(Long.valueOf(id)).get();
+            HoaDonChiTiet hoaDonChiTiet = HoaDonChiTiet.builder()
+                    .hoaDon(hoaDon)
+                    .sanPhamChiTiet(sanPhamChiTiet)
+                    .soLuong(Long.valueOf(sl))
+                    .donGia(sanPhamChiTiet.getGiaBan())
+                    .thanhTien(Long.parseLong(sl) * sanPhamChiTiet.getGiaBan())
+                    .trangThai(true)
+                    .build();
+            hoaDonChiTietRepository.save(hoaDonChiTiet);
+            hoaDonChiTietList.add(hoaDonChiTiet);
+        }
+        long tongTienDonHang = 0,giamGiaNguyen = 0,thanhTien = 0;
+        float tienGiamGia = 0;
+        for(HoaDonChiTiet hd : hoaDonChiTietList){
+            tongTienDonHang += hd.getThanhTien();
+        }
+        //thanhTien = tongTienDonHang - giamGiaNguyen;
+        thanhTien = tongTienDonHang - giamGiaNguyen + hoaDon.getPhiVanChuyen();
+        hoaDon.setTongTienDonHang((tongTienDonHang));
+        hoaDon.setTienGiamGia(giamGiaNguyen);
+        hoaDon.setThanhTien(thanhTien);
+        hoaDonRepository.save(hoaDon);
+        return true;
+    }
+
 
     @Override
     public boolean checkout(KhachHang khachHang, CheckoutRequest checkoutRequest) {

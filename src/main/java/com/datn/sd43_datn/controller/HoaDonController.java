@@ -61,15 +61,15 @@ public class HoaDonController {
         }
         return "redirect:/hoa-don/donHang/"+id;
     }
-//    @PostMapping("donHang/{id}")
-//    public String updateHoaDon(Model model, @PathVariable long id,@ModelAttribute("updateDonHangRequest") UpdateDonHangRequest updateDonHangRequest) {
-//        System.out.println(updateDonHangRequest);
-//        hoaDonService.updateHoaDon(updateDonHangRequest,id);
-//        model.addAttribute("detail",hoaDonService.getHoaDonDetail(id));
-//        model.addAttribute("sanPhams",sanPhamChiTietService.getSanPhamChiTiet());
-//        model.addAttribute("updateDonHangRequest",updateDonHangRequest);
-//        return "HoaDon/ChiTiet";
-//    }
+    @PostMapping("donHang/{id}")
+    public String updateHoaDon(Model model, @PathVariable long id,@ModelAttribute("updateDonHangRequest") UpdateDonHangRequest updateDonHangRequest) {
+        System.out.println(updateDonHangRequest);
+        hoaDonService.updateHoaDon(updateDonHangRequest,id);
+        model.addAttribute("detail",hoaDonService.getHoaDonDetail(id));
+        model.addAttribute("sanPhams",sanPhamChiTietService.getSanPhamChiTiet());
+        model.addAttribute("updateDonHangRequest",updateDonHangRequest);
+        return "HoaDon/ChiTiet";
+    }
     @GetMapping("donHangUP/{id}")
     public String postHoaDon(@PathVariable long id, Model model) {
         UpdateDonHangRequest updateDonHangRequest = new UpdateDonHangRequest();

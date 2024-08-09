@@ -492,7 +492,7 @@
         </c:forEach>
         document.getElementById('prices').innerHTML = totalPrice.toFixed(1) + " VNĐ"
         // document.getElementById('money-discount').innerHTML = totalPrice.toFixed(0) + " VNĐ"
-        document.getElementById('total-money').innerHTML = (totalPrice - ${detail.phiVanChuyen}).toFixed(1) + " VNĐ"
+        document.getElementById('total-money').innerHTML = (totalPrice + ${detail.phiVanChuyen}).toFixed(1) + " VNĐ"
     }
 
     function setValueInput(check = 0){

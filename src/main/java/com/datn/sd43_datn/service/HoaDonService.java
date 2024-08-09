@@ -17,7 +17,7 @@ public interface HoaDonService {
     List<HoaDonRequest> filterHoaDonRequest(String search,String status,String batDau,String ketThuc) throws ParseException;
     boolean addHoaDon(TaoDonHangRequest createDonHangRequest);
     boolean updateKH(long hoaDonID, UpdateInfoKH updateInfoKH);
-//    boolean updateHoaDon(UpdateDonHangRequest updateDonHangRequest, long hoaDonId);
+    boolean updateHoaDon(UpdateDonHangRequest updateDonHangRequest, long hoaDonId);
     boolean checkout(KhachHang khachHang, CheckoutRequest checkoutRequest);
     List<HoaDonRequest> orderHistory (KhachHang khachHang);
 }

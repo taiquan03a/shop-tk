@@ -40,7 +40,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
                         .requestMatchers("/").permitAll()
-                        .requestMatchers("/webapp/**", "/static/**", "/css/**", "/js/**", "/img/**").permitAll()
+                        .requestMatchers("/webapp/**","/templates/**", "/static/**", "/css/**", "/js/**", "/img/**").permitAll()
                         .requestMatchers("/user/**").permitAll()
                         .requestMatchers("/signup").permitAll()
                         .requestMatchers("/nhan-vien/**").hasAuthority("QUANLY")
