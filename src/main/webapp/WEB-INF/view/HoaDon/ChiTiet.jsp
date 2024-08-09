@@ -446,7 +446,8 @@
             }
             localStorage.setItem('quanlity', JSON.stringify(newObject));
             setValueInput();
-            location.reload();
+            document.getElementById('item-'+s).remove()
+            document.getElementById('btn-submit').classList.remove('d-none')
         }
     }
 
@@ -475,7 +476,7 @@
         if (!storedArray.hasOwnProperty(s)) storedArray[s] = 1;
         localStorage.setItem('selected', JSON.stringify(selectedObj));
         localStorage.setItem('quanlity', JSON.stringify(storedArray));
-        location.reload();
+        document.getElementById('item-'+s).classList.remove("d-none")
 
     }
 
