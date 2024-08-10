@@ -235,7 +235,7 @@
         var tong = 0
         document.querySelectorAll('.gia').forEach(e => tong += parseInt(e.textContent.split(' ')[0]))
         document.getElementById('subtotall').innerHTML = tong + ' VNĐ'
-        document.getElementById('final-total').innerHTML = tong - 15000  + ' VNĐ'
+        document.getElementById('final-total').innerHTML = tong + 15000  + ' VNĐ'
     }
 
     function deleteItem(e, product_id, price) {
@@ -267,13 +267,15 @@
 
                 }
         }
-        if (check){
+        if(Object.keys(listProductSelected).length === 0){
+            alert("Chưa có sản phẩm nào!")
+        }
+        else if (check){
             document.getElementById('checkout').submit()
             e.submit()
         }else{
             localStorage.setItem('product', JSON.stringify(tmpListItemSelected));
             document.getElementById('spct1').value = JSON.stringify(tmpListItemSelected)
-
         }
     }
 </script>
