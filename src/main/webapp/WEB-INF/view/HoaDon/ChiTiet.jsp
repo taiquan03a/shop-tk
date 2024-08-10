@@ -107,8 +107,28 @@
                     <c:choose>
                         <c:when test="${detail.trangThaiDon.ID < 4}">
                             <div class="d-flex justify-content-between gap-4">
-                                <a style="color: #ffa500 !important;" href="/hoa-don/donHangUP/${detail.id}" id="confirmBtn" class="function" onclick="return confirmChuyenTT();">Chuyển sang trạng thái kế tiếp</a>
-                                <a style="color: #fff !important;" href="/hoa-don/donHangHuy/${detail.id}" id="cancelBtn" class="function cancel" onclick="return confirmHuyDon();">Hủy Đơn</a>
+<%--                                <a style="color: #ffa500 !important;" href="/hoa-don/donHangUP/${detail.id}" id="confirmBtn" class="function" onclick="return confirmChuyenTT();">Chuyển sang trạng thái kế tiếp</a>--%>
+                                <form:form method="get" action="/hoa-don/donHangUP/${detail.id}">
+                                    <input
+                                            type="hidden"
+                                            id="detail-address"
+                                            name="detailAddress"
+                                            value="hihi"
+                                            placeholder="Your Address"
+                                    />
+                                    <button type="submit" id="confirmBtn" class="function" onclick="return confirmChuyenTT();">Chuyển sang trạng thái kế tiếp</button>
+                                </form:form>
+<%--                                <a style="color: #fff !important;" href="/hoa-don/donHangHuy/${detail.id}" id="cancelBtn" class="function cancel" onclick="return confirmHuyDon();">Hủy Đơn</a>--%>
+                                <form:form method="get" action="/hoa-don/donHangHuy/${detail.id}">
+                                    <input
+                                            type="hidden"
+                                            id="detail-address"
+                                            name="detailAddress"
+                                            value="hihi"
+                                            placeholder="Your Address"
+                                    />
+                                    <button type="submit" id="cancelBtn" class="function cancel" onclick="return confirmHuyDon();">Hủy Đơn</button>
+                                </form:form>
                             </div>
                             <br />
                         </c:when>

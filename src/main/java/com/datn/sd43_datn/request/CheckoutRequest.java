@@ -20,4 +20,5 @@ public class CheckoutRequest {
     private String soNha;
     private String spct;
     private String idDiaChi;
+    private String detailAddress;
 }

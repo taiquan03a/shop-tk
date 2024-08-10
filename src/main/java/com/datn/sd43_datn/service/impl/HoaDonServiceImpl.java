@@ -619,6 +619,7 @@ public class HoaDonServiceImpl implements HoaDonService {
         context.setVariable("orders", hoaDon);
         context.setVariable("orderItems", hoaDonChiTietList);
         context.setVariable("orderDate", hoaDon.getNgayTao());
+        context.setVariable("address",checkoutRequest.getDetailAddress());
         mailService.sendEmailWithHtmlTemplate(userEmail, title, "confirm-order", context);
         return true;
     }
