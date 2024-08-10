@@ -272,6 +272,8 @@
             e.submit()
         }else{
             localStorage.setItem('product', JSON.stringify(tmpListItemSelected));
+            document.getElementById('spct1').value = JSON.stringify(tmpListItemSelected)
+
         }
     }
 </script>
