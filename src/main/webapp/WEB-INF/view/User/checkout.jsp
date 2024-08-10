@@ -48,7 +48,7 @@
                                 <div class="contact-form__content-group">
                                     <div class="contact-form-input">
                                         <label for="fname1">Full Name </label>
-                                        <input
+                                        <input required
                                                 type="text"
                                                 id="fname1"
                                                 name="tenKhachHang"
@@ -60,8 +60,8 @@
                                 <div class="contact-form__content-group">
                                     <div class="contact-form-input">
                                         <label for="email"> email </label>
-                                        <input
-                                                type="text"
+                                        <input required
+                                                type="email"
                                                 id="email"
                                                 name="email"
                                                 value="${khachHang.email}"
@@ -70,15 +70,15 @@
                                     </div>
                                     <div class="contact-form-input">
                                         <label for="phone"> Phone </label>
-                                        <input
-                                                type="number"
+                                        <input required
+                                                type="text"
                                                 id="phone"
                                                 name="sdt"
                                                 value="${khachHang.sdt}"
                                                 placeholder="Phone number"
                                         />
                                     </div>
-                                    <input type="hidden" name="spct" value="${spCart.spct}">
+                                    <input required type="hidden" name="spct" value="${spCart.spct}">
                                 </div>
                                 <select class="mt-4 w-50" style="float: right" onchange="getAddress(this)" name="idDiaChi" id="diachi">
                                     <option value="0"> Chọn địa chỉ</option>
@@ -87,7 +87,7 @@
                                     <!-- Country -->
                                     <div class="contact-form-input">
                                         <label for="thanhPho">Tỉnh </label>
-                                        <select
+                                        <select required
                                                 id="thanhPho"
                                                 class="contact-form-input__dropdown"
                                         >
@@ -97,7 +97,7 @@
                                     <!-- states -->
                                     <div class="contact-form-input">
                                         <label for="huyen">Huyện </label>
-                                        <select
+                                        <select required
                                                 id="huyen"
                                                 class="contact-form-input__dropdown"
                                         >
@@ -107,7 +107,7 @@
                                     <!-- zip -->
                                     <div class="contact-form-input">
                                         <label for="xa">Xã</label>
-                                        <select id="xa" class="contact-form-input__dropdown" name="idPhuong">
+                                        <select required id="xa" class="contact-form-input__dropdown" name="idPhuong">
 
                                         </select>
                                     </div>
@@ -120,14 +120,15 @@
                                             name="soNha"
                                             value=""
                                             placeholder="Your Address"
+                                            required
                                     />
                                 </div>
-                                <div class="d-none">
+                                <div class="">
                                     <label for="address">Detail Address </label>
                                     <input
                                             type="text"
                                             id="detail-address"
-                                            name="detail-address"
+                                            name="detailAddress"
                                             value=""
                                             placeholder="Your Address"
                                     />
@@ -214,7 +215,7 @@
                             </div>
                         </div>
                         <div class="bill-card__body">
-                                <button class="button button--lg w-100" onclick="handleButtonOrder()">
+                                <button class="button button--lg w-100" type="submit" onclick="handleButtonOrder(this)">
                                     Place Order
                                 </button>
                         </div>
@@ -257,8 +258,13 @@
         }
     });
 
-    function handleButtonOrder(){
+    function handleButtonOrder(e){
         localStorage.clear()
+        console.log(document.getElementById('address').value)
+        $('#detail-address').val(document.getElementById('address').value + ', xã '
+                            + document.getElementById('xa').selectedOptions[0].textContent + ', huyện '
+                            + document.getElementById('huyen').selectedOptions[0].textContent + ', tỉnh '
+                            + document.getElementById('thanhPho').selectedOptions[0].textContent)
         document.querySelector(form).target.form.submit()
     }
 
