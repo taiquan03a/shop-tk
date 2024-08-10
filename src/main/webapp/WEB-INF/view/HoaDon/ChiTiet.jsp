@@ -113,7 +113,7 @@
                                             type="hidden"
                                             id="detail-address1"
                                             name="detailAddress1"
-                                            value="hihi"
+                                            value=""
                                             placeholder="Your Address"
                                     />
                                     <button type="button" id="confirmBtn" class="function" onclick="confirmChuyenTT(this);">Chuyển sang trạng thái kế tiếp</button>
@@ -124,7 +124,7 @@
                                             type="hidden"
                                             id="detail-address2"
                                             name="detailAddress2"
-                                            value="hihi"
+                                            value=""
                                             placeholder="Your Address"
                                     />
                                     <button type="button" id="cancelBtn" class="function cancel" onclick="confirmHuyDon();">Hủy Đơn</button>
@@ -191,6 +191,7 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <c:if test="${detail.soNha != ''}">
                                     <div class="contact-form-input mt-4">
                                         <label for="address">Địa chỉ chi tiết </label>
                                         <input
@@ -201,7 +202,7 @@
                                                 placeholder="Your Address"
                                         />
                                     </div>
-
+                                    </c:if>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>

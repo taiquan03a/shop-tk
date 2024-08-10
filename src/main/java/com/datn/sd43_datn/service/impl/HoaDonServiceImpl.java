@@ -88,7 +88,11 @@ public class HoaDonServiceImpl implements HoaDonService {
         }
         SimpleDateFormat formattedDate = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
         String ngayTao = formattedDate.format(hoaDon.getNgayTao());
-        String[] diaChi = hoaDon.getDiaCHiGiaoHang().split(" ");
+        String[] diaChi = {"", ""};
+        if(hoaDon.getDiaCHiGiaoHang() != null){
+            diaChi = hoaDon.getDiaCHiGiaoHang().split(" ");
+        }
+
         HoaDonChiTietDto hoaDonDetailDTO = HoaDonChiTietDto.builder()
                 .id(hoaDonId)
                 .maHoaDon(hoaDon.getMaHoaDon())
@@ -117,7 +121,7 @@ public class HoaDonServiceImpl implements HoaDonService {
         return hoaDonDetailDTO;
     }
     @Override
-    public HoaDonChiTietDto updateTrangThai(long hoaDonId) {
+    public HoaDonChiTietDto updateTrangThai(long hoaDonId,String detailAddress) {
         SimpleDateFormat formattedDate = new SimpleDateFormat("HH:mm:ss dd/MM/yyyy");
         HoaDon hoaDon = hoaDonRepository.findById(hoaDonId).get();
         List<TrangThaiHoaDon> trangThaiDonList = new ArrayList<>();
@@ -187,6 +191,7 @@ public class HoaDonServiceImpl implements HoaDonService {
             context.setVariable("orders", hoaDon);
             context.setVariable("orderItems", hoaDonChiTietList);
             context.setVariable("orderDate", hoaDon.getNgayTao());
+            context.setVariable("address",detailAddress);
             mailService.sendEmailWithHtmlTemplate(userEmail, title, "confirm-order", context);
         }
 
@@ -195,7 +200,7 @@ public class HoaDonServiceImpl implements HoaDonService {
     }
 
     @Override
-    public HoaDonChiTietDto huyTrangThai(long hoaDonId) {
+    public HoaDonChiTietDto huyTrangThai(long hoaDonId,String detailAddress) {
         Date hienTai = new Date();
 
         NhanVien nhanVien = nhanVienRepository.findById(1L).get();
@@ -296,6 +301,7 @@ public class HoaDonServiceImpl implements HoaDonService {
             context.setVariable("orders", hoaDon);
             context.setVariable("orderItems", hoaDonChiTietList);
             context.setVariable("orderDate", hoaDon.getNgayTao());
+            context.setVariable("address",detailAddress);
             mailService.sendEmailWithHtmlTemplate(userEmail, title, "confirm-order", context);
         }
         return hoaDonDetailDTO;

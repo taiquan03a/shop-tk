@@ -12,8 +12,8 @@ import java.util.List;
 public interface HoaDonService {
     List<HoaDonRequest> getHoaDonRequests();
     HoaDonChiTietDto getHoaDonDetail(long hoaDonId);
-    HoaDonChiTietDto updateTrangThai(long hoaDonId);
-    HoaDonChiTietDto huyTrangThai(long hoaDonId);
+    HoaDonChiTietDto updateTrangThai(long hoaDonId,String detailAddress);
+    HoaDonChiTietDto huyTrangThai(long hoaDonId,String detailAddress);
     List<HoaDonRequest> filterHoaDonRequest(String search,String status,String batDau,String ketThuc) throws ParseException;
     boolean addHoaDon(TaoDonHangRequest createDonHangRequest);
     boolean updateKH(long hoaDonID, UpdateInfoKH updateInfoKH);

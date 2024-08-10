@@ -14,10 +14,6 @@
     <div class="row d-flex justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="text-left logo p-2 px-5">
-                    <img src="https://res.cloudinary.com/dmvncmrci/image/upload/v1701198998/Product/rricardo_jw6e0b.webp"
-                         width="50" alt="lmao">
-                </div>
                 <div id=":n1" class="a3s aiL ">
                     <h5 th:text="'Trạng thái đơn hàng: ' + ${orders.getTrangThaiDon().getTenTrangThai()}">Đơn hàng của bạn đã được xác nhận</h5>
                     <span class="font-weight-bold d-block mt-4"
@@ -41,7 +37,7 @@
                         </div>
                         <div class="py-2">
                             <span class="d-block text-muted">Địa chỉ thanh toán:</span>
-                            <span>414 Advert Avenue, NY,USA</span>
+                            <span th:text="${address}">414 Advert Avenue, NY,USA</span>
                         </div>
                         <p class="font-weight-bold mb-0"></p>
                     </div>
