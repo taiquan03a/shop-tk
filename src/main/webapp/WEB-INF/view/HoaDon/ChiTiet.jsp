@@ -108,26 +108,26 @@
                         <c:when test="${detail.trangThaiDon.ID < 4}">
                             <div class="d-flex justify-content-between gap-4">
 <%--                                <a style="color: #ffa500 !important;" href="/hoa-don/donHangUP/${detail.id}" id="confirmBtn" class="function" onclick="return confirmChuyenTT();">Chuyển sang trạng thái kế tiếp</a>--%>
-                                <form:form method="get" action="/hoa-don/donHangUP/${detail.id}">
+                                <form:form id="next" method="get" action="/hoa-don/donHangUP/${detail.id}">
                                     <input
                                             type="hidden"
-                                            id="detail-address"
-                                            name="detailAddress"
+                                            id="detail-address1"
+                                            name="detailAddress1"
                                             value="hihi"
                                             placeholder="Your Address"
                                     />
-                                    <button type="submit" id="confirmBtn" class="function" onclick="return confirmChuyenTT();">Chuyển sang trạng thái kế tiếp</button>
+                                    <button type="button" id="confirmBtn" class="function" onclick="confirmChuyenTT(this);">Chuyển sang trạng thái kế tiếp</button>
                                 </form:form>
 <%--                                <a style="color: #fff !important;" href="/hoa-don/donHangHuy/${detail.id}" id="cancelBtn" class="function cancel" onclick="return confirmHuyDon();">Hủy Đơn</a>--%>
-                                <form:form method="get" action="/hoa-don/donHangHuy/${detail.id}">
+                                <form:form id="cancel" method="get" action="/hoa-don/donHangHuy/${detail.id}">
                                     <input
                                             type="hidden"
-                                            id="detail-address"
-                                            name="detailAddress"
+                                            id="detail-address2"
+                                            name="detailAddress2"
                                             value="hihi"
                                             placeholder="Your Address"
                                     />
-                                    <button type="submit" id="cancelBtn" class="function cancel" onclick="return confirmHuyDon();">Hủy Đơn</button>
+                                    <button type="button" id="cancelBtn" class="function cancel" onclick="confirmHuyDon();">Hủy Đơn</button>
                                 </form:form>
                             </div>
                             <br />
@@ -436,6 +436,35 @@
     getListProductSelected()
     updateTotalPrice()
     setValueInput()
+    function confirmChuyenTT(){
+        $.ajax({
+            url: 'https://esgoo.net/api-tinhthanh/5/' + '${detail.idPhuong}' + '.htm',
+            method: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                document.getElementById('detail-address1').value = '${detail.soNha}' + data['data'].full_name;
+            },
+            error: function () {
+                alert('Không thể lấy dữ liệu xã.');
+            }
+        });
+        document.getElementById('next').submit()
+    }
+
+    function confirmHuyDon(){
+        $.ajax({
+            url: 'https://esgoo.net/api-tinhthanh/5/' + '${detail.idPhuong}' + '.htm',
+            method: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                document.getElementById('detail-address2').value = '${detail.soNha}' + data['data'].full_name;
+            },
+            error: function () {
+                alert('Không thể lấy dữ liệu xã.');
+            }
+        });
+        document.getElementById('cancel').submit()
+    }
     function getListProductSelected(){
         const newObject = JSON.parse(localStorage.getItem('quanlity')) ?? {};
         <c:forEach var="hoaDon" items="${detail.hoaDonChiTietList}">
@@ -537,7 +566,7 @@
 </script>
 
 <script>
-    getDetailAddress('${detail.idPhuong}', ${detail.soNha})
+    getDetailAddress('${detail.idPhuong}', '${detail.soNha}')
     $.ajax({
         url: 'https://esgoo.net/api-tinhthanh/1/0.htm',
         method: 'GET',
