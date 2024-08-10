@@ -122,6 +122,16 @@
                                             placeholder="Your Address"
                                     />
                                 </div>
+                                <div class="d-none">
+                                    <label for="address">Detail Address </label>
+                                    <input
+                                            type="text"
+                                            id="detail-address"
+                                            name="detail-address"
+                                            value=""
+                                            placeholder="Your Address"
+                                    />
+                                </div>
 
                             </div>
 
@@ -204,8 +214,7 @@
                             </div>
                         </div>
                         <div class="bill-card__body">
-
-                                <button class="button button--lg w-100" type="submit">
+                                <button class="button button--lg w-100" onclick="handleButtonOrder()">
                                     Place Order
                                 </button>
                         </div>
@@ -230,7 +239,7 @@
 <script>
     <c:forEach var="dc" items="${diaChi}" varStatus="status">
         $('#diachi').append('<option id="${dc.ID}" value="${dc.ID} ${dc.idPhuong}"></option>');
-        getDetailAddress('${dc.ID}', '${dc.idPhuong}', ${dc.soNha})
+        getDetailAddress('${dc.ID}', '${dc.idPhuong}', '${dc.soNha}')
     </c:forEach>
     $.ajax({
         url: 'https://esgoo.net/api-tinhthanh/1/0.htm',
@@ -248,9 +257,14 @@
         }
     });
 
+    function handleButtonOrder(){
+        localStorage.clear()
+        document.querySelector(form).target.form.submit()
+    }
+
     function getAddress(e){
         var wardId = e.value.split(' ')[1]
-        getName(wardId, e.selectedOptions[0].textContent.split(' ')[0])
+        getName(wardId, e.selectedOptions[0].textContent.split(',')[0])
     }
 
     function populateDistricts(provinceId) {
@@ -278,7 +292,7 @@
             method: 'GET',
             dataType: 'json',
             success: async function (data) {
-                $('#'+id).text(soNha + ' ' + data['data'].name)
+                $('#'+id).text(soNha + ', ' + data['data'].name)
             },
             error: function () {
                 alert('Không thể lấy dữ liệu xã.');
@@ -343,6 +357,7 @@
                 $('#huyen').val(data['data'].quan);
                 $('#xa').val(wardId);
                 $('#address').val(address)
+                $('#detail-address').val(document.getElementById('diachi').selectedOptions[0].textContent)
             },
             error: function () {
                 alert('Không thể lấy dữ liệu xã.');
