@@ -44,7 +44,8 @@ public class UserController {
         HttpSession session = request.getSession();
         KhachHang khachHang = (KhachHang) session.getAttribute("khachHang");
         System.out.println(khachHang);
-        model.addAttribute("sanPham",sanPhamService.getSanPhamHome());
+        model.addAttribute("sanPhamHot",sanPhamService.getHotProduct());
+        model.addAttribute("sanPhamNew",sanPhamService.getNewProduct());
         return "User/home";
     }
 

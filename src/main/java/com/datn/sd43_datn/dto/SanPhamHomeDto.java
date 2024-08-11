@@ -14,4 +14,5 @@ public class SanPhamHomeDto {
     private String tenSanPham;
     private long giaBan;
     private String anh;
+    private long luotBan;
 }

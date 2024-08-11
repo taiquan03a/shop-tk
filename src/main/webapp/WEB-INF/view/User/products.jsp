@@ -204,7 +204,9 @@
                                     <h3 class="h3 card-title">
                                         <a href="detail/${sanPham.ID}">${sanPham.tenSanPham}</a>
                                     </h3>
-
+                                    <div class="h3 card-title" style="font-size: small">
+                                        Đã bán: ${sanPham.luotBan}
+                                    </div>
                                     <data class="card-price" value="180.85">${sanPham.giaBan} VNĐ</data>
 
                                 </div>
@@ -293,7 +295,9 @@
                                     <h3 class="h3 card-title">
                                         <a href="detail/${sanPham.ID}">${sanPham.tenSanPham}</a>
                                     </h3>
-
+                                    <div class="h3 card-title" style="font-size: small">
+                                        Đã bán: ${sanPham.luotBan}
+                                    </div>
                                     <data class="card-price" value="180.85">${sanPham.giaBan} VNĐ</data>
 
                                 </div>

@@ -27,4 +27,7 @@ public interface SanPhamRepository extends JpaRepository<SanPham, Long> {
     @Transactional
     @Query("UPDATE SanPham set trangThai=0 where ID=?1")
     void updateTrangThai0(Integer id);
+
+    @Query("select  s from SanPham  s order by s.ngayTao desc limit 10")
+    List<SanPham> findAll10();
 }

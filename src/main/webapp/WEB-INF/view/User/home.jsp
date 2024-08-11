@@ -50,7 +50,7 @@
                 <h2 class="h2 section-title">Sản phẩm bán chạy</h2>
 
                 <ul class="product-list">
-                <c:forEach var="sanPham" items="${sanPham}" varStatus="status">
+                <c:forEach var="sanPham" items="${sanPhamHot}" varStatus="status">
                     <li class="product-item">
                         <div class="product-card" tabindex="0">
 
@@ -108,7 +108,9 @@
                                 <h3 class="h3 card-title">
                                     <a href="detail/${sanPham.ID}">${sanPham.tenSanPham}</a>
                                 </h3>
-
+                                <div class="h3 card-title" style="font-size: small">
+                                    Đã bán: ${sanPham.luotBan}
+                                </div>
                                 <data class="card-price" value="180.85">${sanPham.giaBan} VNĐ</data>
 
                             </div>
@@ -182,7 +184,7 @@
                     </h2>
 
                     <ul class="has-scrollbar">
-                    <c:forEach var="sanPham" items="${sanPham}" varStatus="status">
+                    <c:forEach var="sanPham" items="${sanPhamNew}" varStatus="status">
                         <li class="product-item">
                             <div class="product-card" tabindex="0">
                                 <figure class="card-banner">
@@ -237,7 +239,9 @@
                                     <h3 class="h3 card-title">
                                         <a href="detail/${sanPham.ID}">${sanPham.tenSanPham}</a>
                                     </h3>
-
+                                    <div class="h3 card-title" style="font-size: small">
+                                        Đã bán: ${sanPham.luotBan}
+                                    </div>
                                     <data class="card-price" value="180.85">${sanPham.giaBan} VNĐ</data>
 
                                 </div>

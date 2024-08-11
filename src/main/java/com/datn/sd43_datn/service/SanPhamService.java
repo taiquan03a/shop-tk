@@ -30,4 +30,6 @@ public interface SanPhamService {
     void findTrangThai0(Integer id);
     List<SanPhamHomeDto> getSanPhamHome();
     List<SanPhamHomeDto> filter(FilterRequest filterRequest);
+    List<SanPhamHomeDto> getNewProduct();
+    List<SanPhamHomeDto> getHotProduct();
 }

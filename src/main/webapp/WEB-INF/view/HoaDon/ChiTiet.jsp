@@ -116,7 +116,7 @@
                                             value=""
                                             placeholder="Your Address"
                                     />
-                                    <button type="button" id="confirmBtn" class="function" onclick="confirmChuyenTT(this);">Chuyển sang trạng thái kế tiếp</button>
+                                    <button type="submit" id="confirmBtn" class="function">Chuyển sang trạng thái kế tiếp</button>
                                 </form:form>
 <%--                                <a style="color: #fff !important;" href="/hoa-don/donHangHuy/${detail.id}" id="cancelBtn" class="function cancel" onclick="return confirmHuyDon();">Hủy Đơn</a>--%>
                                 <form:form id="cancel" method="get" action="/hoa-don/donHangHuy/${detail.id}">
@@ -127,7 +127,7 @@
                                             value=""
                                             placeholder="Your Address"
                                     />
-                                    <button type="button" id="cancelBtn" class="function cancel" onclick="confirmHuyDon();">Hủy Đơn</button>
+                                    <button type="submit" id="cancelBtn" class="function cancel">Hủy Đơn</button>
                                 </form:form>
                             </div>
                             <br />
@@ -432,7 +432,26 @@
         searching: true
     });
 </script>
-
+<script>
+    document.addEventListener('DOMContentLoaded', function()  {
+        const inputElement1 = document.getElementById('detail-address1');
+        const inputElement2 = document.getElementById('detail-address2');
+        $.ajax({
+            url: 'https://esgoo.net/api-tinhthanh/5/' + '${detail.idPhuong}' + '.htm',
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    inputElement1.value = '${detail.soNha} ' + data['data'].full_name;
+                    inputElement2.value = '${detail.soNha} ' + data['data'].full_name;
+            },
+            error: function () {
+                alert('Không thể lấy dữ liệu xã.');
+            }
+        });
+        console.log(inputElement1.value)
+        // Sau đó form sẽ được submit với giá trị đã thay đổi
+    });
+</script>
 <script>
     getListProductSelected()
     updateTotalPrice()
@@ -449,7 +468,7 @@
                 alert('Không thể lấy dữ liệu xã.');
             }
         });
-        document.getElementById('next').submit()
+        //document.getElementById('next').submit()
     }
 
     function confirmHuyDon(){

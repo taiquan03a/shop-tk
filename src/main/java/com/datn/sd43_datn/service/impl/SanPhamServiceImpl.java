@@ -1,11 +1,14 @@
 package com.datn.sd43_datn.service.impl;
 
 import com.datn.sd43_datn.dto.SanPhamHomeDto;
+import com.datn.sd43_datn.entity.HoaDonChiTiet;
 import com.datn.sd43_datn.entity.SanPham;
 import com.datn.sd43_datn.entity.SanPhamChiTiet;
+import com.datn.sd43_datn.repository.HoaDonChiTietRepository;
 import com.datn.sd43_datn.repository.SanPhamChiTietRepository;
 import com.datn.sd43_datn.repository.SanPhamRepository;
 import com.datn.sd43_datn.request.FilterRequest;
+import com.datn.sd43_datn.request.HoaDonRequest;
 import com.datn.sd43_datn.service.SanPhamService;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +28,8 @@ public class SanPhamServiceImpl implements SanPhamService {
     final private SanPhamRepository sanPhamRepository;
     @Autowired
     private SanPhamChiTietRepository sanPhamChiTietRepository;
+    @Autowired
+    private HoaDonChiTietRepository hoaDonChiTietRepository;
 
     @Override
     public List<SanPham> getAllSanPham() {
@@ -112,17 +117,27 @@ public class SanPhamServiceImpl implements SanPhamService {
     public List<SanPhamHomeDto> getSanPhamHome() {
         List<SanPham> sanPhams = sanPhamRepository.findAll();
         List<SanPhamHomeDto> sanPhamHomeDtos = new ArrayList<>();
-        for (SanPham sanPham : sanPhams) {
-            SanPhamChiTiet sanPhamChiTiet = sanPhamChiTietRepository.findBySanPham(sanPham);
-            if(sanPhamChiTiet != null) {
+        for(SanPham sanPham : sanPhams) {
+            long luotBan = 0;
+            SanPhamChiTiet sanPhamChiTietMin = sanPhamChiTietRepository.findBySanPham(sanPham);
+            List<SanPhamChiTiet> sanPhamChiTietList = sanPhamChiTietRepository.findSanPhamChiTietBySanPham(sanPham);
+            for(SanPhamChiTiet sanPhamChiTiet : sanPhamChiTietList) {
+                List<HoaDonChiTiet> hoaDonChiTiets = hoaDonChiTietRepository.findHoaDonChiTietsBySanPhamChiTiet(sanPhamChiTiet);
+                for(HoaDonChiTiet hoaDonChiTiet : hoaDonChiTiets) {
+                    luotBan += hoaDonChiTiet.getSoLuong();
+                }
+            }
+            if(sanPhamChiTietMin != null){
                 SanPhamHomeDto sanPhamHomeDto = SanPhamHomeDto.builder()
                         .ID(sanPham.getID())
                         .tenSanPham(sanPham.getTenSanPham())
-                        .giaBan(sanPhamChiTiet.getGiaBan())
-                        .anh(sanPhamChiTiet.getAnh().getAnh())
+                        .giaBan(sanPhamChiTietMin.getGiaBan())
+                        .anh(sanPhamChiTietMin.getAnh().getAnh())
+                        .luotBan(luotBan)
                         .build();
                 sanPhamHomeDtos.add(sanPhamHomeDto);
             }
+
         }
         return sanPhamHomeDtos;
     }
@@ -163,5 +178,66 @@ public class SanPhamServiceImpl implements SanPhamService {
             sanPhamHomeDtos.sort(Comparator.comparingLong(SanPhamHomeDto::getGiaBan).reversed());
         }
         return sanPhamHomeDtos;
+    }
+
+    @Override
+    public List<SanPhamHomeDto> getNewProduct() {
+        List<SanPham> sanPhams = sanPhamRepository.findAll10();
+        List<SanPhamHomeDto> sanPhamHomeDtos = new ArrayList<>();
+        for(SanPham sanPham : sanPhams) {
+            long luotBan = 0;
+            SanPhamChiTiet sanPhamChiTietMin = sanPhamChiTietRepository.findBySanPham(sanPham);
+            List<SanPhamChiTiet> sanPhamChiTietList = sanPhamChiTietRepository.findSanPhamChiTietBySanPham(sanPham);
+            for(SanPhamChiTiet sanPhamChiTiet : sanPhamChiTietList) {
+                List<HoaDonChiTiet> hoaDonChiTiets = hoaDonChiTietRepository.findHoaDonChiTietsBySanPhamChiTiet(sanPhamChiTiet);
+                for(HoaDonChiTiet hoaDonChiTiet : hoaDonChiTiets) {
+                    luotBan += hoaDonChiTiet.getSoLuong();
+                }
+            }
+            if(sanPhamChiTietMin != null){
+                SanPhamHomeDto sanPhamHomeDto = SanPhamHomeDto.builder()
+                        .ID(sanPham.getID())
+                        .tenSanPham(sanPham.getTenSanPham())
+                        .giaBan(sanPhamChiTietMin.getGiaBan())
+                        .anh(sanPhamChiTietMin.getAnh().getAnh())
+                        .luotBan(luotBan)
+                        .build();
+                sanPhamHomeDtos.add(sanPhamHomeDto);
+            }
+
+        }
+        return sanPhamHomeDtos;
+    }
+
+    @Override
+    public List<SanPhamHomeDto> getHotProduct() {
+        List<SanPham> sanPhams = sanPhamRepository.findAll();
+        List<SanPhamHomeDto> sanPhamHomeDtos = new ArrayList<>();
+        for(SanPham sanPham : sanPhams) {
+            long luotBan = 0;
+            SanPhamChiTiet sanPhamChiTietMin = sanPhamChiTietRepository.findBySanPham(sanPham);
+            List<SanPhamChiTiet> sanPhamChiTietList = sanPhamChiTietRepository.findSanPhamChiTietBySanPham(sanPham);
+            for(SanPhamChiTiet sanPhamChiTiet : sanPhamChiTietList) {
+                List<HoaDonChiTiet> hoaDonChiTiets = hoaDonChiTietRepository.findHoaDonChiTietsBySanPhamChiTiet(sanPhamChiTiet);
+                for(HoaDonChiTiet hoaDonChiTiet : hoaDonChiTiets) {
+                    luotBan += hoaDonChiTiet.getSoLuong();
+                }
+            }
+            if(sanPhamChiTietMin != null){
+                SanPhamHomeDto sanPhamHomeDto = SanPhamHomeDto.builder()
+                        .ID(sanPham.getID())
+                        .tenSanPham(sanPham.getTenSanPham())
+                        .giaBan(sanPhamChiTietMin.getGiaBan())
+                        .anh(sanPhamChiTietMin.getAnh().getAnh())
+                        .luotBan(luotBan)
+                        .build();
+                sanPhamHomeDtos.add(sanPhamHomeDto);
+            }
+
+        }
+        sanPhamHomeDtos.sort(Comparator.comparingLong(SanPhamHomeDto::getLuotBan).reversed());
+        List<SanPhamHomeDto> limit10 = sanPhamHomeDtos.subList(0,Math.min(sanPhamHomeDtos.size(), 9));
+        System.out.println(sanPhamHomeDtos);
+        return limit10;
     }
 }
