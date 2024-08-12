@@ -191,7 +191,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <c:if test="${detail.soNha != ''}">
+
                                     <div class="contact-form-input mt-4">
                                         <label for="address">Địa chỉ chi tiết </label>
                                         <input
@@ -202,7 +202,7 @@
                                                 placeholder="Your Address"
                                         />
                                     </div>
-                                    </c:if>
+
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
@@ -625,17 +625,19 @@
     }
 
     function getDetailAddress(wardId, soNha){
-        $.ajax({
-            url: 'https://esgoo.net/api-tinhthanh/5/' + wardId + '.htm',
-            method: 'GET',
-            dataType: 'json',
-            success: function (data) {
-                var detailAddress = document.getElementById('detail-address');
-                detailAddress.innerHTML = '<b>Địa chỉ chi tiết: </b>' + soNha + ' ' + data['data'].full_name;            },
-            error: function () {
-                alert('Không thể lấy dữ liệu xã.');
-            }
-        });
+        if(wardId !== ''){
+            $.ajax({
+                url: 'https://esgoo.net/api-tinhthanh/5/' + wardId + '.htm',
+                method: 'GET',
+                dataType: 'json',
+                success: function (data) {
+                    var detailAddress = document.getElementById('detail-address');
+                    detailAddress.innerHTML = '<b>Địa chỉ chi tiết: </b>' + soNha + ' ' + data['data'].full_name;            },
+                error: function () {
+                    alert('Không thể lấy dữ liệu xã.');
+                }
+            });
+        }
     }
 
     function populateWards(districtId) {
