@@ -123,7 +123,7 @@
                                             required
                                     />
                                 </div>
-                                <div class="">
+                                <div class="d-none">
                                     <label for="address">Detail Address </label>
                                     <input
                                             type="text"
@@ -239,8 +239,11 @@
 </style>
 <script>
     <c:forEach var="dc" items="${diaChi}" varStatus="status">
-        $('#diachi').append('<option id="${dc.ID}" value="${dc.ID} ${dc.idPhuong}"></option>');
-        getDetailAddress('${dc.ID}', '${dc.idPhuong}', '${dc.soNha}')
+        if('${dc.idPhuong}'.length > 0){
+            $('#diachi').append('<option id="${dc.ID}" value="${dc.ID} ${dc.idPhuong}"></option>');
+            getDetailAddress('${dc.ID}', '${dc.idPhuong}', '${dc.soNha}')
+        }
+
     </c:forEach>
     $.ajax({
         url: 'https://esgoo.net/api-tinhthanh/1/0.htm',
