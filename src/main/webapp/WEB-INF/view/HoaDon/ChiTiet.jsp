@@ -586,7 +586,7 @@
 </script>
 
 <script>
-    getDetailAddress('${detail.idPhuong}', '${detail.soNha}')
+    if('${detail.idPhuong}'.length) getDetailAddress('${detail.idPhuong}', '${detail.soNha}')
     $.ajax({
         url: 'https://esgoo.net/api-tinhthanh/1/0.htm',
         method: 'GET',
