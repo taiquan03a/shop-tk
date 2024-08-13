@@ -117,7 +117,7 @@
                         </div>
                     </div>
                     <input type="hidden" name="trangThai" value="0">
-
+                    <span style="color: red">${message}</span>
                     <div>
                         <button type="submit" class="btn btn-outline-success mx-2" onclick="return confirm('Bạn có muốn thêm mới?')">
                             <i class="fa-solid fa-plus"></i> Thêm
@@ -125,6 +125,7 @@
                         <a href="javascript:history.back()" class="btn-outline-danger" onclick="return confirm('Bạn có muốn hủy thông tin vừa thêm?')">
                             <i class="fa-solid fa-arrow-right-from-bracket fa-rotate-180"></i> Hủy
                         </a>
+
                     </div>
                 </form>
             </div>

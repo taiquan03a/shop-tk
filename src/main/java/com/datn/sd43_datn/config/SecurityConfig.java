@@ -64,6 +64,9 @@ public class SecurityConfig {
                         .invalidateHttpSession(true)
                         .logoutSuccessUrl("/signin")
                         .permitAll()
+                )
+                .exceptionHandling(exception -> exception
+                        .accessDeniedPage("/403")
                 );
 
         return http.build();
