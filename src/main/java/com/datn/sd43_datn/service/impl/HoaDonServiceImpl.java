@@ -242,6 +242,15 @@ public class HoaDonServiceImpl implements HoaDonService {
             index++;
             timeLineDTOList.add(timeLineDTO);
         }
+        List<HoaDonChiTiet> hoaDonChiTietList = hoaDonChiTietRepository.findHoaDonChiTietsByHoaDon(hoaDon);
+        if(idTrangThai == 6 || idTrangThai == 7){
+            for(HoaDonChiTiet hoaDonChiTiet : hoaDonChiTietList){
+                SanPhamChiTiet sanPhamChiTiet = hoaDonChiTiet.getSanPhamChiTiet();
+                long current = sanPhamChiTiet.getSoLuong();
+                sanPhamChiTiet.setSoLuong(current + hoaDonChiTiet.getSoLuong());
+                sanPhamChiTietRepository.save(sanPhamChiTiet);
+            }
+        }
 
         hoaDon.setTrangThaiDon(trangThaiDonRepository.findById(idTrangThai).get());
         hoaDon.setIdStatus(status);
@@ -269,7 +278,6 @@ public class HoaDonServiceImpl implements HoaDonService {
 //        lichSuThanhToanRepository.save(lichSuThanhToan);
 
         String ngayTao = sdf.format(hoaDon.getNgayTao());
-        List<HoaDonChiTiet> hoaDonChiTietList = hoaDonChiTietRepository.findHoaDonChiTietsByHoaDon(hoaDon);
         HoaDonChiTietDto hoaDonDetailDTO = HoaDonChiTietDto.builder()
                 .id(hoaDonId)
                 .maHoaDon(hoaDon.getMaHoaDon())
