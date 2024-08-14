@@ -456,6 +456,7 @@
     getListProductSelected()
     updateTotalPrice()
     setValueInput()
+    localStorage.clear()
     function confirmChuyenTT(){
         $.ajax({
             url: 'https://esgoo.net/api-tinhthanh/5/' + '${detail.idPhuong}' + '.htm',
