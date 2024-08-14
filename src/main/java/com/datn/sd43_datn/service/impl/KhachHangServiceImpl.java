@@ -234,11 +234,14 @@ public class KhachHangServiceImpl implements KhachHangService {
 
     @Override
     public boolean register(TaoKhachHangRequest khachHangRequest) {
-        KhachHang khachHangOld = khachHangRepository.findKhachHangByEmail(khachHangRequest.getEmail()).get(0);
+        List<KhachHang> khachHangOld = khachHangRepository.findKhachHangByEmail(khachHangRequest.getEmail());
         boolean kh = false;
         if (khachHangOld != null) {
-            kh = khachHangOld.isTrangThai();
+            for(KhachHang khachHang : khachHangOld){
+                kh = kh || khachHang.isTrangThai();
+            }
         }
+        System.out.println(kh);
         if(!kh) {
             KhachHang khachHang = KhachHang.builder()
                     .tenKhachHang(khachHangRequest.getTenKhachHang())
@@ -252,7 +255,7 @@ public class KhachHangServiceImpl implements KhachHangService {
                     .gioiTinh(khachHangRequest.isGioiTinh())
                     .build();
             khachHangRepository.save(khachHang);
-            System.out.println("tk");
+
             return true;
         }
         return false;

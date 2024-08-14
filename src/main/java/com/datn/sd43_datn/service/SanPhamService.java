@@ -17,7 +17,7 @@ public interface SanPhamService {
 
     List<SanPham> findAllById(Iterable<Long> longs);
 
-    <S extends SanPham> S save(S entity);
+    boolean save(SanPham sanPham);
 
     Optional<SanPham> findById(Long longs);
 

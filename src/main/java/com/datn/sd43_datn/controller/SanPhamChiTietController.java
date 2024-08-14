@@ -2,9 +2,11 @@ package com.datn.sd43_datn.controller;
 
 
 import com.datn.sd43_datn.config.FileUploadUtil;
+import com.datn.sd43_datn.entity.NhanVien;
 import com.datn.sd43_datn.entity.SanPham;
 import com.datn.sd43_datn.entity.SanPhamChiTiet;
 import com.datn.sd43_datn.entity.ThuocTinhSp.*;
+import com.datn.sd43_datn.repository.NhanVienRepository;
 import com.datn.sd43_datn.service.SanPhamChiTietService;
 import com.datn.sd43_datn.service.SanPhamService;
 import com.datn.sd43_datn.service.ThuocTinhSpService.*;
@@ -51,10 +53,10 @@ public class SanPhamChiTietController {
     KichCoService KichCoServiceIpm;
     @Autowired
     private SanPhamChiTietServiceImpl sanPhamChiTietServiceImpl;
+    @Autowired
+    private NhanVienRepository nhanVienRepository;
 
     @GetMapping("/list")
-
-
     public String list(Model model) {
         if(SecurityContextHolder.getContext().getAuthentication().getName() != null) {
             model.addAttribute("email", SecurityContextHolder.getContext().getAuthentication().getName());
@@ -70,7 +72,7 @@ public class SanPhamChiTietController {
     public String pageKeyword(Model model, @Param("keyword") String keyword,
                               @PathVariable("pageNumber") int pageNumber) {
         Page<SanPhamChiTiet> page = SanPhamChiTietServiceIpm.sanphamchitietEntityPage(keyword, pageNumber);
-        List<SanPhamChiTiet> spct = page.getContent();
+        List<SanPhamChiTiet> spct = sanPhamChiTietServiceImpl.getSanPhamChiTiet();
         List<ChatLieu> chatlieu = chatLieuServiceIpm.findAll();
         List<Anh> anh = anhServiceIpm.findAll();
         List<CoAo> coao = CoAoServiceIpm.findAll();
@@ -357,9 +359,11 @@ public class SanPhamChiTietController {
     }
 
     @PostMapping("/addSanPham/{id}")
-    public String Add(@ModelAttribute("sanpham") SanPham sanpham,@PathVariable long id){
+    public String Add(@ModelAttribute("sanpham") SanPham sanpham,@PathVariable long id,Model model){
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        NhanVien nhanVien = nhanVienRepository.findNhanVienByEmail(email);
         sanpham.setNgayTao(new Date(System.currentTimeMillis()));
-        sanpham.setNguoiTao("nhân viên");
+        sanpham.setNguoiTao(nhanVien.getHoTen());
         sanpham.setTrangThai(0);
         System.out.println(sanpham);
         SanPhamServiceIpm.save(sanpham);
@@ -492,12 +496,44 @@ public class SanPhamChiTietController {
     }
 
     @PostMapping("/addSanPham")
-    public String Add(@ModelAttribute("sanpham") SanPham sanpham){
+    public String Add(@ModelAttribute("sanpham") SanPham sanpham,Model model){
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        NhanVien nhanVien = nhanVienRepository.findNhanVienByEmail(email);
         sanpham.setNgayTao(new Date(System.currentTimeMillis()));
-        sanpham.setNguoiTao("nhân viên");
+        sanpham.setNguoiTao(nhanVien.getHoTen());
         sanpham.setTrangThai(0);
         System.out.println(sanpham);
-        SanPhamServiceIpm.save(sanpham);
+        if(!SanPhamServiceIpm.save(sanpham)){
+            if(SecurityContextHolder.getContext().getAuthentication().getName() != null) {
+                model.addAttribute("email", SecurityContextHolder.getContext().getAuthentication().getName());
+                System.out.println(SecurityContextHolder.getContext().getAuthentication().getAuthorities());
+            }
+            SanPhamChiTiet spct = new SanPhamChiTiet();
+            List<Anh> anh = SanPhamChiTietServiceIpm.findAnhCreateAt();
+            List<ChatLieu> chatlieu = SanPhamChiTietServiceIpm.findChatLieuCreateAt();
+            List<CoAo> coao = SanPhamChiTietServiceIpm.findCoAoCreateAt();
+            List<DangAo> dangao = SanPhamChiTietServiceIpm.findDangAoCreateAt();
+            List<HoaTiet> hoatiet = SanPhamChiTietServiceIpm.findHoaTietCreateAt();
+            List<KichCo> kichco = SanPhamChiTietServiceIpm.findKichCoCreateAt();
+            List<MauSac> mausac = SanPhamChiTietServiceIpm.findMauSacCreateAt();
+            List<SanPham> sanpham1 = SanPhamChiTietServiceIpm.findSanPhamCreateAt();
+            List<TayAo> tayao = SanPhamChiTietServiceIpm.findTayAoCreateAt();
+            List<ThuongHieu> thuonghieu = SanPhamChiTietServiceIpm.findThuongHieuCreateAt();
+            model.addAttribute("anh", anh);
+            model.addAttribute("thuonghieu", thuonghieu);
+            model.addAttribute("tayao", tayao);
+            model.addAttribute("mausac", mausac);
+            model.addAttribute("kichco", kichco);
+            model.addAttribute("hoatiet", hoatiet);
+            model.addAttribute("dangao", dangao);
+            model.addAttribute("coao", coao);
+            model.addAttribute("chatlieu", chatlieu);
+            model.addAttribute("sanpham", sanpham1);
+            model.addAttribute("spct", spct);
+            model.addAttribute("message", "sản phẩm đã tồn tại");
+
+            return "SanPhamChiTiet/add";
+        }
         return "redirect:/SanPhamChiTiet/create";
     }
     @GetMapping("/addTayAo")

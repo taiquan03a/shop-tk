@@ -77,8 +77,13 @@ public class SanPhamServiceImpl implements SanPhamService {
     }
 
     @Override
-    public <S extends SanPham> S save(S entity) {
-        return SanphamEntityRepository.save(entity);
+    public boolean save(SanPham sanPham) {
+        boolean check = sanPhamRepository.existsSanPhamByTenSanPham(sanPham.getTenSanPham());
+        if(check){
+            return false;
+        }
+        SanphamEntityRepository.save(sanPham);
+        return true;
     }
 
     @Override

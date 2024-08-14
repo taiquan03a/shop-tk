@@ -380,6 +380,7 @@
                                 <a href="" data-toggle="modal" data-target="#myModalItem" class="btn"><i class="fa-solid fa-plus"></i></a>
                             </span>
                         </div>
+                        <span style="color: red">${message}</span>
                     </div>
 
                     <div class="col-4">

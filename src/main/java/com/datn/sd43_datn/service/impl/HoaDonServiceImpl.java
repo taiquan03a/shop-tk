@@ -9,6 +9,7 @@ import com.datn.sd43_datn.request.*;
 import com.datn.sd43_datn.service.HoaDonService;
 import com.datn.sd43_datn.service.MailService;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 
@@ -364,7 +365,8 @@ public class HoaDonServiceImpl implements HoaDonService {
     @Override
     public boolean addHoaDon(TaoDonHangRequest createDonHangRequest) {
         Date ngayHienTai = new Date();
-        NhanVien nhanVien = nhanVienRepository.findById(1L).get();
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        NhanVien nhanVien = nhanVienRepository.findNhanVienByEmail(email);
         KhachHang khachHang = KhachHang.builder()
                 .tenKhachHang(createDonHangRequest.getName())
                 .kieuKhachHang(false)
@@ -418,6 +420,7 @@ public class HoaDonServiceImpl implements HoaDonService {
         TrangThaiHoaDon trangThaiDon = trangThaiDonRepository.findById(5L).get();
         HoaDon hoaDon = HoaDon.builder()
                 .khachHang(khachHang)
+                .nhanVien(nhanVien)
                 .ngayTao(ngayHienTai)
                 .nguoiTao(nhanVien.getHoTen())
                 .tongTienDonHang(tongTienDonHang)
@@ -508,11 +511,15 @@ public class HoaDonServiceImpl implements HoaDonService {
         for(HoaDonChiTiet hd : hoaDonChiTietList){
             tongTienDonHang += hd.getThanhTien();
         }
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        NhanVien nhanVien = nhanVienRepository.findNhanVienByEmail(email);
         //thanhTien = tongTienDonHang - giamGiaNguyen;
         thanhTien = tongTienDonHang - giamGiaNguyen + hoaDon.getPhiVanChuyen();
         hoaDon.setTongTienDonHang((tongTienDonHang));
         hoaDon.setTienGiamGia(giamGiaNguyen);
         hoaDon.setThanhTien(thanhTien);
+        hoaDon.setNgayCapNhat(new Date(System.currentTimeMillis()));
+        hoaDon.setNguoiCapNhat(nhanVien.getHoTen());
         hoaDonRepository.save(hoaDon);
         return true;
     }

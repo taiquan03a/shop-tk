@@ -30,4 +30,6 @@ public interface SanPhamRepository extends JpaRepository<SanPham, Long> {
 
     @Query("select  s from SanPham  s order by s.ngayTao desc limit 10")
     List<SanPham> findAll10();
+
+    boolean existsSanPhamByTenSanPham(String tenSanPham);
 }
