@@ -563,6 +563,21 @@
         searching: true
     });
 
+    document.addEventListener('DOMContentLoaded', function() {
+        const giaNhapInput = document.querySelector('input[name="giaNhap"]');
+        const giaBanInput = document.querySelector('input[name="giaBan"]');
+
+        giaBanInput.addEventListener('change', function() {
+            let giaNhap = parseFloat(giaNhapInput.value);
+            let giaBan = parseFloat(giaBanInput.value);
+
+            if (giaBan <= giaNhap) {
+            alert('Giá bán phải lớn hơn giá nhập!');
+            giaBanInput.value = ''
+            }
+        });
+    });
+
 </script>
 
 
@@ -581,7 +596,7 @@
         margin-bottom: 20px;
     }
 
-    .input-group{
+    .input-group {
         display: flex;
         justify-content: space-between;
     }
@@ -591,6 +606,7 @@
         background-color: #fff;
         border-color: #fff;
     }
+
     .modal-log {
         width: 600px !important;
     }

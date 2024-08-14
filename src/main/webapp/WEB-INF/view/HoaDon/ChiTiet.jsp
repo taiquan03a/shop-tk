@@ -504,18 +504,21 @@
     }
 
     function handleButtonDelete(s) {
-        if( ! confirm("Bạn có muốn xóa sản phẩm này?") ){
+        var storedArray = localStorage.getItem('quanlity');
+        var newObject = {};
+        newObject = JSON.parse(storedArray);
+        if(Object.keys(newObject).length === 1){
+            alert("Không thể xóa sản phẩm cuối cùng")
+        }
+        else if( ! confirm("Bạn có muốn xóa sản phẩm này?") ){
             event.preventDefault();
         } else {
-            var storedArray = localStorage.getItem('quanlity');
-            var newObject = {};
-            newObject = JSON.parse(storedArray);
             if (newObject.hasOwnProperty(s)) {
                 delete newObject[s];
             }
             localStorage.setItem('quanlity', JSON.stringify(newObject));
             setValueInput();
-            document.getElementById('item-'+s).remove()
+            document.getElementById('item-'+s).classList.add('d-none')
             document.getElementById('btn-submit').classList.remove('d-none')
         }
     }
@@ -546,7 +549,8 @@
         localStorage.setItem('selected', JSON.stringify(selectedObj));
         localStorage.setItem('quanlity', JSON.stringify(storedArray));
         document.getElementById('item-'+s).classList.remove("d-none")
-
+        var inputElement = document.getElementById('list_product');
+        inputElement.value = localStorage.getItem('quanlity');
     }
 
     function updateTotalPrice() {
