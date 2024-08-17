@@ -58,7 +58,9 @@ public class SanPhamChiTietServiceImpl implements SanPhamChiTietService {
 
     @Override
     public List<SanPhamChiTiet> getSanPhamChiTiet() {
-        return sanPhamChiTietRepository.findAll();
+        List<SanPhamChiTiet> spct = sanPhamChiTietRepository.findAll();
+        spct.sort(Comparator.comparingLong(SanPhamChiTiet::getID).reversed());
+        return spct;
     }
 
 
