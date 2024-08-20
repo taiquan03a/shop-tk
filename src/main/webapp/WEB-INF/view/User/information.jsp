@@ -75,7 +75,7 @@
                 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
-                            <form:form action="21" modelAttribute="diaChiRequest" method="post">
+                            <form:form action="${khachHang.ID}" modelAttribute="diaChiRequest" method="post">
                                 <div class="modal-header d-flex justify-content-between">
                                     <h4 class="modal-title" id="myModalLabel">Thông tin</h4>
                                 </div>
@@ -93,12 +93,12 @@
                                     </div>
                                     <div class="mb-3">
                                         <label for="xa" class="form-label">Xã/Phường</label>
-                                        <select id="xa" name="phuongId1" class="selected w-100 p-2" required>
+                                        <select id="xa" name="phuongId" class="selected w-100 p-2" required>
                                         </select>
                                     </div>
                                     <div class="mb-3">
                                         <label for="huyen" class="form-label">Địa chỉ</label>
-                                        <input type="text" name="soNha1" class="form-control" id="diaChi" required>
+                                        <input type="text" name="soNha" class="form-control" id="diaChi" required>
                                     </div>
 
                                 </div>
