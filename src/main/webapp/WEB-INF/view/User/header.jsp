@@ -76,7 +76,7 @@
                     </a>
                 </li>
                 <li class="avatar" style="display: none">
-                    <h5>${khachHang.email}</h5>
+                    <a href="/user/info" style="color: black"><h5>${khachHang.email}</h5></a>
                 </li>
                 <form:form action="/user/cart" id="carttt" method="get" cssStyle="display: none">
                     <input type="text" id="spct" name="spCart">

@@ -22,12 +22,12 @@
 
 <div class="wrapper">
     <div class="w-100">
-        <div style="width: 100%; background-color: #eee; padding: 20px;">
-            <h3> Mã đơn ${detail.maHoaDon}</h3>
+        <div style="width: 100%; background-color: #eee; padding: 20px; font-size: 16px;">
+            <h2> Mã đơn ${detail.maHoaDon}</h2>
 
             <div class="filter mt-5">
                 <section class="mt-5">
-                    <h3 style="margin-top: -30px; padding-bottom: 15px;" class="line-bottom">Trạng thái đơn hàng</h3>
+                    <h2 style="margin-top: -30px; padding-bottom: 15px;" class="line-bottom">Trạng thái đơn hàng</h2>
                     <div class="text">
                         <%--                    <c:forEach var="trangThai" items="${detail.trangThaiDonList}">--%>
                         <c:forEach var="trangThai" items="${detail.timeLineDTOList}">
@@ -41,76 +41,7 @@
                     <hr />
                 </section>
                 <div class="d-flex justify-content-between w-100 line-bottom">
-                    <h3 style=" padding-bottom: 15px;" >Thông tin đơn hàng</h3>
-                    <c:if test="${detail.trangThaiDon.ID < 3}">
-                        <a style="cursor: pointer;"><div data-toggle="modal" data-toggle="modal" data-target="#myModal1" class="function">Thay đổi thông tin</div></a>
-                    </c:if>
-                    <!-- Modal -->
-                    <div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel1" aria-hidden="true">
-                        <div class="modal-log modal-dialog-centered mt-4" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title" id="myModalLabel1">Thông tin cá nhân</h4>
-                                </div>
-                                <form:form action="/hoa-don/updateKH/${detail.id}" modelAttribute="updateInfoKH" method="post">
-                                <div class="modal-body">
-
-                                        <label for="name" class="form-label">Tên khách hàng</label>
-                                        <input type="text" name="ten" class="form-control" id="name" aria-describedby="emailHelp" value="${detail.tenKH}" required>
-                                        <label for="name" class="form-label">Số điện thoại</label>
-                                        <input type="text" name="sdt" class="form-control" id="sdt" aria-describedby="emailHelp" value="${detail.sdt}" required>
-
-                                    <div class="contact-form__content-group">
-                                        <!-- Country -->
-                                        <div class="contact-form-input">
-                                            <label for="thanhPho">Tỉnh </label>
-                                            <select
-                                                    id="thanhPho"
-                                                    class="contact-form-input__dropdown"
-                                            >
-
-                                            </select>
-                                        </div>
-                                        <!-- states -->
-                                        <div class="contact-form-input">
-                                            <label for="huyen">Huyện </label>
-                                            <select
-                                                    id="huyen"
-                                                    class="contact-form-input__dropdown"
-                                            >
-
-                                            </select>
-                                        </div>
-                                        <!-- zip -->
-                                        <div class="contact-form-input">
-                                            <label for="xa">Xã</label>
-                                            <select id="xa" class="contact-form-input__dropdown" name="idPhuong">
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <c:if test="${detail.soNha != ''}">
-                                    <div class="contact-form-input mt-4">
-                                        <label for="address">Địa chỉ chi tiết </label>
-                                        <input
-                                                type="text"
-                                                id="address"
-                                                name="soNha"
-                                                value=""
-                                                placeholder="Your Address"
-                                        />
-                                    </div>
-                                    </c:if>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
-                                    <button type="submit" class="btn btn-primary" style="margin-bottom: 4px">Lưu</button>
-                                </div>
-                                </form:form>
-                            </div>
-                        </div>
-                    </div>
-
+                    <h2 style=" padding-bottom: 15px;" >Thông tin đơn hàng</h2>
                 </div>
 
                 <div class="w-100">
@@ -140,67 +71,6 @@
             <div class="filter mt-5">
                 <div class="d-flex justify-content-between line-bottom">
                     <h3 style=" padding-bottom: 15px;">Danh sách sản phẩm</h3>
-                    <c:if test="${detail.trangThaiDon.ID < 3}">
-                        <a style="cursor: pointer;"><div data-toggle="modal" data-toggle="modal" data-target="#myModal" class="function">Thêm sản phẩm</div></a>
-                    </c:if>
-                    <!-- Modal -->
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-log modal-dialog-centered mt-4" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title" id="myModalLabel">Tìm kiếm sản phẩm</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="">
-                                    </form>
-                                    <div class="w-100 d-flex justify-content-center align-items-center" style="background-color: #fff; border-radius: 10px;">
-                                        <table id="example" class="table table-striped p-5" style="width:100%">
-                                            <thead>
-                                            <tr>
-                                                <th>Ảnh</th>
-                                                <th>Tên</th>
-                                                <th>Màu sắc</th>
-                                                <th>Chất liệu</th>
-                                                <th>Thương hiệu</th>
-                                                <th>Size</th>
-                                                <th>Dáng áo</th>
-                                                <th>Cổ áo</th>
-                                                <th>Tay áo</th>
-                                                <th>Họa tiết</th>
-                                                <th>Giá bán</th>
-                                                <th>Còn lại</th>
-                                                <th>Hành động</th>
-                                            </tr>
-                                            </thead>
-                                            <tbody class="index">
-                                            <c:forEach var="sanPham" items="${sanPhams}">
-                                            <tr>
-                                                <td><img src="/img/${sanPham.anh.anh}" style="width: 50px; height: 50px;" alt=""></td>
-                                                <td>${sanPham.sanPham.tenSanPham}</td>
-                                                <td>${sanPham.mauSac.tenMauSac}</td>
-                                                <td>${sanPham.chatLieu.tenChatLieu}</td>
-                                                <td>${sanPham.thuongHieu.tenThuongHieu}</td>
-                                                <td>${sanPham.kichCo.tenKichCo}</td>
-                                                <td>${sanPham.dangAo.tenKieuDangAo}</td>
-                                                <td>${sanPham.coAo.tenLoaiCoAo}</td>
-                                                <td>${sanPham.tayAo.tenKieuTayAo}</td>
-                                                <td>${sanPham.hoaTiet.tenHoaTiet}</td>
-                                                <td>${sanPham.giaBan}</td>
-                                                <td>${sanPham.soLuong}</td>
-                                                <td><a href="#" data-dismiss="modal"><div class="function" onclick="handleSelect(${sanPham.ID})">Chọn</div></a></td>
-                                            </tr>
-                                            </c:forEach>
-
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
                 <div class="w-100">
                     <c:forEach var="sanPham" items="${sanPhams}">
@@ -216,30 +86,15 @@
                             </div>
                             <div class="col-2">
                                 <div class="quantity" style="display: block !important;">
-                                    <input type="number" onblur="updateQuantity(${sanPham.ID}, ${sanPham.giaBan}, ${sanPham.soLuong})" id = "${sanPham.ID}" style="width: 100px; margin-right: 210px" class="input-box" value="1" min="1">
+                                    <input readonly type="number" id = "${sanPham.ID}" style="border-radius: 5px; width: 100px; margin-right: 210px; border: 1px solid hsl(5, 100%, 69%); padding: 6px" class="input-box" value="1" min="1">
                                     <span style="color: red; margin-left: 5px" id="message-${sanPham.ID}"></span>
                                 </div>
                             </div>
                             <div class="col-2 price-${sanPham.ID}" style="font-weight: 700; color: red;"> ${sanPham.giaBan} VNĐ</div>
-                            <div class="col-2" style="cursor: pointer; color: red;" onclick="handleButtonDelete(${sanPham.ID})"><i class="fa-solid fa-trash"></i></div>
 
                         </div>
                     </c:forEach>
                 </div>
-                <form:form action="/hoa-don/donHang/${detail.id}" modelAttribute="updateDonHangRequest" method="post" enctype="multipart/form-data">
-                    <c:choose>
-                        <c:when test="${detail.trangThaiDon.ID < 3}">
-                            <button id="btn-submit" style="background-color: #ffa500; float: right; width: 80px" type="submit" class="btn btn-primary d-none">Lưu</button>
-                            <input type="text" name="list_product" value="" class="form-control d-none" id="list_product">
-                            <br />
-                        </c:when>
-                        <c:otherwise>
-                            <button id="btn-submit" style="background-color: #ffa500; float: right; width: 80px" type="submit" class="btn btn-primary d-none">Lưu</button>
-                            <input type="text" name="list_product" value="" class="form-control d-none" id="list_product" readonly>
-                            <br />
-                        </c:otherwise>
-                    </c:choose>
-                </form:form>
             </div>
 
             <div class="filter mt-5">

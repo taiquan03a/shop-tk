@@ -26,7 +26,6 @@
     <script src="/js/swiper-bundle.min.js"></script>
     <script src="/js/bvselect.js"></script>
     <script src="/js/bootstrap.bundle.min.js"></script>
-    <script src="/js/script.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 </head>
@@ -177,17 +176,6 @@
     }
 </style>
 <script>
-    $(document).ready(function () {
-        $('#sidebarCollapse').on('click', function () {
-            $('#sidebar').toggleClass('active');
-        });
-    });
-
-    new DataTable('#example', {
-        select: false,
-        searching: true
-    });
-
     $.ajax({
         url: 'https://esgoo.net/api-tinhthanh/1/0.htm',
         method: 'GET',
@@ -270,6 +258,7 @@
     }
 
     <c:forEach var="diachi" items="${khachHang.diaChiList}" varStatus="status">
+    console.log('${diachi.idPhuong}', '${diachi.ID}')
     $('#diaChi${diachi.ID}').val('${diachi.soNha}');
     getName('${diachi.idPhuong}', '${diachi.ID}')
     </c:forEach>
