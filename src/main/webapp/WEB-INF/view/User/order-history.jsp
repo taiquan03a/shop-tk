@@ -290,7 +290,7 @@
                               order-details
                             "
                                         >
-                                            <a href="order-details.html"> View Details</a>
+                                            <a href="order-detail/${hoaDon.ID}"> View Details</a>
                                         </td>
                                     </tr>
                                     </c:forEach>

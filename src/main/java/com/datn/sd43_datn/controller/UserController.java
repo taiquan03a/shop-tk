@@ -1,17 +1,16 @@
 package com.datn.sd43_datn.controller;
 
+import com.datn.sd43_datn.dto.KhachHangDto;
 import com.datn.sd43_datn.dto.SanPhamGioHang;
 import com.datn.sd43_datn.dto.SanPhamHomeDto;
 import com.datn.sd43_datn.entity.HoaDonChiTiet;
+import com.datn.sd43_datn.entity.KHang.DiaChi;
 import com.datn.sd43_datn.entity.KhachHang;
 import com.datn.sd43_datn.entity.SanPham;
 import com.datn.sd43_datn.entity.SanPhamChiTiet;
 import com.datn.sd43_datn.entity.ThuocTinhSp.*;
 import com.datn.sd43_datn.repository.DiaChiRepository;
-import com.datn.sd43_datn.request.CheckoutRequest;
-import com.datn.sd43_datn.request.FilterRequest;
-import com.datn.sd43_datn.request.FilterSizeAndColor;
-import com.datn.sd43_datn.request.TaoKhachHangRequest;
+import com.datn.sd43_datn.request.*;
 import com.datn.sd43_datn.service.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -192,5 +191,47 @@ public class UserController {
         KhachHang khachHang = (KhachHang) session.getAttribute("khachHang");
         model.addAttribute("hoaDon",hoaDonService.orderHistory(khachHang));
         return "User/order-history";
+    }
+    @GetMapping("order-detail/{id}")
+    public String orderDetal(Model model,@PathVariable int id,HttpServletRequest request){
+        UpdateInfoKH updateInfoKH = new UpdateInfoKH();
+        model.addAttribute("detail",hoaDonService.getHoaDonDetail(id));
+        model.addAttribute("sanPhams",sanPhamChiTietService.getSanPhamChiTiet());
+        model.addAttribute("updateInfoKH",updateInfoKH);
+        return "User/ChiTiet";
+    }
+    @GetMapping("info")
+    public String info(Model model,HttpServletRequest request) {
+        DiaChiRequest diaChiRequest = new DiaChiRequest();
+        KhachHangDto khachHangDto = new KhachHangDto();
+        HttpSession session = request.getSession();
+        KhachHang khachHang = (KhachHang) session.getAttribute("khachHang");
+        model.addAttribute("diaChiRequest", diaChiRequest);
+        model.addAttribute("khachHangDto", khachHangDto);
+        model.addAttribute("khachHang",khachHangService.getKhachHangById(khachHang.getID()));
+        return "User/information";
+    }
+    @PostMapping("/{id}")
+    public String createDiaChi(@PathVariable long id,@ModelAttribute DiaChiRequest diaChiRequest, Model model) {
+        model.addAttribute("diaChiRequest", diaChiRequest);
+        model.addAttribute("khachHang", khachHangService.getKhachHangById(id));
+        System.out.println(diaChiRequest);
+        khachHangService.addDiaChi(id,diaChiRequest);
+        return "redirect:/user/info";
+    }
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable long id, Model model) {
+        DiaChi diaChi = diaChiRepository.findById(id).orElse(null);
+        long khachHangId = diaChi.getKhachHang().getID();
+        khachHangService.deleteDiaChi(id);
+        model.addAttribute("khachHangId", khachHangId);
+        return "redirect:/user/info";
+    }
+    @PostMapping("/edit/{id}")
+    public String edit(@PathVariable long id,@ModelAttribute KhachHangDto khachHangDto ,Model model) {
+        System.out.println(khachHangDto);
+        khachHangService.editKhachHang(khachHangDto,id);
+//        return "redirect:/khach-hang/"+id;
+        return "redirect:/user/info";
     }
 }
