@@ -21,4 +21,5 @@ public class FilterRequest {
     private String keyword;
     private String priceMin;
     private String priceMax;
+    private String priceRange;
 }

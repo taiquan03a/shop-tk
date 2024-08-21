@@ -168,8 +168,11 @@ public class SanPhamServiceImpl implements SanPhamService {
                             .giaBan(sanPhamChiTiet.getGiaBan())
                             .anh(sanPhamChiTiet.getAnh().getAnh())
                             .build();
-                    if(!filterRequest.getPriceMin().equals("") && !filterRequest.getPriceMax().equals("")){
-                        if(sanPhamHomeDto.getGiaBan() >= Long.parseLong(filterRequest.getPriceMin()) && sanPhamHomeDto.getGiaBan() <= Long.parseLong(filterRequest.getPriceMax())){
+                    if(!filterRequest.getPriceRange().equals("0")){
+                        String[] prices = filterRequest.getPriceRange().split("-");
+                        String min = prices[0];
+                        String max = prices[1];
+                        if(sanPhamHomeDto.getGiaBan() >= Long.parseLong(min) && sanPhamHomeDto.getGiaBan() <= Long.parseLong(max)){
                             sanPhamHomeDtos.add(sanPhamHomeDto);
                         }
                     }

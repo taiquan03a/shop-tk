@@ -121,7 +121,7 @@
                                     <option value="0">Sắp xếp theo giá tăng dần</option>
                                     <option value="1">Sắp xếp theo giá giảm dần</option>
                                 </select>
-                                <select name="price-range">
+                                <select name="priceRange">
                                     <option value="0">Chọn mức giá</option>
                                     <option value="0-500000">Dưới 500.000 VNĐ</option>
                                     <option value="500000-1000000">Từ 500.000 đến 1.000.000 VNĐ</option>
