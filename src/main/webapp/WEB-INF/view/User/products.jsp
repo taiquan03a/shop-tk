@@ -121,20 +121,14 @@
                                     <option value="0">Sắp xếp theo giá tăng dần</option>
                                     <option value="1">Sắp xếp theo giá giảm dần</option>
                                 </select>
-                            </div>
-                            <h4 style="margin-top: 20px; margin-left: 8px;">Khoảng giá đồng</h4>
-                            <div class="range-slide">
-                                <div class="slide">
-                                    <div class="line" id="line" style="left: 0%; right: 0%;"></div>
-                                    <span class="thumb" id="thumbMin" style="left: 0%;"></span>
-                                    <span class="thumb" id="thumbMax" style="left: 100%;"></span>
-                                </div>
-                                <input id="rangeMin" name="priceMin" type="range" max="2000000" min="0" step="1" value="0">
-                                <input id="rangeMax" name="priceMax" type="range" max="2000000" min="0" step="1" value="2000000">
-                            </div>
-                            <div class="display">
-                                <span id="min">0</span>
-                                <span id="max">2000000</span>
+                                <select name="price-range">
+                                    <option value="0">Chọn mức giá</option>
+                                    <option value="0-500000">Dưới 500.000 VNĐ</option>
+                                    <option value="500000-1000000">Từ 500.000 đến 1.000.000 VNĐ</option>
+                                    <option value="1000000-2000000">Từ 1.000.000 đến 2.000.000 VNĐ</option>
+                                    <option value="2000000-4000000">Từ 2.000.000 đến 4.000.000 VNĐ</option>
+                                    <option value="4000000-10000000000000">Trên 4.000.000 VNĐ</option>
+                                </select>
                             </div>
 
                             <button type="submit" class="search-btn button">
@@ -922,35 +916,3 @@
     }
 
 </style>
-
-<script>
-    let min = 0;
-    let max = 2000000;
-
-    const calcLeftPosition = value => 100 / (2000000) *  (value);
-
-    $('#rangeMin').on('input', function(e) {
-        const newValue = parseInt(e.target.value);
-        if (newValue > max) return;
-        min = newValue;
-        $('#thumbMin').css('left', calcLeftPosition(newValue) + '%');
-        $('#min').html(newValue);
-        $('#line').css({
-            'left': calcLeftPosition(newValue) + '%',
-            'right': (100 - calcLeftPosition(max)) + '%'
-        });
-    });
-
-    $('#rangeMax').on('input', function(e) {
-        const newValue = parseInt(e.target.value);
-        if (newValue < min) return;
-        max = newValue;
-        $('#thumbMax').css('left', calcLeftPosition(newValue) + '%');
-        $('#max').html(newValue);
-        $('#line').css({
-            'left': calcLeftPosition(min) + '%',
-            'right': (100 - calcLeftPosition(newValue)) + '%'
-        });
-    });
-
-</script>
