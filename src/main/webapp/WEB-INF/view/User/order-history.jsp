@@ -103,7 +103,7 @@
                         </li>
                         <!-- Shopping Cart  -->
                         <li class="dashboard__nav-item-link">
-                            <a href="shopping-cart.html" class="font-body--lg-400">
+                            <a href="" class="font-body--lg-400">
                     <span class="icon">
                       <svg
                               width="24"
@@ -127,7 +127,7 @@
                         </li>
                         <!--  Settings   -->
                         <li class="dashboard__nav-item-link">
-                            <a href="account-setting.html" class="font-body--lg-400">
+                            <a href="" class="font-body--lg-400">
                     <span class="icon">
                       <svg
                               width="24"
@@ -147,7 +147,7 @@
                             </a>
                         </li>
                         <!--  Log out    -->
-                        <li onclick="logout()" class="dashboard__nav-item-link">
+                        <li id="logout" onclick="logout()" class="dashboard__nav-item-link d-none">
                             <a href="#" class="font-body--lg-400">
                     <span class="icon">
                       <svg
@@ -320,6 +320,15 @@
             localStorage.clear()
             location.href = '/user/logout'
         }
+    }
+</script>
+
+<script>
+    console.log(${khachHang.ID} ? true : false)
+    var check = ${khachHang.ID} ? true : false
+    if (check) {
+        console.log(document.getElementById('logout'))
+        document.getElementById('logout').classList.remove('d-none');
     }
 </script>
 
