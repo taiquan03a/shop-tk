@@ -324,6 +324,7 @@
 </script>
 
 <script>
+    localStorage.clear()
     console.log(${khachHang.ID} ? true : false)
     var check = ${khachHang.ID} ? true : false
     if (check) {
