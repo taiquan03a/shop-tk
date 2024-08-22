@@ -546,6 +546,7 @@
             setValueInput();
             document.getElementById('item-'+s).remove()
             document.getElementById('btn-submit').classList.remove('d-none')
+            updateTotalPrice()
         }
     }
 
@@ -558,7 +559,8 @@
             localStorage.setItem('quanlity', JSON.stringify(idObject));
             document.querySelector(".price-" + n).innerHTML = document.getElementById(n).value * price + " VNĐ";
             document.querySelector(".sl-" + n).innerHTML = 'x'+document.getElementById(n).value
-            document.getElementById("priceBuy-" + n).innerHTML = price
+            if(document.getElementById("priceBuy-" + n) !== null)
+                document.getElementById("priceBuy-" + n).innerHTML = price
             updateTotalPrice()
             setValueInput(1)
         }else{
@@ -576,8 +578,8 @@
         localStorage.setItem('selected', JSON.stringify(selectedObj));
         localStorage.setItem('quanlity', JSON.stringify(storedArray));
         document.getElementById('item-'+s).classList.remove("d-none")
-        document.getElementById('btn-submit').classList.remove('d-none')
-
+        setValueInput(1)
+        updateTotalPrice()
     }
 
     function updateTotalPrice() {
