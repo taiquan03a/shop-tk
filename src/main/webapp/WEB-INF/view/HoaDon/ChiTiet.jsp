@@ -306,15 +306,34 @@
                 </div>
                 <div class="w-100">
                     <c:forEach var="sanPham" items="${sanPhams}">
+
                         <div id="item-${sanPham.ID}" class="row d-flex align-items-center line-bottom d-none">
                             <div class="col-3 d-flex">
                                 <img style="width: 60px; height: 60px; margin: auto;" src="/img/${sanPham.anh.anh}" alt="">
                             </div>
                             <div class="col-3">
                                 <div>${sanPham.sanPham.tenSanPham}</div>
-                                <div style="color: red;">${sanPham.giaBan} đ</div>
-                                <div>Size ${sanPham.kichCo.tenKichCo}</div>
-                                <div class="sl-${sanPham.ID}">x1</div>
+                                <c:set value="0" var="check"/>
+                                <c:set value="0" var="thanhTien"/>
+                                <c:set value="0" var="donGia"/>
+                                <c:forEach var="hdct" items="${detail.hoaDonChiTietList}">
+                                    <c:choose>
+                                        <c:when test="${hdct.sanPhamChiTiet.ID == sanPham.ID}">
+                                            <div id="priceBuy-${sanPham.ID}" style="color: red;">${hdct.donGia}</div>
+                                            <div>Size ${sanPham.kichCo.tenKichCo}</div>
+                                            <div class="sl-${sanPham.ID}">x${hdct.soLuong}</div>
+                                            <c:set value="1" var="check"/>
+                                            <c:set value="${hdct.thanhTien}" var="thanhTien"/>
+                                            <c:set value="${hdct.donGia}" var="donGia"/>
+                                        </c:when>
+                                    </c:choose>
+                                </c:forEach>
+
+                                <c:if test="${check.equals('0')}">
+                                    <div style="color: red;">${sanPham.giaBan} đ</div>
+                                    <div>Size ${sanPham.kichCo.tenKichCo}</div>
+                                    <div class="sl-${sanPham.ID}">x1</div>
+                                </c:if>
                             </div>
                             <div class="col-2">
                                 <div class="quantity" style="display: block !important;">
@@ -335,11 +354,11 @@
                             <input type="text" name="list_product" value="" class="form-control d-none" id="list_product">
                             <br />
                         </c:when>
-                        <c:otherwise>
-                            <button id="btn-submit" style="background-color: #ffa500; float: right; width: 80px" type="submit" class="btn btn-primary d-none">Lưu</button>
-                            <input type="text" name="list_product" value="" class="form-control d-none" id="list_product" readonly>
-                            <br />
-                        </c:otherwise>
+<%--                        <c:otherwise>--%>
+<%--                            <button id="btn-submit" style="background-color: #ffa500; float: right; width: 80px" type="submit" class="btn btn-primary d-none">Lưu</button>--%>
+<%--                            <input type="text" name="list_product" value="" class="form-control d-none" id="list_product" readonly>--%>
+<%--                            <br />--%>
+<%--                        </c:otherwise>--%>
                     </c:choose>
                 </form:form>
             </div>
@@ -495,12 +514,21 @@
         var listItemSelected = JSON.parse(localStorage.getItem('quanlity')) ?? {};
 
         <c:forEach var="sanPham" items="${sanPhams}">
-        if (listItemSelected.hasOwnProperty(${sanPham.ID})){
+        if (listItemSelected.hasOwnProperty(${sanPham.ID})) {
             document.getElementById('item-${sanPham.ID}').classList.remove("d-none")
             document.getElementById('${sanPham.ID}').value = listItemSelected['${sanPham.ID}']
-            document.querySelector(".price-" + ${sanPham.ID}).innerHTML = listItemSelected['${sanPham.ID}'] * ${sanPham.giaBan} + " VNĐ";
-            document.querySelector(".sl-" + ${sanPham.ID}).innerHTML = 'x'+document.getElementById(${sanPham.ID}).value
-        }
+            let check = 0;
+            <c:forEach var="hdct" items="${detail.hoaDonChiTietList}">
+                if(${hdct.sanPhamChiTiet.ID} == ${sanPham.ID}){
+                    document.querySelector(".price-" + ${sanPham.ID}).innerHTML = listItemSelected['${sanPham.ID}'] * ${hdct.donGia} +" VNĐ";
+                    check = 1;
+                }
+            </c:forEach>
+            if(check === 0){
+                document.querySelector(".price-" + ${sanPham.ID}).innerHTML = listItemSelected['${sanPham.ID}'] * ${sanPham.giaBan} +" VNĐ";
+            }
+            document.querySelector(".sl-" + ${sanPham.ID}).innerHTML = 'x' + document.getElementById(${sanPham.ID}).value
+            }
         </c:forEach>
     }
 
@@ -530,6 +558,7 @@
             localStorage.setItem('quanlity', JSON.stringify(idObject));
             document.querySelector(".price-" + n).innerHTML = document.getElementById(n).value * price + " VNĐ";
             document.querySelector(".sl-" + n).innerHTML = 'x'+document.getElementById(n).value
+            document.getElementById("priceBuy-" + n).innerHTML = price
             updateTotalPrice()
             setValueInput(1)
         }else{
@@ -547,6 +576,7 @@
         localStorage.setItem('selected', JSON.stringify(selectedObj));
         localStorage.setItem('quanlity', JSON.stringify(storedArray));
         document.getElementById('item-'+s).classList.remove("d-none")
+        document.getElementById('btn-submit').classList.remove('d-none')
 
     }
 

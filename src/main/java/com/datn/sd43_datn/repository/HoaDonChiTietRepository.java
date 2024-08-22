@@ -4,6 +4,7 @@ import com.datn.sd43_datn.entity.HoaDon;
 import com.datn.sd43_datn.entity.HoaDonChiTiet;
 import com.datn.sd43_datn.entity.SanPhamChiTiet;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -14,4 +15,6 @@ public interface HoaDonChiTietRepository extends JpaRepository<HoaDonChiTiet, Lo
     //List<HoaDonChiTiet> findAllByIdHoaDon(Long idHoaDon);
     List<HoaDonChiTiet> findHoaDonChiTietsByHoaDon (HoaDon hoaDon);
     List<HoaDonChiTiet> findHoaDonChiTietsBySanPhamChiTiet(SanPhamChiTiet sanPhamChiTiet);
+    boolean existsAllBySanPhamChiTietAndHoaDonAndSoLuong(SanPhamChiTiet sanPhamChiTiet, HoaDon hoaDon, long soLuong);
+    HoaDonChiTiet findHoaDonChiTietBySanPhamChiTietAndAndHoaDon(SanPhamChiTiet sanPhamChiTiet, HoaDon hoaDon);
 }

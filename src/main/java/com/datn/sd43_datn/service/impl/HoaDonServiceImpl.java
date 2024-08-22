@@ -491,7 +491,7 @@ public class HoaDonServiceImpl implements HoaDonService {
         HoaDon hoaDon = hoaDonRepository.findById(hoaDonId).get();
         System.out.println("hihi");
 
-        hoaDonChiTietRepository.deleteAll(hoaDonChiTietRepository.findHoaDonChiTietsByHoaDon(hoaDon));
+        //hoaDonChiTietRepository.deleteAll(hoaDonChiTietRepository.findHoaDonChiTietsByHoaDon(hoaDon));
 
         List<HoaDonChiTiet> hoaDonChiTietList = new ArrayList<>();
         String strippedInput = updateDonHangRequest.getList_product().substring(1, updateDonHangRequest.getList_product().length() - 1);
@@ -501,18 +501,28 @@ public class HoaDonServiceImpl implements HoaDonService {
             String[] numbers = pair.split(":");
             String id = numbers[0];
             String sl = numbers[1];
-
             SanPhamChiTiet  sanPhamChiTiet = sanPhamChiTietRepository.findById(Long.valueOf(id)).get();
-            HoaDonChiTiet hoaDonChiTiet = HoaDonChiTiet.builder()
-                    .hoaDon(hoaDon)
-                    .sanPhamChiTiet(sanPhamChiTiet)
-                    .soLuong(Long.valueOf(sl))
-                    .donGia(sanPhamChiTiet.getGiaBan())
-                    .thanhTien(Long.parseLong(sl) * sanPhamChiTiet.getGiaBan())
-                    .trangThai(true)
-                    .build();
-            hoaDonChiTietRepository.save(hoaDonChiTiet);
-            hoaDonChiTietList.add(hoaDonChiTiet);
+            HoaDonChiTiet hoaDonCurrent = hoaDonChiTietRepository.findHoaDonChiTietBySanPhamChiTietAndAndHoaDon(sanPhamChiTiet,hoaDon);
+            if(hoaDonCurrent != null){
+                if(hoaDonCurrent.getSoLuong() != Long.parseLong(sl)){
+                    hoaDonCurrent.setSoLuong(Long.parseLong(sl));
+                    hoaDonCurrent.setDonGia(sanPhamChiTiet.getGiaBan());
+                    hoaDonCurrent.setThanhTien(sanPhamChiTiet.getGiaBan() * Long.parseLong(sl));
+                }
+                hoaDonChiTietList.add(hoaDonCurrent);
+            }else {
+                HoaDonChiTiet hoaDonChiTiet = HoaDonChiTiet.builder()
+                        .hoaDon(hoaDon)
+                        .sanPhamChiTiet(sanPhamChiTiet)
+                        .soLuong(Long.valueOf(sl))
+                        .donGia(sanPhamChiTiet.getGiaBan())
+                        .thanhTien(Long.parseLong(sl) * sanPhamChiTiet.getGiaBan())
+                        .trangThai(true)
+                        .build();
+                hoaDonChiTietRepository.save(hoaDonChiTiet);
+                hoaDonChiTietList.add(hoaDonChiTiet);
+            }
+
         }
         long tongTienDonHang = 0,giamGiaNguyen = 0,thanhTien = 0;
         float tienGiamGia = 0;
