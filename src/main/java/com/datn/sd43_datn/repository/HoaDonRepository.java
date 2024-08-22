@@ -18,10 +18,10 @@ public interface HoaDonRepository extends JpaRepository<HoaDon, Long> {
     @Query("select h from HoaDon h where h.trangThaiDon.ID = 5")
     List<HoaDon> hoaDonHoanThanh();
 
-    @Query("SELECT SUM(h.thanhTien) FROM HoaDon h WHERE h.ngayTao BETWEEN :startDate AND :endDate and h.trangThaiDon.ID != 6 and h.trangThaiDon.ID != 7")
+    @Query("SELECT SUM(h.thanhTien) FROM HoaDon h WHERE h.ngayTao BETWEEN :startDate AND :endDate and h.trangThaiDon.ID = 5")
     Long getTotalRevenueByYearAndMonth(@Param("startDate") Date startDate, @Param("endDate") Date endDate);
 
-    @Query("SELECT h FROM HoaDon h where h.trangThaiDon.ID != 6 and h.trangThaiDon.ID != 7 ORDER BY h.ngayTao ASC limit 1")
+    @Query("SELECT h FROM HoaDon h where h.trangThaiDon.ID = 5 ORDER BY h.ngayTao ASC limit 1")
     HoaDon findOldestHoaDon();
 
     List<HoaDon> findHoaDonsByKhachHang(KhachHang khachHang);
