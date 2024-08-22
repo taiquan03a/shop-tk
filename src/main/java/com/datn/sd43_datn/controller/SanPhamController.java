@@ -5,6 +5,7 @@ import com.datn.sd43_datn.entity.SanPham;
 import com.datn.sd43_datn.entity.SanPhamChiTiet;
 import com.datn.sd43_datn.entity.ThuocTinhSp.*;
 import com.datn.sd43_datn.repository.NhanVienRepository;
+import com.datn.sd43_datn.repository.SanPhamRepository;
 import com.datn.sd43_datn.service.SanPhamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,6 +24,8 @@ public class SanPhamController {
     SanPhamService SanPhamServiceIpm;
     @Autowired
     private NhanVienRepository nhanVienRepository;
+    @Autowired
+    private SanPhamRepository sanPhamRepository;
 
     @GetMapping("/list")
     public String getAllSanPham(Model model) {
@@ -64,24 +67,16 @@ public class SanPhamController {
 
     @PostMapping("/update/{id}")
     public String update(Model model,RedirectAttributes redirectAttributes, @PathVariable long id, @ModelAttribute("sanPham") SanPham sanPham) {
-        try {
-            System.out.println(sanPham);
-            String email = SecurityContextHolder.getContext().getAuthentication().getName();
-            NhanVien nhanVien = nhanVienRepository.findNhanVienByEmail(email);
-            SanPham sanPhamCurrent = SanPhamServiceIpm.findById(id).get();
-            sanPhamCurrent.setTenSanPham(sanPham.getTenSanPham());
-            sanPhamCurrent.setMoTa(sanPham.getMoTa());
-            sanPhamCurrent.setNgayCapNhat(new Date(System.currentTimeMillis()));
-            sanPhamCurrent.setNguoiCapNhat(nhanVien.getHoTen());
-            if(!SanPhamServiceIpm.save(sanPhamCurrent)){
-                model.addAttribute("message", "sản phẩm đã tồn tại");
-                return "redirect:/SanPham/update/" + id;
-            }
-            redirectAttributes.addFlashAttribute("successMessage", "Cập nhật thành công");
-
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Lỗi ");
-        }
+        System.out.println(sanPham);
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        NhanVien nhanVien = nhanVienRepository.findNhanVienByEmail(email);
+        SanPham sanPhamCurrent = SanPhamServiceIpm.findById(id).get();
+        sanPhamCurrent.setTenSanPham(sanPham.getTenSanPham());
+        sanPhamCurrent.setMoTa(sanPham.getMoTa());
+        sanPhamCurrent.setNgayCapNhat(new Date(System.currentTimeMillis()));
+        sanPhamCurrent.setNguoiCapNhat(nhanVien.getHoTen());
+        sanPhamRepository.save(sanPhamCurrent);
+        model.addAttribute("message", "sản phẩm đã tồn tại");
         return "redirect:/SanPham/list";
     }
     @GetMapping("/trangThai")
