@@ -89,9 +89,9 @@
                 <!-- brand  -->
                 <div class="products__content">
                     <div class="products__content-brand">
-                        <div class="brand-name">
-                            <h2 class="font-body--md-400">Something</h2>
-                        </div>
+<%--                        <div class="brand-name">--%>
+<%--                            <h2 class="font-body--md-400">Something</h2>--%>
+<%--                        </div>--%>
                         <div class="social-site">
                             <h2 class="font-body--md-400">Share item:</h2>
                             <ul class="social-icon">
@@ -138,19 +138,38 @@
                             </ul>
                         </div>
                     </div>
-                    <p class="products__content-brand-info font-body--md-400">
-                        ${sanPham.moTa}
-                    </p>
+                    <div>
+                        <p id="mauSac">
+
+                        </p>
+                        <p id="chatLieu">
+
+                        </p>
+                        <p id="thuongHieu">
+
+                        </p>
+                        <p id="kichCo">
+
+                        </p>
+                        <p id="dangAo">
+
+                        </p>
+                        <p id="coAo">
+
+                        </p>
+                        <p id="tayAo">
+
+                        </p>
+                        <p id="hoaTiet">
+
+                        </p>
+                        <p class="">
+                            Mô tả sản phẩm: ${sanPham.moTa}
+                        </p>
+                    </div>
+
                 </div>
                 <div class="row gap-4">
-                    <select name="" class="col-8" onchange="checkPrice()" id="sanpham">
-                        <option value="0">Chọn sản phẩm</option>
-                        <c:forEach items="${spct}" var="spct">
-                            <option value="${spct.ID} ${spct.giaBan} ${spct.anh.anh}">${spct.mauSac.tenMauSac} - ${spct.chatLieu.tenChatLieu} -
-                                    ${spct.thuongHieu.tenThuongHieu} - ${spct.kichCo.tenKichCo} - ${spct.dangAo.tenKieuDangAo} -
-                                    ${spct.coAo.tenLoaiCoAo} - ${spct.tayAo.tenKieuTayAo} - ${spct.hoaTiet.tenHoaTiet}</option>
-                        </c:forEach>
-                    </select>
                     <form:form action="" cssStyle="display: flex; gap: 10px; padding: 0" method="post" modelAttribute="filterSizeAndColor">
                         <select name="idKichCo">
                             <option value="">Kich co</option>
@@ -166,7 +185,16 @@
                         </select>
                         <button class="btn btn-danger p-3" type="submit">Tìm</button>
                     </form:form>
-                  </div>
+                    <select name="" class="col-8" onchange="checkPrice(this)" id="sanpham">
+                        <option value="0">Chọn sản phẩm</option>
+                        <c:forEach items="${spct}" var="spct">
+                            <option value="${spct.ID} ${spct.giaBan} ${spct.anh.anh}">${spct.mauSac.tenMauSac} - ${spct.chatLieu.tenChatLieu} -
+                                    ${spct.thuongHieu.tenThuongHieu} - ${spct.kichCo.tenKichCo} - ${spct.dangAo.tenKieuDangAo} -
+                                    ${spct.coAo.tenLoaiCoAo} - ${spct.tayAo.tenKieuTayAo} - ${spct.hoaTiet.tenHoaTiet}</option>
+                        </c:forEach>
+                    </select>
+
+                </div>
                 <!-- Action button -->
                 <div class="products__content">
                     <div class="products__content-action">
@@ -205,14 +233,22 @@
         listProduct['${spct.ID}'] = ${spct.soLuong}
     </c:forEach>
     var product_id = 0
-    function checkPrice() {
+    function checkPrice(e) {
         var lt = (document.getElementById('sanpham').value).split(' ')
         if(lt.length > 2){
             document.getElementById('price').innerHTML = lt[1] + " VNĐ"
             document.getElementById("main-img").src = "/img/" + lt[2]
             product_id = lt[0]
+            var featured = e.selectedOptions[0].textContent.replace(/\s+/g, '').split('-')
+            document.getElementById('mauSac').innerText ='Màu sắc: ' + featured[0]
+            document.getElementById('chatLieu').innerText ='Chất liệu: ' + featured[1]
+            document.getElementById('thuongHieu').innerText ='Thương hiệu: ' + featured[2]
+            document.getElementById('kichCo').innerText ='Kích cỡ: ' + featured[3]
+            document.getElementById('dangAo').innerText ='Dáng áo: ' + featured[4]
+            document.getElementById('coAo').innerText ='Cổ áo: ' + featured[5]
+            document.getElementById('tayAo').innerText ='Tay áo: ' + featured[6]
+            document.getElementById('hoaTiet').innerText ='Họa tiết: ' + featured[7]
         }
-
 
     }
     function addToCart(){
