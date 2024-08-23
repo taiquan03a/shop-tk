@@ -239,15 +239,16 @@
             document.getElementById('price').innerHTML = lt[1] + " VNĐ"
             document.getElementById("main-img").src = "/img/" + lt[2]
             product_id = lt[0]
-            var featured = e.selectedOptions[0].textContent.replace(/\s+/g, '').split('-')
-            document.getElementById('mauSac').innerText ='Màu sắc: ' + featured[0]
-            document.getElementById('chatLieu').innerText ='Chất liệu: ' + featured[1]
-            document.getElementById('thuongHieu').innerText ='Thương hiệu: ' + featured[2]
-            document.getElementById('kichCo').innerText ='Kích cỡ: ' + featured[3]
-            document.getElementById('dangAo').innerText ='Dáng áo: ' + featured[4]
-            document.getElementById('coAo').innerText ='Cổ áo: ' + featured[5]
-            document.getElementById('tayAo').innerText ='Tay áo: ' + featured[6]
-            document.getElementById('hoaTiet').innerText ='Họa tiết: ' + featured[7]
+            var featured = e.selectedOptions[0].textContent.split('-')
+            console.log((featured))
+            document.getElementById('mauSac').innerText ='Màu sắc: ' + featured[0].trim()
+            document.getElementById('chatLieu').innerText ='Chất liệu: ' + featured[1].trim()
+            document.getElementById('thuongHieu').innerText ='Thương hiệu: ' + featured[2].trim()
+            document.getElementById('kichCo').innerText ='Kích cỡ: ' + featured[3].trim()
+            document.getElementById('dangAo').innerText ='Dáng áo: ' + featured[4].trim()
+            document.getElementById('coAo').innerText ='Cổ áo: ' + featured[5].trim()
+            document.getElementById('tayAo').innerText ='Tay áo: ' + featured[6].trim()
+            document.getElementById('hoaTiet').innerText ='Họa tiết: ' + featured[7].trim()
         }
 
     }
