@@ -537,16 +537,22 @@
             event.preventDefault();
         } else {
             var storedArray = localStorage.getItem('quanlity');
-            var newObject = {};
-            newObject = JSON.parse(storedArray);
-            if (newObject.hasOwnProperty(s)) {
-                delete newObject[s];
+            console.log(storedArray)
+            if(Object.keys(JSON.parse(storedArray)).length === 1){
+                alert("Không được xóa sản phẩm cuối cùng")
             }
-            localStorage.setItem('quanlity', JSON.stringify(newObject));
-            setValueInput();
-            document.getElementById('item-'+s).remove()
-            document.getElementById('btn-submit').classList.remove('d-none')
-            updateTotalPrice()
+            else {
+                var newObject = {};
+                newObject = JSON.parse(storedArray);
+                if (newObject.hasOwnProperty(s)) {
+                    delete newObject[s];
+                }
+                localStorage.setItem('quanlity', JSON.stringify(newObject));
+                setValueInput();
+                document.getElementById('item-' + s).remove()
+                document.getElementById('btn-submit').classList.remove('d-none')
+                updateTotalPrice()
+            }
         }
     }
 
