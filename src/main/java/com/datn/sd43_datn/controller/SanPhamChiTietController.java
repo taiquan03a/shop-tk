@@ -267,7 +267,7 @@ public class SanPhamChiTietController {
         return "SanPhamChiTiet/AddSpct/addAnh";
     }
 
-    @PostMapping("/addAnhup/{id}")
+    @PostMapping("/addAnh/{id}")
     public String Addup(@ModelAttribute("anh") Anh anh,@PathVariable long id, @RequestParam("photo")MultipartFile multipartFile) throws Exception{
         String fileName= StringUtils.cleanPath(multipartFile.getOriginalFilename());
         anh.setAnh(fileName);

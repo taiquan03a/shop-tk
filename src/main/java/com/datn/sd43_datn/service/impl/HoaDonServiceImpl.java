@@ -496,10 +496,12 @@ public class HoaDonServiceImpl implements HoaDonService {
         List<HoaDonChiTiet> hoaDonChiTietList = new ArrayList<>();
         String strippedInput = updateDonHangRequest.getList_product().substring(1, updateDonHangRequest.getList_product().length() - 1);
         String[] pairs = strippedInput.split(",");
+        List<Long> listID = new ArrayList<>();
         for (String pair : pairs) {
             pair = pair.replace("\"", "");
             String[] numbers = pair.split(":");
             String id = numbers[0];
+            listID.add(Long.parseLong(id));
             String sl = numbers[1];
             SanPhamChiTiet  sanPhamChiTiet = sanPhamChiTietRepository.findById(Long.valueOf(id)).get();
             HoaDonChiTiet hoaDonCurrent = hoaDonChiTietRepository.findHoaDonChiTietBySanPhamChiTietAndAndHoaDon(sanPhamChiTiet,hoaDon);
@@ -522,7 +524,13 @@ public class HoaDonServiceImpl implements HoaDonService {
                 hoaDonChiTietRepository.save(hoaDonChiTiet);
                 hoaDonChiTietList.add(hoaDonChiTiet);
             }
-
+        }
+        List<HoaDonChiTiet> hoaDonDB = hoaDonChiTietRepository.findHoaDonChiTietsByHoaDon(hoaDon);
+        for (HoaDonChiTiet it : hoaDonDB){
+            long idSP = it.getSanPhamChiTiet().getID();
+            if (!listID.contains(idSP)){
+                hoaDonChiTietRepository.delete(it);
+            }
         }
         long tongTienDonHang = 0,giamGiaNguyen = 0,thanhTien = 0;
         float tienGiamGia = 0;
