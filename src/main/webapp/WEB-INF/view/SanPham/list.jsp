@@ -129,9 +129,9 @@
                         <td>${i.index + 1}</td>
                         <td>${SanPhams.tenSanPham}</td>
                         <td>${SanPhams.moTa}</td>
-                        <td>${SanPhams.ngayTao}</td>
+                        <td class="date-cell">${SanPhams.ngayTao}</td>
                         <td>${SanPhams.nguoiTao}</td>
-                        <td>${SanPhams.ngayCapNhat}</td>
+                        <td class="date-cell">${SanPhams.ngayCapNhat}</td>
                         <td>${SanPhams.nguoiCapNhat}</td>
                         <td>
                             <div class="d-flex align-items-center justify-content-center h-100">
@@ -212,4 +212,37 @@
 
     document.querySelector('.sp').classList.add("nav-active")
 
+</script>
+<script>
+    document.querySelectorAll('.date-cell').forEach(cell => {
+        const dateValue = cell.textContent.trim();
+
+        // Giả sử dateValue có định dạng ISO string, ví dụ "2024-08-26T12:30:00"
+        const date = new Date(dateValue);
+
+        let formattedDate = "";
+        let formattedTime = "";
+
+        // Kiểm tra xem đối tượng Date có hợp lệ không
+        if (!isNaN(date.getTime())) {
+            // Định dạng ngày giờ nếu đối tượng Date hợp lệ
+            formattedDate = date.toLocaleDateString('vi-VN', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
+
+            formattedTime = date.toLocaleTimeString('vi-VN', {
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit'
+            });
+
+            // Gán lại giá trị đã được định dạng vào ô <td>
+            cell.textContent = formattedTime + " " + formattedDate;
+        } else {
+            // Nếu Date không hợp lệ, gán giá trị rỗng
+            cell.textContent = "";
+        }
+    });
 </script>

@@ -190,7 +190,7 @@ public class SanPhamServiceImpl implements SanPhamService {
 
     @Override
     public List<SanPhamHomeDto> getNewProduct() {
-        List<SanPham> sanPhams = sanPhamRepository.findAll10();
+        List<SanPham> sanPhams = sanPhamRepository.findAll();
         List<SanPhamHomeDto> sanPhamHomeDtos = new ArrayList<>();
         for(SanPham sanPham : sanPhams) {
             long luotBan = 0;
@@ -214,7 +214,7 @@ public class SanPhamServiceImpl implements SanPhamService {
             }
 
         }
-        return sanPhamHomeDtos;
+        return sanPhamHomeDtos.subList(0,Math.min(sanPhamHomeDtos.size(), 9));
     }
 
     @Override
