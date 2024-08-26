@@ -425,6 +425,7 @@
         <c:forEach var="sanPham" items="${sanPhams}">
         if (listItemSelected.hasOwnProperty(${sanPham.ID})){
             document.getElementById('item-${sanPham.ID}').classList.remove("d-none")
+            document.getElementById('${sanPham.ID}').value = parseInt(listItemSelected['${sanPham.ID}'])
         }
         </c:forEach>
     }
