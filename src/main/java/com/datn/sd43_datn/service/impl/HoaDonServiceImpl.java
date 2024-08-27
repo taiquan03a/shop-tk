@@ -91,7 +91,11 @@ public class HoaDonServiceImpl implements HoaDonService {
         String ngayTao = formattedDate.format(hoaDon.getNgayTao());
         String[] diaChi = {"", ""};
         if(hoaDon.getDiaCHiGiaoHang() != null){
-            diaChi = hoaDon.getDiaCHiGiaoHang().split(" ");
+            String[] DCSplit = hoaDon.getDiaCHiGiaoHang().split(" ");
+            for(int i = 0 ; i < DCSplit.length - 1; i++){
+                diaChi[0] += DCSplit[i] + " ";
+            }
+            diaChi[1] = DCSplit[DCSplit.length - 1];
         }
 
         HoaDonChiTietDto hoaDonDetailDTO = HoaDonChiTietDto.builder()
